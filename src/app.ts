@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import * as dotenv from 'dotenv'
 
 import indexRouter from './routers/index';
+import Db from './database/db';
 
 dotenv.config()
 const app = express();
@@ -25,14 +26,11 @@ app.use(helmet.contentSecurityPolicy({
 app.use(compression());
 app.use(logger('dev'));
 
+/* add API router */
 app.use('/', indexRouter);
 
-// catch wrong or empty request
-app.use(function(req, res) {
-  console.error(`Wrong request to url :${req.url}`);
-  res.status(404).send('Page not found, or empty data in request was provided')
-});
+Db.getInstance().init();
 
 const listener = app.listen(process.env.PORT || 3000, () => {
-  console.log('Running...');
+  console.log(`Running on ${process.env.PORT} ...`);
 })
