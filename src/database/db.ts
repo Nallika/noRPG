@@ -31,7 +31,7 @@ class Db {
     try {
       return this.db.prepare(sqlComand);
     } catch (error) {
-      console.error(`Error when create statement from "${sqlComand}"`);
+      console.error(`Error "${error}" when create statement from "${sqlComand}"`);
       return null;
     }
   }
@@ -49,11 +49,11 @@ class Db {
     }
 
     try {
-      const {changes, lastInsertRowid} = statement.run(data);
+      const {changes, lastInsertRowid} = statement.run(...data);
 
       return { changes, lastInsertRowid, error: false};
     } catch (error) {
-      console.error(`Error when run command "${sqlComand}", with attrs: ${data}`);
+      console.error(`Error: "${error}" when run command "${sqlComand}", with attrs: ${data}`);
 
       return errorResult;
     }
@@ -75,7 +75,7 @@ class Db {
 
       return { result, error: false};
     } catch (error) {
-      console.error(`Error when get from database command "${sqlComand}", with attrs: ${data}`);
+      console.error(`Error "${error}" when get from database command "${sqlComand}", with attrs: ${data}`);
 
       return errorResult;
     }
@@ -97,7 +97,7 @@ class Db {
 
       return { result, error: false};
     } catch (error) {
-      console.error(`Error when get all from database command "${sqlComand}", with attrs: ${data}`);
+      console.error(`Error "${error}" when get all from database command "${sqlComand}", with attrs: ${data}`);
 
       return errorResult;
     }

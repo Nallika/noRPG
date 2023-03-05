@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import * as dotenv from 'dotenv'
 
 import indexRouter from './routers/index';
+import apiRouter from './routers/apiRouter';
 import Db from './database/db';
 
 dotenv.config()
@@ -26,7 +27,7 @@ app.use(helmet.contentSecurityPolicy({
 app.use(compression());
 app.use(logger('dev'));
 
-/* add API router */
+app.use('/api', apiRouter);
 app.use('/', indexRouter);
 
 Db.getInstance().init();
