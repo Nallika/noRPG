@@ -1,4 +1,4 @@
-import Db from "../database/db";
+import Db from "../../database/db";
 
 export const addNewPlayer = async (nickname: string, email: string, password: string): Promise<{ result: any; error: boolean; }> => {
 
@@ -7,10 +7,6 @@ export const addNewPlayer = async (nickname: string, email: string, password: st
     'INSERT INTO Players (nick, email, password) VALUES (?, ?, ?)',
     nickname, email, password
   );
-
-  console.log('addNewPlayer ', {
-    changes, lastInsertRowid, error
-  });
 
   return {
     result: true,
@@ -25,10 +21,6 @@ export const loginPlayer = async (email: string, password: string): Promise<{ re
     'SELECT id FROM Players WHERE email = ? AND password = ?',
     email, password
   );
-
-  console.log('loginPlayer ', {
-    result, error
-  });
 
   return {
     result,

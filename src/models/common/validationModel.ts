@@ -1,4 +1,4 @@
-import Db from "../database/db";
+import Db from "../../database/db";
 
 const VALIDATION_MAP: {[key: string]: string} = {
   nick: 'Players',  

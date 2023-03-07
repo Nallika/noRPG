@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Races (
 	initialStrength INTEGER,
 	initialEndurance INTEGER,
 	initialAgility INTEGER,
-	initialInitiative INTEGER
+	initialspeed INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Weapons (
@@ -44,30 +44,44 @@ CREATE TABLE IF NOT EXISTS Characters (
 	id INTEGER PRIMARY KEY ASC,
 	playerId INTEGER,
 	name VARCHAR(40) UNIQUE,
+	createDate TEXT DEFAULT (datetime('now','localtime')),
+
+	FOREIGN KEY (playerId) REFERENCES Players(id)
+);
+
+CREATE TABLE IF NOT EXISTS CharacterStats (
+	id INTEGER PRIMARY KEY ASC,
+	characterId INTEGER,
 
 	raceId INTEGER,
 	weaponId INTEGER,
 	armorId INTEGER,
 
-	age INTEGER,
 	weight INTEGER,
 	height INTEGER,
 
 	strength INTEGER,
 	endurance INTEGER,
 	agility INTEGER,
-	initiative INTEGER,
+	speed INTEGER,
+	
+	FOREIGN KEY (characterId) REFERENCES Characters(id),
+	FOREIGN KEY (raceId) REFERENCES Races(id),
+	FOREIGN KEY (weaponId) REFERENCES Weapons(id),
+	FOREIGN KEY (armorId) REFERENCES Armor(id)
+);
+
+CREATE TABLE IF NOT EXISTS CharacterCalculations (
+	id INTEGER PRIMARY KEY ASC,
+	characterId INTEGER,
 
 	health INTEGER,
+	mitigation INTEGER,
 	hitChanse INTEGER,
 	dodgeChanse INTEGER,
 	minDamage INTEGER,
 	maxDamage INTEGER,
 
-	createDate TEXT DEFAULT (datetime('now','localtime')),
 
-	FOREIGN KEY (playerId) REFERENCES Players(id),
-	FOREIGN KEY (raceId) REFERENCES Races(id),
-	FOREIGN KEY (weaponId) REFERENCES Weapons(id),
-	FOREIGN KEY (armorId) REFERENCES Armor(id)
+	FOREIGN KEY (characterId) REFERENCES Characters(id)
 );

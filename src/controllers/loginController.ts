@@ -1,6 +1,6 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
-import { loginPlayer } from '../models/registrationModel';
+import { loginPlayer } from '../models/player/registrationModel';
 
 /**
  * 
