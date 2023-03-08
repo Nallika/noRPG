@@ -6,6 +6,9 @@ export interface charInterace {
   appearance: appearanceType
   stats: statsType
   calculations: calculationsType
+  rating: number
+
+  validate: Function
 }
 
 export type appearanceType = {
