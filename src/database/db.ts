@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import Database from 'better-sqlite3';
 import rootPath from 'app-root-path';
 import path from 'node:path';
+import { fillBaseTables, fillCharacters, fillPlayers } from './utils';
 
 export const TYPES_MAP: {[key: string]: string | string[];} = {
   number: 'INTEGER',
@@ -21,18 +22,17 @@ class Db {
   }
 
   public init(): void {
-    this.db = new Database(path.resolve(rootPath.path, 'src/database/database.db'), { verbose: console.log });
+    this.db = new Database(path.resolve(rootPath.path, 'src/database/database.db'), /** { verbose: console.log } */);
+  
+    this.initTables();
+    fillBaseTables();
+    fillPlayers();
+    fillCharacters();
   }
 
-  private fillDatabase(): void {
+  private initTables(): void {
     const initSql = fs.readFileSync(path.resolve(rootPath.path, 'src/database/init.sql'), "utf-8");
     this.db.exec(initSql);
-    this.run('INSERT INTO Weapons (title, minDamage, maxDamage) VALUES (?, ?, ?)', 'Sword', 1, 5);
-    this.run('INSERT INTO Armor (title, armor) VALUES (?, ?)', 'Light', 1);
-    this.run(
-      `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, initialStrength, initialEndurance , initialAgility, initialspeed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    , 'Human', 150, 210, 50, 200, 1, 1, 3, 2
-    );
   }
 
   private getStatement(sqlComand: string): any {

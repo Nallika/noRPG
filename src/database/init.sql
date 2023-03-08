@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS Players (
 	nick VARCHAR(40) UNIQUE,
 
 	email VARCHAR(40) UNIQUE,
-	password VARCHAR(40) UNIQUE
+	password VARCHAR(40)
 );
 
 CREATE TABLE IF NOT EXISTS Races (
@@ -19,6 +19,9 @@ CREATE TABLE IF NOT EXISTS Races (
 	minHeight INTEGER,
 	maxHeight INTEGER,
 
+	minEdgeBMI INTEGER,
+	maxEdgeBMI INTEGER,
+
 	initialStrength INTEGER,
 	initialEndurance INTEGER,
 	initialAgility INTEGER,
@@ -30,14 +33,18 @@ CREATE TABLE IF NOT EXISTS Weapons (
 	title VARCHAR(40) UNIQUE,
 
 	minDamage INTEGER,
-	maxDamage INTEGER
+	maxDamage INTEGER,
+
+	hitMultiplier INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Armor (
 	id INTEGER PRIMARY KEY ASC,
 	title VARCHAR(40) UNIQUE,
 
-	armor INTEGER
+	armor INTEGER,
+
+	dodgeMultiplier INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Characters (
@@ -81,7 +88,20 @@ CREATE TABLE IF NOT EXISTS CharacterCalculations (
 	dodgeChanse INTEGER,
 	minDamage INTEGER,
 	maxDamage INTEGER,
+	raiting INTEGER,
 
+	FOREIGN KEY (characterId) REFERENCES Characters(id)
+);
 
+CREATE TABLE IF NOT EXISTS Ladder (
+	id INTEGER PRIMARY KEY ASC,
+	characterId INTEGER,
+
+	playerNick VARCHAR(40),
+	name VARCHAR(40) UNIQUE,
+	raceId INTEGER,
+	score INTEGER,
+
+  FOREIGN KEY (raceId) REFERENCES Races(id),
 	FOREIGN KEY (characterId) REFERENCES Characters(id)
 );
