@@ -1,0 +1,23 @@
+@use '../styles' as styles;
+
+.container {
+  position:absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  padding: styles.spacing(1.25);
+  background-color: styles.$background-color;
+}
+
+.content {
+  height: 100%;
+}
+
+.border {
+  @include styles.border-2;
+  height: 100%;
+}
+
+
+

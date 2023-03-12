@@ -1,0 +1,20 @@
+@use '../../../styles' as styles;
+
+.wrap {
+  padding: styles.spacing(0.5);
+}
+
+.label {
+  @include styles.text;
+}
+
+.field {
+  @include styles.text;
+  @include styles.border-2;
+  background: black;
+  outline: none;
+}
+
+.field:focus {
+  border-color: styles.$selected-color;
+}

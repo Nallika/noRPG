@@ -22,12 +22,12 @@ class Db {
   }
 
   public init(): void {
-    this.db = new Database(path.resolve(rootPath.path, 'src/database/database.db'), /** { verbose: console.log } */);
+    this.db = new Database(path.resolve(rootPath.path, 'src/database/database.db'));
   
-    this.initTables();
-    fillBaseTables();
-    fillPlayers();
-    fillCharacters();
+    // this.initTables();
+    // fillBaseTables();
+    // fillPlayers();
+    // fillCharacters();
   }
 
   private initTables(): void {

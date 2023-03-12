@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+$primary-color: white;
+$selected-color: brown;
+$background-color: black;
+$spacing: 8px; 
+
+@mixin text {
+  color: $primary-color;
+}
+
+@mixin border-1 {
+  border: 1px solid $primary-color;
+}
+
+@mixin border-2 {
+  border: 2px solid $primary-color;
+}
+
+@function spacing($top, $right: 0, $bottom: 0, $left: 0) {
+  @if ($left > 0) {
+    @return ($top * $spacing $right * $spacing $bottom * $spacing $left * $spacing);
+  }
+  
+  @if ($bottom > 0) {
+    @return ($top * $spacing $right * $spacing $bottom * $spacing);
+  }
+  
+  @if ($right > 0) {
+    @return ($top * $spacing $right * $spacing);
+  }
+
+  @return ($top * $spacing);
+}

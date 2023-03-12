@@ -1,0 +1,45 @@
+<p>auth works!</p>
+<div class="container">
+  <div class="logo-wrap">
+    <app-logo [large]="true"></app-logo>
+  </div>
+  <div class="menu-wrap">
+    <form [formGroup]="authForm" class="item-wrap form">
+      <fieldset [disabled]="isSubmitting" class="input-wrap">
+        <fieldset *ngIf="isRegister" class="input-wrap">
+          <p class="input-label text">Nickname:</p>
+          <input 
+            formControlName="nickname"
+            type="text"
+            blackened
+          >
+        </fieldset>
+        <fieldset class="input-wrap">
+          <p class="input-label text">Email:</p>
+          <input 
+            formControlName="email"
+            type="text"
+            blackened
+          >
+        </fieldset>
+        <fieldset class="input-wrap">
+          <p class="input-label text">Password:</p>
+          <input 
+            formControlName="password"
+            type="password"
+            blackened
+          >
+        </fieldset>
+      </fieldset>
+    </form>
+    <div class="item-wrap">
+      <app-button [title]="submitTitle" [handler]="submitForm.bind(this)"></app-button>
+    </div>
+    <div class="item-wrap">
+      <p class="text">{{optionText}}</p>
+    </div>
+    <div class="item-wrap">
+      <app-button [title]="buttonTitle"></app-button>
+    </div>
+  </div>
+</div>

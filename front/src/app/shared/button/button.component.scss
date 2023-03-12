@@ -1,0 +1,27 @@
+@use '../../../styles' as styles;
+
+.wrap {
+  @include styles.border-1;
+  @include styles.text;
+  display: inline-block;
+  width: styles.spacing(15);
+}
+
+.wrap:hover {
+  color: styles.$selected-color;
+  border-color: styles.$selected-color;
+  cursor: pointer;
+}
+
+.outer-border {
+  border: inherit;
+  margin: styles.spacing(0.25);
+}
+
+.button {
+  border: inherit;
+  text-align: center;
+  user-select: none;
+  margin: styles.spacing(0.25);
+  padding: styles.spacing(0.5);
+}
