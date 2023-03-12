@@ -5,15 +5,6 @@ export const getLadder = (): { result: any | null; error: boolean } => {
 
   const db = Db.getInstance();
   const { result, error } = db.all('SELECT playerNick, name, score FROM Ladder ORDER BY score DESC');
-//   const { result: characters, error: charError } = db.all('SELECT * FROM Characters');
-//   const { result: stat, error: statError } = db.all('SELECT * FROM CharacterStats');
-//   const { result: calc, error: calcError } = db.all('SELECT * FROM CharacterCalculations');
-
-// console.log('RESULTTT ', {
-//   characters,
-//   stat,
-//   calc
-// });
 
   return {
     result,

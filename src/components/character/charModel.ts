@@ -4,7 +4,7 @@ import Character from './Character';
 import { addNewCharResult, charData } from './types'
 
 export const addNewCharacter = (data: charData & { playerId: number, playerNick: string }): addNewCharResult => {
-console.log('add new character ', data);
+
   const { playerId, playerNick, name } = data;
   const char = new Character(data);
 

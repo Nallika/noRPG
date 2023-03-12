@@ -3,7 +3,7 @@ import cors from 'cors';
 import logger from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
-import bodyParser from "body-parser";
+import bodyParser from 'body-parser';
 import * as dotenv from 'dotenv'
 
 import indexRouter from './routers/index';

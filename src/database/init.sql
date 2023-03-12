@@ -4,8 +4,8 @@ PRAGMA journal_mode = WAL;
 CREATE TABLE IF NOT EXISTS Players (
 	id INTEGER PRIMARY KEY ASC,
 	nick VARCHAR(40) UNIQUE,
-
 	email VARCHAR(40) UNIQUE,
+	token VARCHAR(40),
 	password VARCHAR(40)
 );
 

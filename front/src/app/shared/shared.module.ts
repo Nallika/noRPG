@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button/button.component';
 import { LogoComponent } from './logo/logo.component';
 import { HeaderComponent } from './header/header.component';
-import { FieldComponent } from './field/field.component';
 import { BlackenedDirective } from './directives/blackened.directive';
 
 
@@ -13,7 +12,6 @@ import { BlackenedDirective } from './directives/blackened.directive';
     ButtonComponent,
     LogoComponent,
     HeaderComponent,
-    FieldComponent,
     BlackenedDirective
   ],
   imports: [
@@ -22,7 +20,6 @@ import { BlackenedDirective } from './directives/blackened.directive';
   exports: [
     ButtonComponent,
     LogoComponent,
-    FieldComponent,
     BlackenedDirective
   ]
 })

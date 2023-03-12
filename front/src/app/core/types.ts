@@ -1,5 +1,4 @@
 export type user = {
-  email: string;
   token: string;
   nickname: string;
 }
