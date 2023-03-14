@@ -1,5 +1,5 @@
 import Db from './db';
-import { addNewPlayer } from '../components/player/registrationModel';
+import { addNewPlayer } from '../components/player/playerModel';
 import { addNewCharacter } from '../components/character/charModel';
 import { charData } from '../components/character/types';
 
@@ -33,6 +33,13 @@ export const fillPlayers = (): void  => {
   addNewPlayer('Ivan', 'ivan@test.com', '1111');
   addNewPlayer('Petro', 'petro@test.com', '1111');
   addNewPlayer('Inga', 'inga@test.com', '1111');
+}
+
+export const listPlayers = (): void  => {
+  const db = Db.getInstance();
+  const {result: players} = db.all('SELECT * FROM Players');
+
+  console.log(players);
 }
 
 export const fillCharacters = (): void  => {

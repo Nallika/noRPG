@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import Database from 'better-sqlite3';
 import rootPath from 'app-root-path';
 import path from 'node:path';
-import { fillBaseTables, fillCharacters, fillPlayers } from './utils';
+import { fillBaseTables, fillCharacters, fillPlayers, listPlayers } from './utils';
 
 export const TYPES_MAP: {[key: string]: string | string[];} = {
   number: 'INTEGER',
@@ -24,7 +24,9 @@ class Db {
   public init(): void {
     this.db = new Database(path.resolve(rootPath.path, 'src/database/database.db', ), { verbose: console.log });
   
-    this.initTables();
+   // listPlayers();
+
+    //  this.initTables();
     // fillBaseTables();
     // fillPlayers();
     // fillCharacters();

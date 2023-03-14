@@ -1,4 +1,3 @@
-<p>auth works!</p>
 <div class="container">
   <div class="logo-wrap">
     <app-logo [large]="true"></app-logo>
@@ -6,7 +5,7 @@
   <div class="menu-wrap">
     <form [formGroup]="authForm" class="item-wrap form">
       <fieldset [disabled]="isSubmitting" class="input-wrap">
-        <fieldset *ngIf="isRegister" class="input-wrap">
+        <fieldset *ngIf="isRegister()" class="input-wrap">
           <p class="input-label text">Nickname:</p>
           <input 
             formControlName="nickname"
@@ -33,13 +32,13 @@
       </fieldset>
     </form>
     <div class="item-wrap">
-      <app-button [title]="submitTitle" [handler]="submitForm.bind(this)"></app-button>
+      <app-button [title]="authType | titlecase" (click)="submitForm()"></app-button>
     </div>
     <div class="item-wrap">
-      <p class="text">{{optionText}}</p>
+      <p class="text">{{isRegister() ? 'Already have account ?' : 'Haven\'t account yet ?'}}</p>
     </div>
     <div class="item-wrap">
-      <app-button [title]="buttonTitle"></app-button>
+      <app-button [title]="isRegister() ? 'Login' : 'Register'" (click)="navigateTo()"></app-button>
     </div>
   </div>
 </div>

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { PlayerService } from './player.service';
+import { PlayerService } from '../services/player.service';
 import { take } from 'rxjs/operators';
 
 @Injectable()
-export class AuthGuardService  {
+export class AuthGuard  {
   constructor(
     private router: Router,
     private playerService: PlayerService

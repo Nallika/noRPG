@@ -1,11 +1,15 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
+
 import { addNewCharacter } from '../components/character/charModel';
+import { verifyToken } from './verifyTokenMiddleware';
 
 /**
  * 
  */
 export const addNewChar = [
+  verifyToken,
+
   body('playerId').isNumeric(),
   body('nick').isString().not().isEmpty().trim().escape(),
   body('name').isString().not().isEmpty().trim().escape(),

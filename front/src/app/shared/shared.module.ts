@@ -20,6 +20,7 @@ import { BlackenedDirective } from './directives/blackened.directive';
   exports: [
     ButtonComponent,
     LogoComponent,
+    HeaderComponent,
     BlackenedDirective
   ]
 })

@@ -4,16 +4,16 @@
   </div>
   <div class="menu-wrap">
     <div class="button-wrap">
-      <app-button [title]="'NEW GAME'"></app-button>
+      <app-button [title]="'NEW GAME'" (click)="goTo('game')"></app-button>
     </div>
     <div class="button-wrap">
-      <app-button [title]="'REGISTER'"></app-button>
+      <app-button [title]="'REGISTER'" (click)="goTo('register')"></app-button>
     </div>
     <div class="button-wrap">
-      <app-button [title]="'LOGIN'"></app-button>
+      <app-button [title]="'LOGIN'" (click)="goTo('login')"></app-button>
     </div>
     <div class="button-wrap">
-      <app-button [title]="'LADDER'"></app-button>
+      <app-button [title]="'LADDER'" (click)="goTo('ladder')"></app-button>
     </div>
   </div>
 </div>

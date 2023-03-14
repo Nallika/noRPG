@@ -1,0 +1,36 @@
+@use '../../../styles' as styles;
+
+.container {
+  width: 100%;
+}
+
+.wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item {
+  display: flex;
+}
+
+.back {
+  @include styles.text;
+  @include styles.border-1;
+  margin: styles.spacing(1);
+  width: styles.spacing(3);
+  height: styles.spacing(3);
+  text-align: center;
+  user-select: none;
+  font-size: large;
+  font-family: fantasy;
+  cursor: pointer;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.nickname {
+  @include styles.text;
+}

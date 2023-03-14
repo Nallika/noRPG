@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-button',
   template: `
-  <div class="wrap" (click)="handler()">
+  <div class="wrap">
     <div class="outer-border">
       <div class="button">{{ title }}</div>
     </div>
@@ -13,5 +13,4 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() title: string;
-  @Input() handler!: Function;
 }

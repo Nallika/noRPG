@@ -1,3 +1,15 @@
 <div class="container">
-
+  <div class="wrap">
+    <div class="item">
+      <div *ngIf="!isIndex" (click)="goBack()" class="back">{{'<'}}</div>
+    </div>
+    <div class="item">
+      <div *ngIf="showLogo" class="logo">
+        <app-logo></app-logo>
+      </div>
+    </div>
+    <div class="item">
+      <div *ngIf="!!nickname" class="nickname">{{nickname}}</div>
+    </div>
+  </div>
 </div>
