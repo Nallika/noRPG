@@ -31,3 +31,7 @@ $spacing: 8px;
 
   @return ($top * $spacing);
 }
+
+body {
+  margin: 0;
+}

@@ -7,30 +7,57 @@
 .wrap {
   display: flex;
   justify-content: space-between;
+  height: styles.spacing(5);
 }
 
-.item {
-  display: flex;
-}
-
-.back {
+.button {
   @include styles.text;
   @include styles.border-1;
-  margin: styles.spacing(1);
-  width: styles.spacing(3);
-  height: styles.spacing(3);
+  height: styles.spacing(3.5);
+  background-color: styles.$background-color;
   text-align: center;
   user-select: none;
-  font-size: large;
-  font-family: fantasy;
   cursor: pointer;
 }
 
-.logo {
+.back {
+  padding: styles.spacing(0, 1.2);;
+}
+
+.item {
+  width: 33%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.back-wrap {
+  margin: styles.spacing(1);
+}
+
+.logo-wrap {
+  text-align: center;
+}
+
+.nickname-wrap {
+  text-align: right;
+  margin: styles.spacing(1);
 }
 
 .nickname {
-  @include styles.text;
+  cursor: auto;
+}
+
+.toggle-dropdown {
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: styles.spacing(2.5);
 }

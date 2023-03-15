@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { take , filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { player } from 'src/app/types';
 import { PlayerService } from '../../core/services/player.service';
@@ -13,20 +13,20 @@ import { PlayerService } from '../../core/services/player.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   
   activatedRoute: ActivatedRoute;
   isIndex: boolean;
   showLogo: boolean;
   nickname: string;
 
+  @ViewChild('dropdown') dropdown: ElementRef; 
+
   constructor (
     private playerService: PlayerService,
     private router: Router,
     private location: Location
-  ) {
-    this.nickname = this.playerService.getCurrentPlayer().nickname;
-  }
+  ) { }
 
   ngOnInit() {
     this.router.events.pipe(
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit{
      .subscribe((data: any) => {
       const path = data.url;
       this.isIndex = path === '/';
-      this.showLogo = !(path === '/');
+      this.showLogo = !['/', '/login', 'register'].includes(path);
      });
 
      this.playerService.currentPlayer.subscribe(({ nickname }: player) => this.nickname = nickname);
@@ -43,5 +43,13 @@ export class HeaderComponent implements OnInit{
 
   goBack() {
     this.location.back();
+  }
+
+  toggleDropdown() {
+    this.dropdown.nativeElement.classList.toggle('toggle-dropdown');
+  }
+
+  logout() {
+    this.playerService.logout();
   }
 }

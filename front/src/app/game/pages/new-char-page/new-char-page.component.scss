@@ -1,0 +1,9 @@
+@use '../../../../styles' as styles;
+
+.text {
+  @include styles.text;
+}
+
+.title {
+  @include styles.text;
+}

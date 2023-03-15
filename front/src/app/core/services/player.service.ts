@@ -5,13 +5,13 @@ import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { player, authType, authData } from '../../types';
-import { map ,  distinctUntilChanged } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
 export class PlayerService {
   private currentPlayerSubject = new BehaviorSubject<player>({} as player);
-  public currentPlayer = this.currentPlayerSubject.asObservable().pipe(distinctUntilChanged());
+  public currentPlayer = this.currentPlayerSubject.asObservable();
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
@@ -22,19 +22,18 @@ export class PlayerService {
     private jwtService: JwtService
   ) {}
 
-  // Verify JWT in localstorage with server & load player's info.
-  // This runs once on application startup.
+  /**
+   * Autenticate player, if we have token, this runs on app start
+   */
   populate() {
-    // If JWT detected, attempt to get & store player's info
     if (this.jwtService.getToken()) {
       this.apiService.get('/player')
       .subscribe({
         next: (data) => this.setAuth(data),
-        error: () => this.purgeAuth()
+        error: () => this.logout()
       });
     } else {
-      // Remove any potential remnants of previous auth states
-      this.purgeAuth();
+      this.logout();
     }
   }
 
@@ -47,8 +46,7 @@ export class PlayerService {
     this.isAuthenticatedSubject.next(true);
   }
 
-  purgeAuth() {
-    console.log('purgeAuth');
+  logout() {
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current player to an empty object
@@ -69,9 +67,5 @@ export class PlayerService {
           }
         )
       );
-  }
-
-  getCurrentPlayer(): player {
-    return this.currentPlayerSubject.value;
   }
 }

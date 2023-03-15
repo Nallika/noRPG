@@ -5,7 +5,7 @@ export type player = {
 
 export type authType = 'register' | 'login';
 
-export type urlType = 'game' | 'login' | 'register' | 'ladder';
+export type urlType = 'game' | 'login' | 'register' | 'ladder' | 'newChar';
 
 export type authData = {
   email: string;

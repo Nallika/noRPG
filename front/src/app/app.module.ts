@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { IndexModule } from './index/index.module';
+import { GameModule } from './game/game.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
     IndexModule,
     CoreModule,
     AuthModule,
+    GameModule,
     SharedModule
   ],
   providers: [],

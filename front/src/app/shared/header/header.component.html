@@ -1,15 +1,22 @@
 <div class="container">
   <div class="wrap">
     <div class="item">
-      <div *ngIf="!isIndex" (click)="goBack()" class="back">{{'<'}}</div>
+      <div *ngIf="!isIndex" class="back-wrap">
+        <button (click)="goBack()" class="button back"><</button>
+      </div>
     </div>
     <div class="item">
-      <div *ngIf="showLogo" class="logo">
+      <div *ngIf="showLogo" class="logo-wrap">
         <app-logo></app-logo>
       </div>
     </div>
     <div class="item">
-      <div *ngIf="!!nickname" class="nickname">{{nickname}}</div>
+      <div *ngIf="!!nickname" class="nickname-wrap dropdown">
+        <button (click)="toggleDropdown()" class="button nickname">{{nickname}}</button>
+        <div class="dropdown-content" #dropdown>
+          <button (click)="logout()" class="button">Logout</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

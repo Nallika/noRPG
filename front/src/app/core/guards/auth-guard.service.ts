@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { Observable } from 'rxjs';
 
 import { PlayerService } from '../services/player.service';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthGuard  {
@@ -12,11 +12,15 @@ export class AuthGuard  {
     private playerService: PlayerService
   ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
+  canActivate(): Observable<boolean> {
 
-    return this.playerService.isAuthenticated.pipe(take(1));
+    return this.playerService.isAuthenticated.pipe(take(1), map((isAuthenticated) => {
+      if (!isAuthenticated) {
+        this.router.navigateByUrl('/');
+        return false;
+      }
+
+      return true;
+    }));
   }
 }

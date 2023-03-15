@@ -4,7 +4,7 @@ import { ButtonComponent } from './button/button.component';
 import { LogoComponent } from './logo/logo.component';
 import { HeaderComponent } from './header/header.component';
 import { BlackenedDirective } from './directives/blackened.directive';
-
+import { GameTemplateComponent } from './game-template/game-template.component';
 
 
 @NgModule({
@@ -12,7 +12,8 @@ import { BlackenedDirective } from './directives/blackened.directive';
     ButtonComponent,
     LogoComponent,
     HeaderComponent,
-    BlackenedDirective
+    BlackenedDirective,
+    GameTemplateComponent
   ],
   imports: [
     CommonModule
@@ -21,6 +22,7 @@ import { BlackenedDirective } from './directives/blackened.directive';
     ButtonComponent,
     LogoComponent,
     HeaderComponent,
+    GameTemplateComponent,
     BlackenedDirective
   ]
 })
