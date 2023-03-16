@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
      .subscribe((data: any) => {
       const path = data.url;
       this.isIndex = path === '/';
-      this.showLogo = !['/', '/login', 'register'].includes(path);
+      this.showLogo = !['/', '/login', '/register'].includes(path);
      });
 
      this.playerService.currentPlayer.subscribe(({ nickname }: player) => this.nickname = nickname);

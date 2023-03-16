@@ -1,29 +1,9 @@
 @use '../../styles' as styles;
 
-@mixin flex {
-  display: flex;
-}
-
 .container {
-  height: 100%;
-}
-
-.content {
-  @include flex;
-  flex-direction: column;
-  justify-content: center;
+  display: flex;
   align-items: center;
-  height: 100%;
-}
-
-.logo-wrap {
-  @include flex;
-}
-
-.menu-wrap {
-  @include flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .item-wrap {
@@ -32,11 +12,11 @@
 
 .input-wrap {
   border: none;
-  padding: styles.spacing(0.25);
+  padding: styles.spacing(1.5, 0);
 }
 
 .input-label {
-  margin: styles.spacing(0.25);
+  margin: styles.spacing(0.25, 0);
 }
 
 .text {

@@ -27,8 +27,20 @@ export class AuthComponent implements OnInit{
   ) {
     this.authForm = fb.group({
       'email': ['', [ Validators.required, Validators.email ]],
-      'password': ['', [ Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$/) ]]
-    });
+      'password': ['', [ Validators.required, Validators.pattern(/^(?=.*\d).{6,16}$/) ]]
+    }, {updateOn: 'blur'});
+  }
+
+  get nickname(): FormControl {
+    return this.authForm.get('nickname') as FormControl;
+  }
+
+  get email(): FormControl {
+    return this.authForm.get('email') as FormControl;
+  }
+
+  get password(): FormControl {
+    return this.authForm.get('password') as FormControl;
   }
 
   ngOnInit() {
@@ -37,7 +49,10 @@ export class AuthComponent implements OnInit{
 
       // add form control for nickname if this is the register page
       if (this.isRegister()) {
-        this.authForm.addControl('nickname', new FormControl('', [ Validators.maxLength(15), Validators.pattern("^[a-zA-Z]+$") ]));
+        this.authForm.addControl('nickname', new FormControl('', {
+          validators: [Validators.required, Validators.maxLength(20),],
+          updateOn: 'blur'
+        }));
       }
     });
   }
@@ -52,8 +67,13 @@ export class AuthComponent implements OnInit{
   }
 
   submitForm() {
-    this.isSubmitting = true;
+   this.authForm.markAllAsTouched();
 
+   if (this.authForm.invalid) {
+    return;
+   }
+
+    this.isSubmitting = true;
     const authData = this.authForm.value;
 
     this.playerService

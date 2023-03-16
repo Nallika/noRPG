@@ -16,16 +16,16 @@ $spacing: 8px;
   border: 2px solid $primary-color;
 }
 
-@function spacing($top, $right: 0, $bottom: 0, $left: 0) {
-  @if ($left > 0) {
+@function spacing($top, $right: 0.1, $bottom: 0.1, $left: 0.1) {
+  @if ($left != 0.1) {
     @return ($top * $spacing $right * $spacing $bottom * $spacing $left * $spacing);
   }
   
-  @if ($bottom > 0) {
+  @if ($bottom != 0.1) {
     @return ($top * $spacing $right * $spacing $bottom * $spacing);
   }
   
-  @if ($right > 0) {
+  @if ($right != 0.1) {
     @return ($top * $spacing $right * $spacing);
   }
 

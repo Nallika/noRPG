@@ -1,25 +1,10 @@
 @use '../../styles' as styles;
 
-@mixin flex {
-  display: flex;
-}
-
 .container {
-  @include flex;
-  flex-direction: column;
-  justify-content: center;
+  display: flex;
   align-items: center;
   height: 100%;
-}
-
-.logo-wrap {
-  @include flex;
-}
-
-.menu-wrap {
-  @include flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 .button-wrap {
