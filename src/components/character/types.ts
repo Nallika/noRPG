@@ -1,7 +1,7 @@
 export interface charInterace {
   name: string
-  weaponId: weapon
-  armorId: armor
+  weaponId: number
+  armorId: number
 
   appearance: appearanceType
   stats: statsType
@@ -14,7 +14,7 @@ export interface charInterace {
 export type appearanceType = {
   height: number
   weight: number
-  raceId: race
+  raceId: number
 }
 
 export type statsType = {
@@ -33,20 +33,48 @@ export type calculationsType = {
   initiative: number
 }
 
-export enum race {
-  Human = 1,
-  Elf = 2,
-  Orc = 3,
-  Dwarf = 4
+export type race = {
+  id: number;
+  title: raceEnum;
+  minWeight: number;
+	maxWeight: number;
+	minHeight: number;
+	maxHeight: number;
+	initialStrength: number;
+	initialEndurance: number;
+	initialAgility: number;
+	initialspeed: number;
 }
 
-export enum weapon {
+export enum raceEnum {
+  Human,
+  Elf,
+  Orc,
+  Dwarf
+}
+
+export type weapon = {
+  id: number;
+  title: weaponEnum;
+  description: string;
+  minDamage: number;
+  maxDamage: number;
+}
+
+export enum weaponEnum {
   sword,
   mace,
-  spear,
+  spear
 }
 
-export enum armor {
+export type armor = {
+  id: number;
+  title: armorEnum;
+  description: string;
+  armorValue: number;
+}
+
+export enum armorEnum {
   light,
   medium,
   heavy,
@@ -59,8 +87,8 @@ export type damage = {
 
 export type charData = {
   name: string
-  weaponId: weapon
-  armorId: armor
+  weaponId: number
+  armorId: number
 } & appearanceType & statsType
 
 export type fullCharData = charData & calculationsType;

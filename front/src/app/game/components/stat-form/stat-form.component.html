@@ -1,0 +1,18 @@
+<form [formGroup]="statForm" class="item-wrap form">
+  <fieldset class="input-wrap">
+    <p class="input-label text">Strength:</p>
+    <input formControlName='strength' type="range" min="1" max="100" value="50" class="field slider">
+  </fieldset>
+  <fieldset class="input-wrap">
+    <p class="input-label text">Agility:</p>
+    <input formControlName='agility' type="range" min="1" max="100" value="50" class="field slider">
+  </fieldset>
+  <fieldset class="input-wrap">
+    <p class="input-label text">Endurance:</p>
+    <input formControlName='endurance' type="range" min="1" max="100" value="50" class="field slider">
+  </fieldset>
+  <fieldset class="input-wrap">
+    <p class="input-label text">Speed:</p>
+    <input formControlName='speed' type="range" min="1" max="100" value="50" class="field slider">
+  </fieldset>
+</form>

@@ -1,0 +1,36 @@
+<form [formGroup]="appearanceForm" class="item-wrap form">
+  <fieldset class="input-wrap">
+    <p class="input-label text">Char name:</p>
+    <input 
+      formControlName="name"
+      type="text"
+      class="field"
+      blackened
+    >
+    <ng-container *ngIf="!name.valid && (name.dirty ||name.touched)">
+      <div appErrorText [hidden]="!name.errors?.required" >Name is required</div>
+      <div appErrorText [hidden]="!name.errors?.maxlength" >Name too long</div>
+    </ng-container>
+  </fieldset>
+  <fieldset class="input-wrap">
+    <p class="input-label text">Race:</p>
+    <select 
+      formControlName="race"
+      blackened
+      class="field"
+    >
+      <option value="human">Human</option>
+      <option value="elf">Elf</option>
+      <option value="orc">Orc</option>
+      <option value="dwarf">Dwarf</option>
+    </select>
+  </fieldset>
+  <fieldset class="input-wrap">
+    <p class="input-label text">Height:</p>
+    <input formControlName='height' type="range" min="1" max="100" value="50" class="field slider">
+  </fieldset>
+  <fieldset class="input-wrap">
+    <p class="input-label text">Weight:</p>
+    <input formControlName='weight' type="range" min="1" max="100" value="50" class="field slider">
+  </fieldset>
+</form>

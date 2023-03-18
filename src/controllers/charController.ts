@@ -10,8 +10,6 @@ import { verifyToken } from './verifyTokenMiddleware';
 export const addNewChar = [
   verifyToken,
 
-  body('playerId').isNumeric(),
-  body('nick').isString().not().isEmpty().trim().escape(),
   body('name').isString().not().isEmpty().trim().escape(),
   body('raceId').isNumeric(),
   body('weaponId').isNumeric(),

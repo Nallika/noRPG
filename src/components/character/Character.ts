@@ -1,10 +1,10 @@
-import { appearanceType, armor, calculationsType, charInterace, fullCharData, statsType, weapon, charData, damage } from "./types";
+import { appearanceType, calculationsType, charInterace, fullCharData, statsType, charData, damage } from "./types";
 
 export default class Character implements charInterace {
   
   name: string;
-  weaponId: weapon;
-  armorId: armor;
+  weaponId: number;
+  armorId: number;
   appearance: appearanceType;
   stats: statsType;
   calculations: calculationsType;

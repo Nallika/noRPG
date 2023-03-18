@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./char-preview-page.component.scss']
 })
 export class CharPreviewPageComponent {
-
+  constructor() {}
 }

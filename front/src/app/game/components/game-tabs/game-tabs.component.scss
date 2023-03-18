@@ -1,0 +1,43 @@
+@use '../../../../styles' as styles;
+
+.container {
+  @include styles.border-1;
+  height: 100%;
+}
+
+.content {
+  padding: styles.spacing(2);
+}
+
+.tab-list {
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+  background-color: styles.$background-color;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab {
+  @include styles.text;
+  @include styles.border-1;
+  background-color: inherit;
+  cursor: pointer;
+  padding: 14px 16px;
+  width: 33.3%;
+}
+
+.tab.active {
+  border: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.text {
+  @include styles.text;
+}

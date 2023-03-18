@@ -9,7 +9,7 @@ export const verifyToken =(req:express.Request, res:express.Response, next: expr
   }
 
   try {
-    jwt.verify(token, process.env.TOKEN_KEY as string);
+    res.locals.user = jwt.verify(token, process.env.TOKEN_KEY as string);
   } catch (err) {
     return res.status(401).send("Invalid Token");
   }

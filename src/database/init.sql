@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS Players (
 CREATE TABLE IF NOT EXISTS Races (
 	id INTEGER PRIMARY KEY ASC,
 	title VARCHAR(40) UNIQUE,
+	description VARCHAR(40),
 
 	minWeight INTEGER,
 	maxWeight INTEGER,
@@ -31,19 +32,19 @@ CREATE TABLE IF NOT EXISTS Races (
 CREATE TABLE IF NOT EXISTS Weapons (
 	id INTEGER PRIMARY KEY ASC,
 	title VARCHAR(40) UNIQUE,
+	description VARCHAR(40),
 
 	minDamage INTEGER,
 	maxDamage INTEGER,
-
 	hitMultiplier INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Armor (
 	id INTEGER PRIMARY KEY ASC,
 	title VARCHAR(40) UNIQUE,
+	description VARCHAR(40),
 
-	armor INTEGER,
-
+	armorValue INTEGER,
 	dodgeMultiplier INTEGER
 );
 

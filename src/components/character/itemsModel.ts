@@ -1,10 +1,11 @@
 import Db from "../../database/db";
+import { armor, weapon } from "./types";
 
-export const getItems = (): { weapons: any; armor: any; error: boolean } => {
+export const getItems = (): { weapons: weapon[]; armor: armor[]; error: boolean } => {
 
   const db = Db.getInstance();
-  const { result: weapons, error: weaponsError } = db.all('SELECT id, title FROM Weapons');
-  const { result: armor, error: armorError } = db.all('SELECT id, title  FROM Armor');
+  const { result: weapons, error: weaponsError } = db.all('SELECT id, title, description FROM Weapons') as unknown as {result: weapon[], error: boolean};
+  const { result: armor, error: armorError } = db.all('SELECT id, title, description  FROM Armor') as unknown as {result: armor[], error: boolean};
 
   return {
     weapons,

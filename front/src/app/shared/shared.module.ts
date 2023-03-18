@@ -14,10 +14,10 @@ import { IndexTemplateComponent } from './index-template/index-template.componen
     ButtonComponent,
     LogoComponent,
     HeaderComponent,
-    BlackenedDirective,
     GameTemplateComponent,
-    ErrorTextDirective,
-    IndexTemplateComponent
+    IndexTemplateComponent,
+    BlackenedDirective,
+    ErrorTextDirective
   ],
   imports: [
     CommonModule

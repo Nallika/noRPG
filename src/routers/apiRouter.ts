@@ -3,7 +3,7 @@ import { register, login, auth } from '../controllers/playerController';
 import { validate } from '../controllers/validateFieldController';
 import { addNewChar } from '../controllers/charController';
 import { ladder } from '../controllers/ladderController';
-import { races, items } from '../controllers/initParamsController';
+import { gameData } from '../controllers/gameDataController';
 
 const router = express.Router();
 
@@ -19,8 +19,6 @@ router.post('/newChar', addNewChar);
 
 router.get('/ladder', ladder);
 
-router.get('/races', races);
-
-router.get('/items', items);
+router.get('/gameData', gameData);
 
 export default router;

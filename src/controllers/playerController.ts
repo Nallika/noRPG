@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import { addNewPlayer, loginPlayer, authPlayer } from '../components/player/playerModel';
+import { verifyToken } from './verifyTokenMiddleware';
 
 /**
  * 
@@ -58,16 +59,17 @@ export const login = [
 /**
 * 
 */
-export const auth = async (req:express.Request, res:express.Response) => {
+export const auth = [
+  async (req:express.Request, res:express.Response) => {
+    const token = req.headers["authorization"] as string;
 
-  const token = req.headers["authorization"] as string;
+    const { player, error } = authPlayer(token);
 
-  const { player, error } = authPlayer(token);
+    if (error) {
+      res.status(403).json('Autentication error');
+      return;
+    }
 
-  if (error) {
-    res.status(403).json('Autentication error');
-    return;
+    res.json(player);
   }
-
-  res.json(player);
-};
+];

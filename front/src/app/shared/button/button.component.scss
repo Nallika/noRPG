@@ -1,8 +1,8 @@
 @use '../../../styles' as styles;
 
 .wrap {
-  @include styles.border-1;
   @include styles.text;
+  @include styles.border-1;
   display: inline-block;
   width: styles.spacing(15);
 }
@@ -19,6 +19,7 @@
 }
 
 .button {
+  text-transform: uppercase;
   border: inherit;
   text-align: center;
   user-select: none;

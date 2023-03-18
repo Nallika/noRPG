@@ -1,11 +1,11 @@
 @use '../../../styles' as styles;
 
 .logo {
-  color: brown;
+  color: styles.$selected-color;
   font-family: fantasy;
-  font-size: 20px;
+  font-size: styles.spacing(3);
 }
 
 .large {
-  font-size: 60px;
+  font-size: styles.spacing(8);
 }
