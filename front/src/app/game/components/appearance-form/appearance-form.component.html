@@ -19,10 +19,7 @@
       blackened
       class="field"
     >
-      <option value="human">Human</option>
-      <option value="elf">Elf</option>
-      <option value="orc">Orc</option>
-      <option value="dwarf">Dwarf</option>
+      <option *ngFor="let race of races" value={{race}}>{{race.title}}</option>
     </select>
   </fieldset>
   <fieldset class="input-wrap">

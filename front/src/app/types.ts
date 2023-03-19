@@ -7,12 +7,25 @@ export type authType = 'register' | 'login';
 
 export type urlType = 'game' | 'login' | 'register' | 'ladder' | 'newChar';
 
-export enum race {
-  human,
-  elf,
-  orc,
-  dwarf
-};
+export type race = {
+  id: number;
+  title: raceEnum;
+  minWeight: number;
+	maxWeight: number;
+	minHeight: number;
+	maxHeight: number;
+	initialStrength: number;
+	initialEndurance: number;
+	initialAgility: number;
+	initialspeed: number;
+}
+
+export enum raceEnum {
+  Human,
+  Elf,
+  Orc,
+  Dwarf
+}
 
 export type authData = {
   email: string;
@@ -41,7 +54,7 @@ export type gameData = {
 
 export interface character {
   name: string;
-  race: race;
+  raceId: number;
 
   height: number;
   weight: number;
