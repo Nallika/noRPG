@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import { character, formEnum, race } from 'src/app/types/gameTypes';
-import { charState, gameState } from 'src/app/types/storeTypes';
+import { formEnum, race } from 'src/app/types/gameTypes';
+import { gameState } from 'src/app/types/storeTypes';
 import { generateRandom } from 'src/app/utils/idex';
-import { saveChar } from 'src/app/store/actions/charActions';
-import { map } from 'rxjs';
+import { saveChar } from 'src/app/store/actions/gameActions';
 
 @Component({
   selector: 'app-appearance-form',
@@ -20,8 +19,7 @@ export class AppearanceFormComponent implements OnInit {
   selectedRace: race;
 
   constructor(
-    private gameStore: Store<{game: gameState}>,
-    private charStore: Store<{char: charState}>,
+    private store: Store<{game: gameState}>,
     fb: FormBuilder
   ) {
     
@@ -34,7 +32,7 @@ export class AppearanceFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gameStore.select('game', 'gameData', 'races').subscribe((data: race[]) => this.races = data);
+    this.store.select('game', 'gameData', 'data', 'races').subscribe((data: race[]) => this.races = data);
 
     // TODO: Add selected data caching
     const randomRace = generateRandom(0, this.races.length);
@@ -46,7 +44,7 @@ export class AppearanceFormComponent implements OnInit {
     this.appearanceForm.get('height')?.setValue(selectedHeight);
     this.appearanceForm.get('weight')?.setValue(selectedWeight);
 
-    this.appearanceForm.valueChanges.subscribe((data) => this.charStore.dispatch(
+    this.appearanceForm.valueChanges.subscribe((data) => this.store.dispatch(
       saveChar({
         data: {
           formData: data,

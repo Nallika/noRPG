@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Armor (
 	description VARCHAR(40),
 
 	armorValue INTEGER,
-	dodgeMultiplier INTEGER
+	dodgePenalty INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Characters (

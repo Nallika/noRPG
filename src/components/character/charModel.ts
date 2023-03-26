@@ -130,7 +130,6 @@ export const addNewCharacter = (character: charData, player: {id: number, nickna
 
   return {
     character: char.getCharData(),
-    rating
   }
 }
 

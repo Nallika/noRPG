@@ -1,30 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 
-import { charState, gameState } from 'src/app/types/storeTypes';
+import { gameState } from 'src/app/types/storeTypes';
 import { getGameData } from 'src/app/store/actions/gameActions';
-import { submitChar } from 'src/app/store/actions/charActions';
+import { submitChar } from 'src/app/store/actions/gameActions';
 
 @Component({
   selector: 'app-new-char-page',
   templateUrl: './new-char-page.component.html',
   styleUrls: ['./new-char-page.component.scss']
 })
-export class NewCharPageComponent {
+export class NewCharPageComponent implements OnInit {
   loading$: Observable<boolean>;
   error$: Observable<string>;
   
   constructor (
-    private gameStore: Store<{game: gameState}>,
-    private charStore: Store<{char: charState}>,
-  ) {
-    this.loading$ = gameStore.select('game', 'loading');
-    this.error$ = gameStore.select('game', 'error');
-    this.gameStore.dispatch(getGameData());
+    private store: Store<{game: gameState}>,
+  ) {}
+
+  ngOnInit(): void {
+    this.loading$ = this.store.select('game', 'gameData', 'loading');
+    this.error$ = this.store.select('game', 'gameData', 'error');
+    this.store.dispatch(getGameData());
   }
 
   submitHandler() {
-    this.charStore.dispatch(submitChar());
+    this.store.dispatch(submitChar());
   }
 }

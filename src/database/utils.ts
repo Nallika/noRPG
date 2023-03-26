@@ -5,12 +5,14 @@ import { charData } from '../components/character/types';
 
 export const fillBaseTables = (): void  => {
   const weaponDescriptions = [
+    'With bare hands damage isn\'t good, but hit chance is the best',
     'Sword have better hit chanse that other weapons',
     'Mace have worst hit chance',
     'Spear has average hit chance',
   ];
 
   const armorDescriptions = [
+    'Character receive bonus to dodge',
     'Light armor grant less damage reducion, but doesn\'t have big dodge penalty',
     'Medium armor grant less average damage reducion and dodge penalty',
     'Heavy armor grant best average damage reducion, but also huge dodge penalty',
@@ -24,12 +26,15 @@ export const fillBaseTables = (): void  => {
   ];
 
   const db = Db.getInstance();
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Sword', 1, 5, 1.1, weaponDescriptions[0]);
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Mace', 3, 5, 0.8, weaponDescriptions[1]);
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Spear', 2, 4, 1, weaponDescriptions[2]);
-  db.run('INSERT INTO Armor (title, armorValue, dodgeMultiplier, description) VALUES (?, ?, ?, ?)', 'Light', 5, 1.2, armorDescriptions[0]);
-  db.run('INSERT INTO Armor (title, armorValue, dodgeMultiplier, description) VALUES (?, ?, ?, ?)', 'Medium', 10, 0.8, armorDescriptions[1]);
-  db.run('INSERT INTO Armor (title, armorValue, dodgeMultiplier, description) VALUES (?, ?, ?, ?)', 'Heavy', 20, 0.5, armorDescriptions[2]);
+  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Unarmed', 1, 2, 1.5, weaponDescriptions[0]);
+  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Sword', 1, 5, 1.1, weaponDescriptions[1]);
+  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Mace', 3, 5, 0.8, weaponDescriptions[2]);
+  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Spear', 2, 4, 1, weaponDescriptions[3]);
+  
+  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'No armor', 0, 1.2, armorDescriptions[0]);
+  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Light', 5, 0.8, armorDescriptions[0]);
+  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Medium', 10, 0.6, armorDescriptions[1]);
+  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Heavy', 20, 0.3, armorDescriptions[2]);
   db.run(
     `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   , 'Human', 150, 210, 50, 200, 20, 30, 2, 1, 4, 3, raceDescription[0]

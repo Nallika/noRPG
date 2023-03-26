@@ -95,6 +95,7 @@ export default class Character implements charInterace {
       dodgeChanse: this.calculations.dodgeChanse,
       mitigation: this.calculations.mitigation,
       initiative: this.calculations.initiative,
+      rating: this.rating,
     }
   }
 

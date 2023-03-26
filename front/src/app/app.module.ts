@@ -12,8 +12,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { gameReducer } from './store/reducers/gameReducer';
 import { GameEffects } from './store/effects/gameEffects';
-import { charReducer } from './store/reducers/charReducer';
-import { CharEffects } from './store/effects/charEffects';
 
 @NgModule({
   declarations: [
@@ -26,8 +24,8 @@ import { CharEffects } from './store/effects/charEffects';
     CoreModule,
     AuthModule,
     SharedModule,
-    StoreModule.forRoot({game: gameReducer, char: charReducer}),
-    EffectsModule.forRoot([GameEffects, CharEffects]),
+    StoreModule.forRoot({game: gameReducer}),
+    EffectsModule.forRoot([GameEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [],

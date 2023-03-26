@@ -21,11 +21,7 @@ export interface fullCharacter extends character {
   hitChanse: number,
   initiative: number,
   mitigation: number
-}
-
-export interface charSubmitResponce {
-  character: fullCharacter,
-  rating: number
+  rating: number,
 }
 
 export type race = {

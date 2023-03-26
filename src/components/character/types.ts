@@ -91,10 +91,9 @@ export type charData = {
   armorId: number
 } & appearanceType & statsType
 
-export type fullCharData = charData & calculationsType;
+export type fullCharData = charData & calculationsType & {rating: number};
 
 export type addNewCharResult = {
   character?: fullCharData
-  rating?: number
   error?: string
 }

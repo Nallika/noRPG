@@ -28,13 +28,13 @@ export const addNewChar = [
       return res.status(400).json({ errors: validationErrors.array() });
     }
 
-    const { character, rating, error } = addNewCharacter(req.body, res.locals.user);
+    const { character, error } = addNewCharacter(req.body, res.locals.user);
 
     if (error) {
       res.status(400).json(error);
       return;
     }
 
-    res.json({ character, rating });
+    res.json({ character });
   }
 ];

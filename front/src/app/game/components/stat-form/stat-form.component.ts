@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map, mergeMap } from 'rxjs';
 
-import { saveChar } from 'src/app/store/actions/charActions';
-import { character, formEnum, race } from 'src/app/types/gameTypes';
-import { charState, gameState } from 'src/app/types/storeTypes';
+import { saveChar } from 'src/app/store/actions/gameActions';
+import { formEnum, race } from 'src/app/types/gameTypes';
+import { gameState } from 'src/app/types/storeTypes';
 
 @Component({
   selector: 'app-stat-form',
@@ -18,8 +18,7 @@ export class StatFormComponent implements OnInit {
   selectedRace: race; 
 
   constructor(
-    private gameStore: Store<{game: gameState}>,
-    private charStore: Store<{char: charState}>,
+    private store: Store<{game: gameState}>,
     fb: FormBuilder
   ) {
     this.statForm = fb.group({
@@ -31,10 +30,10 @@ export class StatFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.charStore.select('char', 'character', 'raceId')
+    this.store.select('game', 'charData', 'character', 'raceId')
       .pipe(
         mergeMap((raceId) => {
-          return this.gameStore.select('game', 'gameData', 'races').pipe(
+          return this.store.select('game', 'gameData', 'data', 'races').pipe(
             map((races) => races.find((race: race) => race.id === raceId))
           )
         })
@@ -45,7 +44,7 @@ export class StatFormComponent implements OnInit {
     this.endurance.setValue(this.selectedRace?.initialEndurance);
     this.speed.setValue(this.selectedRace?.initialspeed);
 
-    this.statForm.valueChanges.subscribe((data) => this.charStore.dispatch(
+    this.statForm.valueChanges.subscribe((data) => this.store.dispatch(
       saveChar({
         data: {
           formData: data,
