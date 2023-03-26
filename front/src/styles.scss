@@ -1,37 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
 $primary-color: white;
 $selected-color: brown;
 $background-color: black;
-$spacing: 8px; 
+$unit: 8px; 
 
+// Global text style
 @mixin text {
   color: $primary-color;
 }
 
+// Main border for outer blocks
 @mixin border-1 {
   border: 1px solid $primary-color;
 }
 
+// Secondary blocks border
 @mixin border-2 {
   border: 2px solid $primary-color;
 }
 
+// Generate spacing used mainly with margin or padding
 @function spacing($top, $right: 0.1, $bottom: 0.1, $left: 0.1) {
   @if ($left != 0.1) {
-    @return ($top * $spacing $right * $spacing $bottom * $spacing $left * $spacing);
+    @return ($top * $unit $right * $unit $bottom * $unit $left * $unit);
   }
   
   @if ($bottom != 0.1) {
-    @return ($top * $spacing $right * $spacing $bottom * $spacing);
+    @return ($top * $unit $right * $unit $bottom * $unit);
   }
   
   @if ($right != 0.1) {
-    @return ($top * $spacing $right * $spacing);
+    @return ($top * $unit $right * $unit);
   }
 
-  @return ($top * $spacing);
-}
-
-body {
-  margin: 0;
+  @return ($top * $unit);
 }

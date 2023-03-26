@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PlayerService } from '../core/services/player.service';
-import { authType } from '../types';
+import { authType } from '../types/generalTypes';
 
 @Component({
   selector: 'app-auth',

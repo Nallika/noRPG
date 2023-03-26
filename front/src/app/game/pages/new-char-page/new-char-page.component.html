@@ -1,8 +1,17 @@
-<app-game-template>
-  <header><h1 class="title">Create a new character</h1></header>
-  <content>
-      <app-game-tabs></app-game-tabs>
-  </content>
-  <app-button [title]="'back'" class="left-button"></app-button>
-  <app-button [title]="'next'" class="right-button"></app-button>
-</app-game-template>
+<div class="loader-container" *ngIf="loading$ | async; else elseBlock">
+  <span class="loader"></span>
+</div>
+<ng-template #elseBlock>
+  <app-game-template>
+    <header>
+      <h1 class="title">Create a new character</h1>
+    </header>
+    <content>
+        <app-game-tabs></app-game-tabs>
+    </content>
+    <app-button [title]="'back'" class="left-button"></app-button>
+    <app-button [title]="'next'" (click)="submitHandler()" class="right-button"></app-button>
+  </app-game-template>
+</ng-template>
+
+

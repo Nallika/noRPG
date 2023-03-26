@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
 
 import { PlayerService } from '../core/services/player.service';
-import { urlType } from '../types';
+import { urlType } from '../types/generalTypes';
 
 @Component({
   selector: 'app-index',

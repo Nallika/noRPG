@@ -3,7 +3,7 @@
     <div class="container">
       <div class="wrap">
         <div *ngIf="isAuthenticated" class="button-wrap">
-          <app-button [title]="'NEW GAME'" (click)="goTo('newChar')"></app-button>
+          <app-button [title]="'NEW GAME'" (click)="goTo('game')"></app-button>
         </div>
         <div *ngIf="!isAuthenticated" class="button-wrap">
           <app-button [title]="'REGISTER'" (click)="goTo('register')"></app-button>

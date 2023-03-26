@@ -63,36 +63,38 @@ export const listPlayers = (): void  => {
 
 export const fillCharacters = (): void  => {
 
-  addNewCharacter({
-    playerId: 1,
-    playerNick: 'Ivan',
-    ...generateChar('killerJoe'),
-  });
-  addNewCharacter({
-    playerId: 1,
-    playerNick: 'Ivan',
-    ...generateChar('joker'),
-  });
-  addNewCharacter({
-    playerId: 2,
-    playerNick: 'Petro',
-    ...generateChar('SuperSatan'),
-  });
-  addNewCharacter({
-    playerId: 2,
-    playerNick: 'Ivan',
-    ...generateChar('killa')
-  });
-  addNewCharacter({
-    playerId: 3,
-    playerNick: 'Inga',
-    ...generateChar('Dolly'),
-  });
-  addNewCharacter({
-    playerId: 3,
-    playerNick: 'Ivan',
-    ...generateChar('casper'),
-  });
+  // addNewCharacter({
+  //   playerId: 1,
+  //   nickname: 'Ivan',
+  //   ...generateChar('killerJoe'),
+  // });
+  addNewCharacter(
+    generateChar('joker'),
+    {
+      id: 1,
+      nickname: 'Ivan',
+    }
+  );
+  // addNewCharacter({
+  //   playerId: 2,
+  //   nickname: 'Petro',
+  //   ...generateChar('SuperSatan'),
+  // });
+  // addNewCharacter({
+  //   playerId: 2,
+  //   nickname: 'Ivan',
+  //   ...generateChar('killa')
+  // });
+  // addNewCharacter({
+  //   playerId: 3,
+  //   nickname: 'Inga',
+  //   ...generateChar('Dolly'),
+  // });
+  // addNewCharacter({
+  //   playerId: 3,
+  //   nickname: 'Ivan',
+  //   ...generateChar('casper'),
+  // });
 }
 
 const generateChar = (name: string): charData => {

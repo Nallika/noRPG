@@ -3,11 +3,11 @@ import { addToLadder } from '../ladder/ladderModel';
 import Character from './Character';
 import { addNewCharResult, charData } from './types'
 
-export const addNewCharacter = (data: charData & { playerId: number, playerNick: string }): addNewCharResult => {
+export const addNewCharacter = (character: charData, player: {id: number, nickname: string}): addNewCharResult => {
 
-  const { playerId, playerNick, name } = data;
-  const char = new Character(data);
-
+  const { id: playerId, nickname } = player;
+  const { name } = character;
+  const char = new Character(character);
   const {isValid, error: validationError} = char.validate();
 
   if (!isValid) {
@@ -121,7 +121,7 @@ export const addNewCharacter = (data: charData & { playerId: number, playerNick:
   const rating = char.rating;
 
   addToLadder({
-    playerNick,
+    nickname,
     name,
     raceId,
     score: rating,

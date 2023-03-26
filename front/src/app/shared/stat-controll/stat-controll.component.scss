@@ -1,0 +1,24 @@
+@use '../../../styles' as styles;
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.label {
+  @include styles.text;
+}
+
+.controll-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.value {
+  @include styles.text;
+}
+
+button {
+  background-color: styles.$background-color;
+  color: styles.$primary-color;
+}

@@ -8,7 +8,7 @@ import { CharPreviewPageComponent } from './pages/char-preview-page/char-preview
 
 const routes: Routes = [
   {
-    path: 'newChar',
+    path: '',
     component: NewCharPageComponent,
     canActivate: [AuthGuard]
   },

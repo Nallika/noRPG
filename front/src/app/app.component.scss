@@ -1,6 +1,7 @@
 @use '../styles' as styles;
 
 .container {
+  position: fixed;
   height: 100vh;
   top:0px;
   right:0px;

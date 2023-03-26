@@ -7,6 +7,7 @@ import { BlackenedDirective } from './directives/blackened.directive';
 import { ErrorTextDirective } from './directives/error-text.directive';
 import { GameTemplateComponent } from './game-template/game-template.component';
 import { IndexTemplateComponent } from './index-template/index-template.component';
+import { StatControllComponent } from './stat-controll/stat-controll.component';
 
 
 @NgModule({
@@ -16,8 +17,9 @@ import { IndexTemplateComponent } from './index-template/index-template.componen
     HeaderComponent,
     GameTemplateComponent,
     IndexTemplateComponent,
+    StatControllComponent,
     BlackenedDirective,
-    ErrorTextDirective
+    ErrorTextDirective,
   ],
   imports: [
     CommonModule
@@ -28,6 +30,7 @@ import { IndexTemplateComponent } from './index-template/index-template.componen
     HeaderComponent,
     GameTemplateComponent,
     IndexTemplateComponent,
+    StatControllComponent,
     BlackenedDirective,
     ErrorTextDirective
   ]

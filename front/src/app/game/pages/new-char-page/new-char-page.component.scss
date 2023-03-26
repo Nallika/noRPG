@@ -1,55 +1,32 @@
 @use '../../../../styles' as styles;
 
-.text {
-  @include styles.text;
-}
-
 .title {
   @include styles.text;
 }
 
-.input-label {
-  margin: styles.spacing(1, 0);
+.loader-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-fieldset {
-  border: none;
-  padding: styles.spacing(1.5, 0);
-  margin: 0;
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid;
+  border-color: styles.$selected-color transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
 
-.field {
-  width: styles.spacing(25);
-  padding: 0;
-  margin: 0;
-}
-
-.slider {
-  -webkit-appearance: none;
-  height: styles.spacing(1);
-  background: styles.$primary-color;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.slider:hover {
-  opacity: 1;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: styles.spacing(2);
-  height: styles.spacing(2);
-  background: styles.$selected-color;
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-  width: styles.spacing(2);
-  height: styles.spacing(2);
-  background: styles.$selected-color;
-  cursor: pointer;
-}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 

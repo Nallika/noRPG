@@ -1,18 +1,18 @@
 <form [formGroup]="statForm" class="item-wrap form">
   <fieldset class="input-wrap">
-    <p class="input-label text">Strength:</p>
-    <input formControlName='strength' type="range" min="1" max="100" value="50" class="field slider">
+    <input formControlName="strength" type="nummber" hidden>
+    <app-stat-controll [value]="strength.value" [label]="'strength'" (changeValueEvent)="changeHandler($event, 'strength')"> </app-stat-controll>
   </fieldset>
   <fieldset class="input-wrap">
-    <p class="input-label text">Agility:</p>
-    <input formControlName='agility' type="range" min="1" max="100" value="50" class="field slider">
+    <input formControlName="agility" type="nummber" hidden>
+    <app-stat-controll [value]="agility.value" [label]="'agility'" (changeValueEvent)="changeHandler($event, 'agility')"> </app-stat-controll>
   </fieldset>
   <fieldset class="input-wrap">
-    <p class="input-label text">Endurance:</p>
-    <input formControlName='endurance' type="range" min="1" max="100" value="50" class="field slider">
+    <input formControlName="endurance" type="nummber" hidden>
+    <app-stat-controll [value]="endurance.value" [label]="'endurance'" (changeValueEvent)="changeHandler($event, 'endurance')"> </app-stat-controll>
   </fieldset>
   <fieldset class="input-wrap">
-    <p class="input-label text">Speed:</p>
-    <input formControlName='speed' type="range" min="1" max="100" value="50" class="field slider">
+    <input formControlName="speed" type="nummber" hidden>
+    <app-stat-controll [value]="speed.value" [label]="'speed'" (changeValueEvent)="changeHandler($event, 'speed')"> </app-stat-controll>
   </fieldset>
 </form>

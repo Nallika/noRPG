@@ -16,14 +16,14 @@ export const addToLadder = (char: ladderChar & {characterId: number}): boolean =
   const {
     characterId,
     name,
-    playerNick,
+    nickname,
     raceId,
     score
   } = char;
 
   const db = Db.getInstance();
   const { changes } = db.run(
-    'INSERT INTO Ladder (characterId, name, playerNick, raceId, score) VALUES (?, ?, ?, ?, ?)', characterId, name, playerNick, raceId, score
+    'INSERT INTO Ladder (characterId, name, playerNick, raceId, score) VALUES (?, ?, ?, ?, ?)', characterId, name, nickname, raceId, score
   );
 
   return !changes;

@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { player } from 'src/app/types';
+import { player } from 'src/app/types/generalTypes';
 import { PlayerService } from '../../core/services/player.service';
 
 

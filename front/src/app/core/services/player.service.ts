@@ -4,7 +4,7 @@ import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
 
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
-import { player, authType, authData } from '../../types';
+import { player, authType, authData } from '../../types/generalTypes';
 import { map } from 'rxjs/operators';
 
 
