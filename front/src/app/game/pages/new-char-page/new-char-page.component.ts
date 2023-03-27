@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/internal/Observable';
 
 import { gameState } from 'src/app/types/storeTypes';
 import { getGameData } from 'src/app/store/actions/gameActions';
-import { submitChar } from 'src/app/store/actions/gameActions';
+import { submitChar, generateChar } from 'src/app/store/actions/gameActions';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-new-char-page',
@@ -23,6 +24,10 @@ export class NewCharPageComponent implements OnInit {
     this.loading$ = this.store.select('game', 'gameData', 'loading');
     this.error$ = this.store.select('game', 'gameData', 'error');
     this.store.dispatch(getGameData());
+
+    this.loading$.pipe(
+      filter((val) => !val)
+    ).subscribe(() => this.store.dispatch(generateChar()))
   }
 
   submitHandler() {

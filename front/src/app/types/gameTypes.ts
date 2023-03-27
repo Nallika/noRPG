@@ -1,5 +1,4 @@
-export interface character {
-  name: string,
+export interface charValues {
   raceId: number,
   height: number,
   weight: number,
@@ -7,6 +6,10 @@ export interface character {
   agility: number,
   endurance: number,
   speed: number,
+}
+
+export interface character extends charValues {
+  name: string,
   armorId: number,
   weaponId: number,
 }
@@ -63,7 +66,15 @@ export enum formEnum {
   items
 }
 
-export type saveFormParams = {
-  formData: character,
-  formType: formEnum
+export type appearanceForm = {
+  raceId: number,
+  height: number,
+  weight: number
+}
+
+export type statsForm = {
+  strength: number,
+  agility: number,
+  endurance: number,
+  speed: number,
 }

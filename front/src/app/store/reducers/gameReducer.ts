@@ -2,6 +2,8 @@ import { createReducer, on } from "@ngrx/store";
 
 import * as gameActions from '../actions/gameActions';
 import { gameState } from "../../types/storeTypes";
+import { generateRandom, generateCharValues } from "src/app/utils/idex";
+import { race } from "src/app/types/gameTypes";
 
 const initialState: gameState = {
   gameData: {
@@ -16,7 +18,6 @@ const initialState: gameState = {
   charData: {
     loading: false,
     error: false,
-    isSaved: false,
     character: {
       name: '',
       raceId: 1,
@@ -43,6 +44,11 @@ const initialState: gameState = {
   }
 };
 
+const generateRandomRace = (races: race[]): race => {
+  const randomRaceId = generateRandom(1, races.length)
+  return races[randomRaceId];
+} 
+
 export const gameReducer = createReducer(
   initialState,
   on(gameActions.getGameData, (state: gameState) => ({
@@ -52,7 +58,7 @@ export const gameReducer = createReducer(
       loading: true
     }}
   )),
-  on(gameActions.getGameDataError, (state: gameState, action) => ({
+  on(gameActions.getGameDataError, (state: gameState) => ({
     ...state,
     gameData: {
       ...state.gameData,
@@ -67,13 +73,23 @@ export const gameReducer = createReducer(
       loading: false,
     }
   })),
+  on(gameActions.generateChar, (state: gameState) => {
+    const randomRace = generateRandomRace(state.gameData.data.races);
+
+    return {
+      ...state,
+      charData: {
+        ...state.charData,
+        ...generateCharValues(randomRace),
+      }
+  }}),
   on(gameActions.saveChar, (state: gameState, action) => ({
     ...state,
     charData: {
       ...state.charData,
       character: {
         ...state.charData.character,
-        ...action.data.formData,
+        ...action.data,
         isSaved: true,
       }
     }
