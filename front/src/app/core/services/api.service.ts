@@ -3,8 +3,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable ,  throwError } from 'rxjs';
 
 import { environment } from 'src/app/environments/environment';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
+/**
+ * Service for send api requests
+ */
 @Injectable()
 export class ApiService {
 

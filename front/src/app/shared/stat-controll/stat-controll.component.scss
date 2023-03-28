@@ -1,21 +1,24 @@
 @use '../../../styles' as styles;
 
 .container {
-  display: flex;
-  flex-direction: row;
+  padding: styles.spacing(1);
 }
 
 .label {
   @include styles.text;
+  margin: styles.spacing(1, 0);
 }
 
 .controll-wrap {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 }
 
 .value {
   @include styles.text;
+  @include styles.border-1;
+  text-align: center;
+  width: styles.spacing(3);
 }
 
 button {

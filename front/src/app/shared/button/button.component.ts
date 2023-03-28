@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+/**
+ * Stylized button
+ */
 @Component({
   selector: 'app-button',
   template: `

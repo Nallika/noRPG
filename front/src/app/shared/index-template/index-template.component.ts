@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * Reused template for index/login/register pages
+ */
 @Component({
   selector: 'app-index-template',
   template: `

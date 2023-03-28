@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { PlayerService } from '../services/player.service';
 import { take, map } from 'rxjs/operators';
 
+/**
+ * Guard for pages thar required non-autenticated user
+ */
 @Injectable()
 export class NoAuthGuard {
   constructor(
@@ -13,7 +16,6 @@ export class NoAuthGuard {
   ) {}
 
   canActivate(): Observable<boolean> {
-
     return this.playerService.isAuthenticated.pipe(take(1), map((isAuthenticated) => {
       if (isAuthenticated) {
         this.router.navigateByUrl('/');

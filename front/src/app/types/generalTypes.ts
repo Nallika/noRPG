@@ -1,4 +1,4 @@
-import { race, weapon, armor } from "./gameTypes";
+/** Here general app types */
 
 export type authType = 'register' | 'login';
 
@@ -13,10 +13,4 @@ export type authData = {
 export type player = {
   token: string;
   nickname: string;
-}
-
-export type gameData = {
-  races: race[] | any,
-  weapons: weapon[],
-  armor: armor[],
 }

@@ -1,5 +1,8 @@
 import { Directive } from '@angular/core';
 
+/**
+ * Stylize input in black
+ */
 @Directive({
   selector: '[blackened]',
   host: {

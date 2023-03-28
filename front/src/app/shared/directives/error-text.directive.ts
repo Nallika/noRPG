@@ -1,5 +1,8 @@
 import { Directive } from '@angular/core';
 
+/**
+ * Mark text as for error
+ */
 @Directive({
   selector: '[appErrorText]',
   host: {

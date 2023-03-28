@@ -5,7 +5,7 @@
 }
 
 .border {
-  margin: styles.spacing(2);
+  margin: styles.spacing(1.5);
   height: 100%;
   max-height: -webkit-fill-available;
 }
@@ -17,16 +17,16 @@
 }
 
 .header {
-  height: 10%;
+  height: styles.spacing(6);
 }
 
 .content {
-  height: 90%;
+  height: 100%;
 }
 
 .footer {
   height: styles.spacing(6);
-  margin-top: styles.spacing(2);
+  margin-top: styles.spacing(1.5);
 }
 
 .content-wrap {

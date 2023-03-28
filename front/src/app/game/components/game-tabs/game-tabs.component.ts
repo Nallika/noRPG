@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+/**
+ * Component for display and switch character create tabs.
+ * There are 3 tabs - appearance, stats, items.
+ */
 @Component({
   selector: 'app-game-tabs',
   template: `
@@ -10,10 +14,24 @@ import { Component } from '@angular/core';
       <div class="content">
         <div [ngSwitch]="activeTab">
           <div *ngSwitchCase="'Appearance'">
-            <app-appearance-form></app-appearance-form>
+            <div class="content-container">
+              <div class="content-block">
+                <app-appearance-form></app-appearance-form>
+              </div>
+              <div class="content-block">
+                
+              </div>
+            </div>
           </div>
           <div *ngSwitchCase="'Stats'">
-            <app-stat-form></app-stat-form>
+          <div class="content-container">
+              <div class="content-block">
+                <app-stat-form></app-stat-form>
+              </div>
+              <div class="content-block">
+                
+                </div>
+            </div>
           </div>
           <div *ngSwitchCase="'Items'">
             <app-items-shop></app-items-shop>

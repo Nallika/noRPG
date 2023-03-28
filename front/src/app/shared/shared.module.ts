@@ -9,7 +9,9 @@ import { GameTemplateComponent } from './game-template/game-template.component';
 import { IndexTemplateComponent } from './index-template/index-template.component';
 import { StatControllComponent } from './stat-controll/stat-controll.component';
 
-
+/**
+ * General use module, here store reused components
+ */
 @NgModule({
   declarations: [
     ButtonComponent,

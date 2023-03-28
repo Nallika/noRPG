@@ -11,7 +11,9 @@ import { AppearanceFormComponent } from './components/appearance-form/appearance
 import { StatFormComponent } from './components/stat-form/stat-form.component';
 import { ItemsShopComponent } from './components/items-shop/items-shop.component';
 
-
+/**
+ * Gmae module. Here game components pages and forms
+ */
 @NgModule({
     declarations: [
         NewCharPageComponent,

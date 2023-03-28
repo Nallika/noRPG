@@ -7,7 +7,9 @@ import { JwtService } from './jwt.service';
 import { player, authType, authData } from '../../types/generalTypes';
 import { map } from 'rxjs/operators';
 
-
+/**
+ * Servise used for authenticate player
+ */
 @Injectable()
 export class PlayerService {
   private currentPlayerSubject = new BehaviorSubject<player>({} as player);
@@ -30,6 +32,7 @@ export class PlayerService {
       this.apiService.get('/player')
       .subscribe({
         next: (data) => this.setAuth(data),
+        // If token isn't valid clear it
         error: () => this.logout()
       });
     } else {
@@ -37,24 +40,29 @@ export class PlayerService {
     }
   }
 
+  /**
+   * Save token and set current player to currentPlayerSubject
+   */
   setAuth(player: player) {
-    // Save JWT sent from server in localstorage
     this.jwtService.saveToken(player.token);
-    // Set current player data into observable
     this.currentPlayerSubject.next(player);
-    // Set isAuthenticated to true
     this.isAuthenticatedSubject.next(true);
   }
 
+  /**
+   * Remove JWT from localstorage
+   * Set current player to an empty object
+   * Set auth status to false
+   */
   logout() {
-    // Remove JWT from localstorage
-    this.jwtService.destroyToken();
-    // Set current player to an empty object
+    this.jwtService.destroyToken(); 
     this.currentPlayerSubject.next({} as player);
-    // Set auth status to false
     this.isAuthenticatedSubject.next(false);
   }
 
+  /**
+   * Register or login character.
+   */
   attemptAuth(type: authType, authData: authData): Observable<player> {
     const route = (type === 'login') ? '/login' : '/register';
 

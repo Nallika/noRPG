@@ -12,16 +12,16 @@
   margin: styles.spacing(1, 0);
 }
 
-fieldset {
+.input-wrap {
   border: none;
-  padding: styles.spacing(1.5, 0);
+  padding: styles.spacing(0, 0, 1.5);
   margin: 0;
 }
 
 .field {
-  width: styles.spacing(25);
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 
 .slider {
@@ -52,4 +52,26 @@ fieldset {
   height: styles.spacing(2);
   background: styles.$selected-color;
   cursor: pointer;
+}
+
+.select-values {
+  display: flex;
+  justify-content: space-between;
+}
+
+.select-value {
+  @include styles.text;
+  font-size: 0.8em;
+}
+
+.selected-value {
+  @include styles.text;
+  @include styles.border-1;
+  margin: styles.spacing(0.25);
+  padding: styles.spacing(0.25);
+  font-size: 1em;
+}
+
+.mirrored-sliders {
+  padding-top: styles.spacing(1);
 }

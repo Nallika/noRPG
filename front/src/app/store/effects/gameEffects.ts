@@ -9,6 +9,9 @@ import { gameState } from 'src/app/types/storeTypes';
 
 @Injectable()
 export class GameEffects {
+  /**
+   * Get base game data and store it in state
+   */
   getGameData$ = createEffect(() => this.actions$.pipe(
     ofType(gameActions.getGameData),
     mergeMap(() => {
@@ -19,6 +22,9 @@ export class GameEffects {
     })
   ));
 
+  /**
+   * Submit created character to server, receve character info and store it
+   */
   submitChar$ = createEffect(() => this.actions$.pipe(
     ofType(gameActions.submitChar),
     withLatestFrom(this.store.select('game', 'charData', 'character')),

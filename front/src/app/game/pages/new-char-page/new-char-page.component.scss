@@ -2,6 +2,7 @@
 
 .title {
   @include styles.text;
+  margin: 0;
 }
 
 .loader-container {

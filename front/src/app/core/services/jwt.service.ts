@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-
+/**
+ * Service for save JWT token in localStorage
+ */
 @Injectable()
 export class JwtService {
 

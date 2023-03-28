@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+/**
+ * Template for game pages
+ * TODO: check is it needed
+ */
 @Component({
   selector: 'app-game-template',
   template: `

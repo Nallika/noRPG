@@ -1,3 +1,5 @@
+/** Here types for game components */
+
 export interface charValues {
   raceId: number,
   height: number,
@@ -67,6 +69,7 @@ export enum formEnum {
 }
 
 export type appearanceForm = {
+  name: string,
   raceId: number,
   height: number,
   weight: number
@@ -77,4 +80,10 @@ export type statsForm = {
   agility: number,
   endurance: number,
   speed: number,
+}
+
+export type gameData = {
+  races: race[] | any,
+  weapons: weapon[],
+  armor: armor[],
 }

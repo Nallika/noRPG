@@ -3,7 +3,7 @@ import { createReducer, on } from "@ngrx/store";
 import * as gameActions from '../actions/gameActions';
 import { gameState } from "../../types/storeTypes";
 import { generateRandom, generateCharValues } from "src/app/utils/idex";
-import { race } from "src/app/types/gameTypes";
+import { formEnum, fullCharacter, race, statsForm } from "src/app/types/gameTypes";
 
 const initialState: gameState = {
   gameData: {
@@ -44,11 +44,46 @@ const initialState: gameState = {
   }
 };
 
+/**
+ * Pick rabdom race from race list
+ */
 const generateRandomRace = (races: race[]): race => {
-  const randomRaceId = generateRandom(1, races.length)
-  return races[randomRaceId];
-} 
+  return races[generateRandom(0, races.length)];
+}
 
+/**
+ * Validate incoming stat values, and calculate freeStatPoints.
+ * Used when user change any stat value.
+ */
+const recalculateCharStats = (
+  currentCharData: fullCharacter,
+  incomimgStatData: statsForm,
+  freeStatPoints: number
+  ): {newCharData: fullCharacter, freeStatPoints: number } => {
+    const {strength, agility, endurance, speed} = currentCharData;
+    const currentStatSumm = Object.values({strength, agility, endurance, speed}).reduce((acc, val) => acc + val);
+    const incomeStatSumm = Object.values(incomimgStatData).reduce((acc, val) => acc + val);
+
+    const isIncrease = incomeStatSumm > currentStatSumm;
+    freeStatPoints = isIncrease ? freeStatPoints - 1 : freeStatPoints + 1;
+
+    // If there are no freeStatPoints we can't 
+    if (freeStatPoints < 0) {
+      return {newCharData: currentCharData, freeStatPoints: 0};
+    }
+
+    return {
+      newCharData: {
+        ...currentCharData,
+        ...incomimgStatData
+      },
+      freeStatPoints
+    }
+}
+
+/**
+ * Manage base game store, receive game data, save character data and submit it to server
+ */
 export const gameReducer = createReducer(
   initialState,
   on(gameActions.getGameData, (state: gameState) => ({
@@ -75,25 +110,47 @@ export const gameReducer = createReducer(
   })),
   on(gameActions.generateChar, (state: gameState) => {
     const randomRace = generateRandomRace(state.gameData.data.races);
-
     return {
       ...state,
       charData: {
         ...state.charData,
-        ...generateCharValues(randomRace),
+        character: {
+          ...state.charData.character,
+          ...generateCharValues(randomRace),
+        }
       }
   }}),
-  on(gameActions.saveChar, (state: gameState, action) => ({
+  on(gameActions.saveChar, (state: gameState, action) => {
+    const {character: currentCharData, freeStatPoints: currentFreeStatPoins} = state.charData;
+    const incomingCharData = action.data;
+
+    // If stats changed we need run recalculateCharStats
+    if (action.form === formEnum.stats) {
+      const { newCharData, freeStatPoints } = recalculateCharStats(currentCharData, incomingCharData, currentFreeStatPoins);
+
+      return {
+        ...state,
+        charData: {
+          ...state.charData,
+          freeStatPoints,
+          character: {
+            ...currentCharData,
+            ...newCharData,
+          }
+        }
+      }
+    }
+
+    return {
     ...state,
     charData: {
       ...state.charData,
       character: {
-        ...state.charData.character,
-        ...action.data,
-        isSaved: true,
+        ...currentCharData,
+        ...incomingCharData,
       }
     }
-  })),
+  }}),
   on(gameActions.submitCharError, (state: gameState) => ({
     ...state,
     charData: {

@@ -13,6 +13,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { gameReducer } from './store/reducers/gameReducer';
 import { GameEffects } from './store/effects/gameEffects';
 
+/**
+ * Main app module
+ */
 @NgModule({
   declarations: [
     AppComponent

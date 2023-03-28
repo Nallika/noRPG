@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { PlayerService } from '../core/services/player.service';
 import { urlType } from '../types/generalTypes';
 
+/**
+ * Index page, display login/register or new game links
+ */
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',

@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerService } from '../core/services/player.service';
 import { authType } from '../types/generalTypes';
 
+/**
+ * Component that displayed register or login form.
+ */
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -66,6 +69,9 @@ export class AuthComponent implements OnInit{
     this.router.navigateByUrl(`/${url}`);
   }
 
+  /**
+   * Process user registration or login
+   */
   submitForm() {
    this.authForm.markAllAsTouched();
 
@@ -81,7 +87,7 @@ export class AuthComponent implements OnInit{
       .subscribe({
         next: () => this.router.navigateByUrl('/'),
         error: (error) => {
-          console.error('ERRIR ', error);
+          // TODO: display error
           this.isSubmitting = false;
         }
       });

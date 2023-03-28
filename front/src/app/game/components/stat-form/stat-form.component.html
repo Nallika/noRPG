@@ -1,18 +1,42 @@
-<form [formGroup]="statForm" class="item-wrap form">
-  <fieldset class="input-wrap">
+<form [formGroup]="statForm">
+  <fieldset class="item-wrap">
     <input formControlName="strength" type="nummber" hidden>
-    <app-stat-controll [value]="strength.value" [label]="'strength'" (changeValueEvent)="changeHandler($event, 'strength')"> </app-stat-controll>
+    <app-stat-controll
+      [value]="strength.value"
+      [label]="'Strength:'"
+      [increasDisabled]="isIncreaseDisabled() | async"
+      (changeValueEvent)="changeHandler($event, 'strength')"
+    ></app-stat-controll>
   </fieldset>
-  <fieldset class="input-wrap">
+  <fieldset class="item-wrap">
     <input formControlName="agility" type="nummber" hidden>
-    <app-stat-controll [value]="agility.value" [label]="'agility'" (changeValueEvent)="changeHandler($event, 'agility')"> </app-stat-controll>
+    <app-stat-controll
+      [value]="agility.value"
+      [label]="'Agility:'"
+      [increasDisabled]="isIncreaseDisabled() | async"
+      (changeValueEvent)="changeHandler($event, 'agility')"
+    ></app-stat-controll>
   </fieldset>
-  <fieldset class="input-wrap">
+  <fieldset class="item-wrap">
     <input formControlName="endurance" type="nummber" hidden>
-    <app-stat-controll [value]="endurance.value" [label]="'endurance'" (changeValueEvent)="changeHandler($event, 'endurance')"> </app-stat-controll>
+    <app-stat-controll
+      [value]="endurance.value"
+      [label]="'Endurance:'"
+      [increasDisabled]="isIncreaseDisabled() | async"
+      (changeValueEvent)="changeHandler($event, 'endurance')"
+    ></app-stat-controll>
   </fieldset>
-  <fieldset class="input-wrap">
+  <fieldset class="item-wrap">
     <input formControlName="speed" type="nummber" hidden>
-    <app-stat-controll [value]="speed.value" [label]="'speed'" (changeValueEvent)="changeHandler($event, 'speed')"> </app-stat-controll>
+    <app-stat-controll
+      [value]="speed.value"
+      [label]="'Speed:'"
+      [increasDisabled]="isIncreaseDisabled() | async"
+      (changeValueEvent)="changeHandler($event, 'speed')"
+    ></app-stat-controll>
   </fieldset>
+  <div class="free-points-wrap">
+    <p class="text">Feee points:</p>
+    <p class="text poins" [ngClass]="{'empty': !(freeStatPoints$ | async)}">{{freeStatPoints$ | async}}</p>
+  </div>
 </form>

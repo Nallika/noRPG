@@ -9,6 +9,9 @@ import { AuthGuard } from './guards/auth-guard.service';
 import { NoAuthGuard } from './guards/no-auth-guard.service';
 import { PlayerService } from './services/player.service';
 
+/**
+ * Module for general use services, including interceptors and guards
+ */
 @NgModule({
   declarations: [],
   imports: [

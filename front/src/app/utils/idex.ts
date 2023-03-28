@@ -1,5 +1,7 @@
 import { charValues, race } from "../types/gameTypes";
 
+/** Here pure functions for general use */
+
 /**
  * Generatre random value between range
  */

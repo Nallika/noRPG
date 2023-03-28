@@ -9,6 +9,9 @@ import { Observable } from 'rxjs';
 
 import { JwtService } from '../services/jwt.service';
 
+/**
+ * Add JWT token header to all requests
+ */
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
 

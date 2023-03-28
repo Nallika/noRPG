@@ -6,8 +6,9 @@ import { filter } from 'rxjs/operators';
 import { player } from 'src/app/types/generalTypes';
 import { PlayerService } from '../../core/services/player.service';
 
-
-
+/**
+ * App header with back and logut buttons
+ */
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -45,6 +46,9 @@ export class HeaderComponent implements OnInit {
     this.location.back();
   }
 
+  /**
+   * Display logout button
+   */
   toggleDropdown() {
     this.dropdown.nativeElement.classList.toggle('toggle-dropdown');
   }

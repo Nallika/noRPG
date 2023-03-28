@@ -4,52 +4,23 @@
   @include styles.text;
 }
 
-.title {
-  @include styles.text;
+.free-points-wrap {
+  display: flex;
+  justify-content: space-between;
 }
 
-.input-label {
-  margin: styles.spacing(1, 0);
+.poins {
+  @include styles.border-1;
+  text-align: center;
+  width: styles.spacing(2.5);
 }
 
-fieldset {
+.empty {
+  color:  styles.$selected-color;
+}
+
+.item-wrap {
   border: none;
-  padding: styles.spacing(1.5, 0);
+  padding: styles.spacing(0, 0, 1.5);
   margin: 0;
-}
-
-.field {
-  width: styles.spacing(25);
-  padding: 0;
-  margin: 0;
-}
-
-.slider {
-  -webkit-appearance: none;
-  height: styles.spacing(1);
-  background: styles.$primary-color;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.slider:hover {
-  opacity: 1;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: styles.spacing(2);
-  height: styles.spacing(2);
-  background: styles.$selected-color;
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-  width: styles.spacing(2);
-  height: styles.spacing(2);
-  background: styles.$selected-color;
-  cursor: pointer;
 }
