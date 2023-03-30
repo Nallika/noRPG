@@ -10,32 +10,16 @@ import { Component } from '@angular/core';
     <div class="container">
       <div class="tab-list" role="tablist">
           <button *ngFor="let tab of tabs" class="tab" [ngClass]="{'active': tab === activeTab}" (click)="openTab(tab)">{{tab}}</button>
+      </div>
+      <div [ngSwitch]="activeTab">
+        <div *ngSwitchCase="'Appearance'">
+          <app-appearance-form></app-appearance-form>
         </div>
-      <div class="content">
-        <div [ngSwitch]="activeTab">
-          <div *ngSwitchCase="'Appearance'">
-            <div class="content-container">
-              <div class="content-block">
-                <app-appearance-form></app-appearance-form>
-              </div>
-              <div class="content-block">
-                
-              </div>
-            </div>
-          </div>
-          <div *ngSwitchCase="'Stats'">
-          <div class="content-container">
-              <div class="content-block">
-                <app-stat-form></app-stat-form>
-              </div>
-              <div class="content-block">
-                
-                </div>
-            </div>
-          </div>
-          <div *ngSwitchCase="'Items'">
-            <app-items-shop></app-items-shop>
-          </div>
+        <div *ngSwitchCase="'Stats'">
+          <app-stat-form></app-stat-form>
+        </div>
+        <div *ngSwitchCase="'Items'">
+          <app-items-shop></app-items-shop>
         </div>
       </div>
     </div>

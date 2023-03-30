@@ -1,6 +1,6 @@
 /** Here types for game components */
 
-export interface charValues {
+export interface character {
   raceId: number,
   height: number,
   weight: number,
@@ -8,15 +8,12 @@ export interface charValues {
   agility: number,
   endurance: number,
   speed: number,
-}
-
-export interface character extends charValues {
   name: string,
   armorId: number,
   weaponId: number,
 }
 
-export interface fullCharacter extends character {
+export interface characterCalculations {
   damage: {
     minDamage: number,
     maxDamage: number
@@ -26,7 +23,7 @@ export interface fullCharacter extends character {
   hitChanse: number,
   initiative: number,
   mitigation: number
-  rating: number,
+  score: number,
 }
 
 export type race = {
@@ -49,17 +46,26 @@ export enum raceEnum {
   Dwarf
 }
 
-export type weapon = {
+export interface item {
+  id: number,
   title: string,
-	minDamage: number,
-	maxDamage: number,
-	description: string,
+  description: string,
 }
 
-export type armor = {
-  title: string,
+export interface weapon extends item {
+	minDamage: number,
+	maxDamage: number,
+}
+
+export interface armor extends item {
   armorValue: number,
-  description: string,
+}
+
+export type itemType = 'armor' | 'weapon';
+
+export enum itemEnum  {
+  weapon = 'weapon',
+  armor = 'armor',
 }
 
 export enum formEnum {

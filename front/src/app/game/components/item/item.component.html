@@ -1,0 +1,7 @@
+<div class="container" (click)="setIsSelected()" [ngClass]="{'selected': isSelected}" >
+  <img alt="Character inventory item. Weapon or armor"/>
+  <div class="info">
+    <p class="title">{{itemData.title}}</p>
+    <p class="text">{{getItemInfo()}}</p>
+  </div>
+</div>

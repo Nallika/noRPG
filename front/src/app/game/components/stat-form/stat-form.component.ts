@@ -50,10 +50,10 @@ export class StatFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.freeStatPoints$ = this.store.select('game', 'charData', 'freeStatPoints');
+    this.freeStatPoints$ = this.store.select('game', 'freeStatPoints');
 
     // Set inital stat data on cpomponent load
-    this.store.select('game', 'charData', 'character').pipe(
+    this.store.select('game', 'character').pipe(
       take(1)
     ).subscribe((characterData) => {
       this.setValues(characterData);

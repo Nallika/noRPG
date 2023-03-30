@@ -2,46 +2,16 @@ import { createReducer, on } from "@ngrx/store";
 
 import * as gameActions from '../actions/gameActions';
 import { gameState } from "../../types/storeTypes";
-import { generateRandom, generateCharValues } from "src/app/utils/idex";
-import { formEnum, fullCharacter, race, statsForm } from "src/app/types/gameTypes";
+import { generateRandom, generateCharacter } from "src/app/utils/idex";
+import { character, formEnum, characterCalculations, race, statsForm, gameData } from "src/app/types/gameTypes";
 
 const initialState: gameState = {
-  gameData: {
-    loading: false,
-    error: '',
-    data: {
-      races: [],
-      weapons: [],
-      armor: [],
-    }
-  },
-  charData: {
-    loading: false,
-    error: false,
-    character: {
-      name: '',
-      raceId: 1,
-      height: 0,
-      weight: 0,
-      strength: 0,
-      agility: 0,
-      endurance: 0,
-      speed: 0,
-      armorId: 1,
-      weaponId: 1,
-      damage: {
-        minDamage: 0,
-        maxDamage: 0
-      },
-      dodgeChanse: 0,
-      health: 0,
-      hitChanse: 0,
-      initiative: 0,
-      mitigation: 0,
-      rating: 0
-    },
-    freeStatPoints: 20
-  }
+  loading: false,
+  error: '',
+  gameData: {} as gameData,
+  character: {} as character,
+  characterCalculations: {} as characterCalculations,
+  freeStatPoints: 20,
 };
 
 /**
@@ -56,10 +26,10 @@ const generateRandomRace = (races: race[]): race => {
  * Used when user change any stat value.
  */
 const recalculateCharStats = (
-  currentCharData: fullCharacter,
+  currentCharData: character,
   incomimgStatData: statsForm,
   freeStatPoints: number
-  ): {newCharData: fullCharacter, freeStatPoints: number } => {
+  ): {newCharData: character, freeStatPoints: number } => {
     const {strength, agility, endurance, speed} = currentCharData;
     const currentStatSumm = Object.values({strength, agility, endurance, speed}).reduce((acc, val) => acc + val);
     const incomeStatSumm = Object.values(incomimgStatData).reduce((acc, val) => acc + val);
@@ -88,40 +58,28 @@ export const gameReducer = createReducer(
   initialState,
   on(gameActions.getGameData, (state: gameState) => ({
     ...state,
-    gameData: {
-      ...state.gameData,
-      loading: true
-    }}
-  )),
-  on(gameActions.getGameDataError, (state: gameState) => ({
+    loading: true,
+  })),
+  on(gameActions.gameError, (state: gameState, action) => ({
     ...state,
-    gameData: {
-      ...state.gameData,
-      loading: true
-    }}
-  )),
+    loading: false,
+    error: action.error
+  })),
   on(gameActions.getGameDataSuccess, (state: gameState, action) => ({
     ...state,
-    gameData: {
-      ...state.gameData,
-      data: action.data,
-      loading: false,
-    }
+    loading: false,
+    gameData: action.data,
   })),
   on(gameActions.generateChar, (state: gameState) => {
-    const randomRace = generateRandomRace(state.gameData.data.races);
+    const randomRace = generateRandomRace(state.gameData.races);
+
     return {
       ...state,
-      charData: {
-        ...state.charData,
-        character: {
-          ...state.charData.character,
-          ...generateCharValues(randomRace),
-        }
-      }
-  }}),
+      character: generateCharacter(randomRace)
+    }
+  }),
   on(gameActions.saveChar, (state: gameState, action) => {
-    const {character: currentCharData, freeStatPoints: currentFreeStatPoins} = state.charData;
+    const {character: currentCharData, freeStatPoints: currentFreeStatPoins} = state;
     const incomingCharData = action.data;
 
     // If stats changed we need run recalculateCharStats
@@ -130,56 +88,29 @@ export const gameReducer = createReducer(
 
       return {
         ...state,
-        charData: {
-          ...state.charData,
-          freeStatPoints,
-          character: {
-            ...currentCharData,
-            ...newCharData,
-          }
+        freeStatPoints,
+        character: {
+          ...currentCharData,
+          ...newCharData,
         }
       }
     }
 
     return {
-    ...state,
-    charData: {
-      ...state.charData,
+      ...state,
       character: {
         ...currentCharData,
         ...incomingCharData,
       }
     }
-  }}),
-  on(gameActions.submitCharError, (state: gameState) => ({
-    ...state,
-    charData: {
-      ...state.charData,
-      character: {
-        ...state.charData.character,
-        error: true,
-      }
-    }
-  })),
+  }),
   on(gameActions.submitChar, (state: gameState) => ({
     ...state,
-    charData: {
-      ...state.charData,
-      character: {
-        ...state.charData.character,
-        loading: true,
-      }
-    }
+    loading: true,
   })),
   on(gameActions.submitCharSuccess, (state: gameState, action) => ({
     ...state,
-    charData: {
-      ...state.charData,
-      character: {
-        ...state.charData.character,
-        character: action.data,
-        loading: false,
-      }
-    }
+    loading: false,
+    characterCalculations: action.data
   })),
 )

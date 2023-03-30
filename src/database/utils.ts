@@ -32,9 +32,9 @@ export const fillBaseTables = (): void  => {
   db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Spear', 2, 4, 1, weaponDescriptions[3]);
   
   db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'No armor', 0, 1.2, armorDescriptions[0]);
-  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Light', 5, 0.8, armorDescriptions[0]);
-  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Medium', 10, 0.6, armorDescriptions[1]);
-  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Heavy', 20, 0.3, armorDescriptions[2]);
+  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Light', 5, 0.8, armorDescriptions[1]);
+  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Medium', 10, 0.6, armorDescriptions[2]);
+  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Heavy', 20, 0.3, armorDescriptions[3]);
   db.run(
     `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   , 'Human', 150, 210, 50, 200, 20, 30, 2, 1, 4, 3, raceDescription[0]
@@ -54,7 +54,7 @@ export const fillBaseTables = (): void  => {
 }
 
 export const fillPlayers = (): void  => {
-  addNewPlayer('Ivan', 'ivan@test.com', '1111');
+  addNewPlayer('joy1', 'ivan@test.com', '1111');
   addNewPlayer('Petro', 'petro@test.com', '1111');
   addNewPlayer('Inga', 'inga@test.com', '1111');
 }

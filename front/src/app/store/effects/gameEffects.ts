@@ -17,7 +17,7 @@ export class GameEffects {
     mergeMap(() => {
       return this.apiService.get('/gameData').pipe(
         map((data) => gameActions.getGameDataSuccess({data})),
-        catchError((error) => of(gameActions.getGameDataError(error.message)))
+        catchError((error) => of(gameActions.gameError(error.message)))
       )
     })
   ));
@@ -27,11 +27,11 @@ export class GameEffects {
    */
   submitChar$ = createEffect(() => this.actions$.pipe(
     ofType(gameActions.submitChar),
-    withLatestFrom(this.store.select('game', 'charData', 'character')),
+    withLatestFrom(this.store.select('game', 'character')),
     exhaustMap(([_, data]) => {
       return this.apiService.post('/newChar', data).pipe(
         map((data) => gameActions.submitCharSuccess({data})),
-        catchError((error) => of(gameActions.submitCharError(error.message)))
+        catchError((error) => of(gameActions.gameError(error.message)))
       )
     })
   ));

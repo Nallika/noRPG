@@ -1,12 +1,12 @@
-@use '../../../styles' as styles;
+@use '../../../../styles' as styles;
 
 .container {
   padding: styles.spacing(1);
 }
 
 .label {
-  @include styles.text;
-  margin: styles.spacing(1, 0);
+  @include styles.title;
+  padding-bottom: styles.spacing(1);
 }
 
 .controll-wrap {

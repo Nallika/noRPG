@@ -1,1 +1,30 @@
-<p class="text">items-shop works!</p>
+<div class="container">
+  <div class="wrap">
+    <div class="title">Choose weapon:</div>
+    <div class="list-container">
+      <ng-container *ngFor="let item of weapons">
+        <app-item 
+          [itemData]="item"
+          [type]="'weapon'"
+          [selectedItemId$]="selectedWeaponSubject"
+          (selectItem)="selectItemHandler($event)"
+        ></app-item>
+      </ng-container>
+    </div>
+    <div class="description">{{weaponDescription}}</div>
+  </div>
+  <div class="wrap">
+    <div class="title">Choose armor:</div>
+    <div class="list-container">
+      <ng-container *ngFor="let item of armor">
+        <app-item
+          [itemData]="item"
+          [type]="'armor'"
+          [selectedItemId$]="selectedArmorSubject"
+          (selectItem)="selectItemHandler($event)"
+        ></app-item>
+      </ng-container>
+    </div>
+    <div class="description">{{armorDescription}}</div>
+  </div>
+</div>

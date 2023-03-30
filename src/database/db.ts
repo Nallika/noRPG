@@ -24,9 +24,9 @@ class Db {
   public init(): void {
     this.db = new Database(path.resolve(rootPath.path, 'src/database/database.db', ), { verbose: console.log });
 
-    // this.initTables();
-    // fillBaseTables();
-    // fillPlayers();
+    //  this.initTables();
+    //  fillBaseTables();
+    //  fillPlayers();
     // fillCharacters();
 
      listPlayers();

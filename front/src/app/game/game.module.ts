@@ -10,6 +10,8 @@ import { SharedModule } from "../shared/shared.module";
 import { AppearanceFormComponent } from './components/appearance-form/appearance-form.component';
 import { StatFormComponent } from './components/stat-form/stat-form.component';
 import { ItemsShopComponent } from './components/items-shop/items-shop.component';
+import { StatControllComponent } from './components/stat-controll/stat-controll.component';
+import { ItemComponent } from './components/item/item.component';
 
 /**
  * Gmae module. Here game components pages and forms
@@ -22,6 +24,8 @@ import { ItemsShopComponent } from './components/items-shop/items-shop.component
         AppearanceFormComponent,
         StatFormComponent,
         ItemsShopComponent,
+        StatControllComponent,
+        ItemComponent,
     ],
     imports: [
         CommonModule,

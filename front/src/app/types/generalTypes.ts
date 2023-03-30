@@ -2,7 +2,7 @@
 
 export type authType = 'register' | 'login';
 
-export type urlType = 'game' | 'login' | 'register' | 'ladder' | 'newChar';
+export type urlType = '' | 'game' | 'login' | 'register' | 'ladder' | 'game/charPreview';
 
 export type authData = {
   email: string;

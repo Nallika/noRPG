@@ -1,64 +1,94 @@
-<form [formGroup]="appearanceForm" class="item-wrap form">
-  <fieldset class="input-wrap">
-    <p class="input-label text">Char name:</p>
-    <input 
-      formControlName="name"
-      type="text"
-      class="field"
-      blackened
-    >
-    <ng-container *ngIf="!name.valid && (name.dirty ||name.touched)">
-      <div appErrorText [hidden]="!name.errors?.required" >Name is required</div>
-      <div appErrorText [hidden]="!name.errors?.maxlength" >Name too long</div>
-    </ng-container>
-  </fieldset>
-  <fieldset class="input-wrap">
-    <p class="input-label text">Race:</p>
-    <select 
-      formControlName="raceId"
-      type="number"
-      blackened
-      class="field"
-    >
-      <option *ngFor="let race of races" value={{race.id}}>{{race.title}}</option>
-    </select>
-  </fieldset>
-  <input
-    formControlName='height'
-    type="hidden"
-  >
-  <input
-    formControlName='weight'
-    type="hidden"
-  >
-</form>
-<div class="input-wrap">
-  <p class="input-label text">Height:</p>
-  <input
-    type="range"
-    [(ngModel)]="selectedHeight"
-    (change)="changeHandler($event, 'height')"
-    class="field slider"
-    min={{selectedRace.minHeight}}
-    max={{selectedRace.maxHeight}}
-  >
-  <div class="select-values">
-    <div class="select-value">{{selectedRace.minHeight}}</div>
-    <div class="selected-value">{{selectedHeight}}</div>
-    <div class="select-value">{{selectedRace.maxHeight}}</div>
+<div class="container">
+  <div class="content">
+    <form [formGroup]="appearanceForm" class="item-wrap form">
+      <fieldset class="input-wrap">
+        <p class="input-label">Char name:</p>
+        <input 
+          formControlName="name"
+          type="text"
+          class="field"
+          blackened
+        >
+        <ng-container *ngIf="!name.valid && (name.dirty ||name.touched)">
+          <div appErrorText [hidden]="!name.errors?.required" >Name is required</div>
+          <div appErrorText [hidden]="!name.errors?.maxlength" >Name too long</div>
+        </ng-container>
+      </fieldset>
+      <fieldset class="input-wrap">
+        <p class="input-label">Race:</p>
+        <select 
+          formControlName="raceId"
+          type="number"
+          blackened
+          class="field"
+        >
+          <option *ngFor="let race of races" value={{race.id}}>{{race.title}}</option>
+        </select>
+      </fieldset>
+      <input
+        formControlName='height'
+        type="hidden"
+      >
+      <input
+        formControlName='weight'
+        type="hidden"
+      >
+    </form>
+    <div class="input-wrap">
+      <p class="input-label">Height:</p>
+      <input
+        type="range"
+        [(ngModel)]="selectedHeight"
+        (change)="changeHandler($event, 'height')"
+        class="field slider"
+        min={{selectedRace.minHeight}}
+        max={{selectedRace.maxHeight}}
+      >
+      <div class="select-values">
+        <div class="select-value">{{selectedRace.minHeight}}</div>
+        <div class="selected-value">{{selectedHeight}}</div>
+        <div class="select-value">{{selectedRace.maxHeight}}</div>
+      </div>
+    </div>
+    <div class="input-wrap">
+      <p class="input-label">Weight:</p>
+      <input
+        type="range"
+        class="field slider"
+        [(ngModel)]="selectedWeight"
+        (change)="changeHandler($event, 'weight')"
+        min={{selectedRace.minWeight}}
+        max={{selectedRace.maxWeight}}
+      >
+      <div class="select-values">
+        <div class="select-value">{{selectedRace.minWeight}}</div>
+        <div class="selected-value">{{selectedWeight}}</div>
+        <div class="select-value">{{selectedRace.maxWeight}}</div>
+      </div>
+    </div>
   </div>
-  <p class="input-label text">Weight:</p>
-  <input
-    type="range"
-    class="field slider"
-    [(ngModel)]="selectedWeight"
-    (change)="changeHandler($event, 'weight')"
-    min={{selectedRace.minWeight}}
-    max={{selectedRace.maxWeight}}
-  >
-  <div class="select-values">
-    <div class="select-value">{{selectedRace.minWeight}}</div>
-    <div class="selected-value">{{selectedWeight}}</div>
-    <div class="select-value">{{selectedRace.maxWeight}}</div>
+  <div class="content">
+    <p class="text">
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    here description
+    </p>
   </div>
 </div>
+

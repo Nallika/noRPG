@@ -1,6 +1,17 @@
-<app-game-template>
-  <header><h1 class="title">Character preview</h1></header>
-  <content><p class="text">HERE STUFF</p></content>
-  <app-button [title]="'go to main page'" class="left-button"></app-button>
-  <app-button [title]="'go to ladder'" class="right-button"></app-button>
-</app-game-template>
+<ng-container *ngIf="loading$ | async; else elseBlock">
+  <app-loader></app-loader>
+</ng-container>
+<ng-template #elseBlock>
+  <app-game-template>
+    <header>
+      <p class="title">{{title}}</p>
+    </header>
+    <content>
+        Here Character info
+    </content>
+    <app-button [title]="'main page'" (click)="goTo('')" class="left-button"></app-button>
+    <app-button [title]="'ladder'" (click)="goTo('ladder')" class="right-button"></app-button>
+  </app-game-template>
+</ng-template>
+
+

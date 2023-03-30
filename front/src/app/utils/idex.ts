@@ -1,4 +1,4 @@
-import { charValues, race } from "../types/gameTypes";
+import { character, race } from "../types/gameTypes";
 
 /** Here pure functions for general use */
 
@@ -13,10 +13,13 @@ export const generateRandom = (min: number, max: number): number => {
 }
 
 /**
- * Generate default char values according to race
+ * Generate default character values according to race
  */
-export const generateCharValues = (race: race): charValues  => ({
+export const generateCharacter = (race: race): character  => ({
+  name: '',
   raceId: race.id,
+  weaponId: 1,
+  armorId: 1,
   height: (race.minHeight + race.maxHeight) / 2,
   weight: (race.minWeight + race.maxWeight) / 2,
   strength: race.initialStrength,

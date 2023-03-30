@@ -1,17 +1,47 @@
 
-body {
-  margin: 0;
-  padding: 0;
-}
-
 $primary-color: white;
 $selected-color: brown;
 $background-color: black;
 $unit: 8px; 
 
-// Global text style
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+// Base text style
 @mixin text {
   color: $primary-color;
+  font-family: system-ui;
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+// Titles of smth
+@mixin title {
+  @include text;
+  font-weight: bold;
+}
+
+// Small text for small blocks
+@mixin text-small {
+  @include text;
+  font-size: 0.8em;
+}
+
+// Small text for small blocks
+@mixin text-smallest {
+  @include text;
+  font-size: 0.6em;
+}
+
+// Page headers
+@mixin heading {
+  @include text;
+  font-family: fantasy;
+  font-size: 1.8em;
 }
 
 // Main border for outer blocks

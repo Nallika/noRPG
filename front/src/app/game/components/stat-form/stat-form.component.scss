@@ -1,18 +1,35 @@
 @use '../../../../styles' as styles;
 
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.content {
+  width: 50%;
+  padding: styles.spacing(1);
+}
+
 .text {
   @include styles.text;
+}
+
+.title {
+  @include styles.title;
+  padding-bottom: styles.spacing(1);
 }
 
 .free-points-wrap {
   display: flex;
   justify-content: space-between;
+  padding: styles.spacing(2, 0);
 }
 
 .poins {
   @include styles.border-1;
   text-align: center;
   width: styles.spacing(2.5);
+  height: styles.spacing(2.5);
 }
 
 .empty {
@@ -21,6 +38,6 @@
 
 .item-wrap {
   border: none;
-  padding: styles.spacing(0, 0, 1.5);
+  padding: styles.spacing(0, 0, 3);
   margin: 0;
 }

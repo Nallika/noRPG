@@ -7,7 +7,7 @@ import { BlackenedDirective } from './directives/blackened.directive';
 import { ErrorTextDirective } from './directives/error-text.directive';
 import { GameTemplateComponent } from './game-template/game-template.component';
 import { IndexTemplateComponent } from './index-template/index-template.component';
-import { StatControllComponent } from './stat-controll/stat-controll.component';
+import { LoaderComponent } from './loader/loader.component';
 
 /**
  * General use module, here store reused components
@@ -19,7 +19,7 @@ import { StatControllComponent } from './stat-controll/stat-controll.component';
     HeaderComponent,
     GameTemplateComponent,
     IndexTemplateComponent,
-    StatControllComponent,
+    LoaderComponent,
     BlackenedDirective,
     ErrorTextDirective,
   ],
@@ -32,7 +32,7 @@ import { StatControllComponent } from './stat-controll/stat-controll.component';
     HeaderComponent,
     GameTemplateComponent,
     IndexTemplateComponent,
-    StatControllComponent,
+    LoaderComponent,
     BlackenedDirective,
     ErrorTextDirective
   ]

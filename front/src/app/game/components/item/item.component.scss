@@ -1,0 +1,24 @@
+@use '../../../../styles' as styles;
+
+.text {
+  @include styles.text-smallest;
+}
+
+.container {
+  @include styles.border-1;
+  display: flex;
+  flex-direction: column;
+  margin: styles.spacing(0.5);
+  padding: styles.spacing(0.5);
+  width: styles.spacing(7);
+  height: styles.spacing(7);
+  cursor: pointer;
+}
+
+.selected {
+  border-color: styles.$selected-color;
+}
+
+.title {
+  @include styles.text-small;
+}

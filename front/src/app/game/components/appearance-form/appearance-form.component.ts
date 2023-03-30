@@ -5,7 +5,7 @@ import { take } from 'rxjs';
 
 import { appearanceForm, character, formEnum, race } from 'src/app/types/gameTypes';
 import { gameState } from 'src/app/types/storeTypes';
-import { generateCharValues } from 'src/app/utils/idex';
+import { generateCharacter } from 'src/app/utils/idex';
 import { saveChar } from 'src/app/store/actions/gameActions';
 
 /**
@@ -65,13 +65,13 @@ export class AppearanceFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Get races list from BE
-    this.store.select('game', 'gameData', 'data', 'races').pipe(
+    // Get races list from store
+    this.store.select('game', 'gameData', 'races').pipe(
       take(1)
     ).subscribe((data: race[]) => this.races = data);
 
     // Set intial character data to form
-    this.store.select('game', 'charData', 'character').pipe(
+    this.store.select('game', 'character').pipe(
       take(1)
     ).subscribe((characterData) => {
       this.setSelectedRace(characterData.raceId);
@@ -113,16 +113,10 @@ export class AppearanceFormComponent implements OnInit {
     // If race was changed we should reset all character stats and appearance
     if (isRaceChanged) {
       this.setSelectedRace(raceId);
-
-      charData = {
-        // save char name
-        ...formData,
-        // default stats and appearance values for selected race
-        ...generateCharValues(this.selectedRace)
-      };
+      const generatedCharacter = generateCharacter(this.selectedRace);
 
       // set generated values and skip save to store, because form change wil triggered one more time
-      this.setValues(charData);
+      this.setValues(generatedCharacter);
 
       return;
     }
