@@ -1,7 +1,7 @@
 import express from 'express';
 
-import { getItems } from '../components/character/itemsModel';
-import { getRaces } from '../components/character/racesModel';
+import { getItems } from '../components/game/itemsModel';
+import { getRaces } from '../components/game/racesModel';
 import { verifyToken } from './verifyTokenMiddleware';
 
 /**

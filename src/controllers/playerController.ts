@@ -1,11 +1,7 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import { addNewPlayer, loginPlayer, authPlayer } from '../components/player/playerModel';
-import { verifyToken } from './verifyTokenMiddleware';
 
-/**
- * 
- */
 export const register = [
   body('nickname').isString().not().isEmpty().trim().escape(),
   body('email').isString().not().isEmpty().trim().escape(),
@@ -22,7 +18,7 @@ export const register = [
     const { player, error } = await addNewPlayer(nickname, email, password);
 
     if (error) {
-      res.status(400).json(error);
+      res.status(400).json('Registration failed, check data');
       return;
     }
 
@@ -66,7 +62,7 @@ export const auth = [
     const { player, error } = authPlayer(token);
 
     if (error) {
-      res.status(403).json('Autentication error');
+      res.status(300).json('Autentication error');
       return;
     }
 

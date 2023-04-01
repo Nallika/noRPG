@@ -1,20 +1,42 @@
+import { race, armor, weapon } from "../game/types";
+
 export interface charInterace {
   name: string
-  weaponId: number
-  armorId: number
+  race: race
+  weapon: weapon
+  armor: armor
 
   appearance: appearanceType
   stats: statsType
   calculations: calculationsType
-  rating: number
+  rating: rating
 
-  validate: Function
+  getRating: Function
+  getOutput: Function
+  getCharCalculations: Function
+}
+
+export interface battleCharacterInterace {
+  damage: damage
+  hitPoints: number
+  hitChanse: number
+  dodgeChanse: number
+  mitigation: number
+  initiative: number
+
+  swing: Function
+  hurt: Function
+  isDead: Function
+}
+
+export type rating = {
+  resilience: number
+  power: number
 }
 
 export type appearanceType = {
   height: number
   weight: number
-  raceId: number
 }
 
 export type statsType = {
@@ -24,8 +46,7 @@ export type statsType = {
   speed: number
 }
 
-export type calculationsType = {
-  damage: damage
+export interface calculations {
   health: number
   hitChanse: number
   dodgeChanse: number
@@ -33,51 +54,8 @@ export type calculationsType = {
   initiative: number
 }
 
-export type race = {
-  id: number;
-  title: raceEnum;
-  minWeight: number;
-	maxWeight: number;
-	minHeight: number;
-	maxHeight: number;
-	initialStrength: number;
-	initialEndurance: number;
-	initialAgility: number;
-	initialspeed: number;
-}
-
-export enum raceEnum {
-  Human,
-  Elf,
-  Orc,
-  Dwarf
-}
-
-export type weapon = {
-  id: number;
-  title: weaponEnum;
-  description: string;
-  minDamage: number;
-  maxDamage: number;
-}
-
-export enum weaponEnum {
-  sword,
-  mace,
-  spear
-}
-
-export type armor = {
-  id: number;
-  title: armorEnum;
-  description: string;
-  armorValue: number;
-}
-
-export enum armorEnum {
-  light,
-  medium,
-  heavy,
+export interface calculationsType extends calculations {
+  damage: damage
 }
 
 export type damage = {
@@ -85,15 +63,38 @@ export type damage = {
   maxDamage: number
 }
 
+export interface battleCharInput extends calculationsType {
+  name: string
+}
+
+// Input params for create a new char
+export type charInput = {
+  name: string
+  race: race
+  weapon: weapon
+  armor: armor
+} & appearanceType & statsType;
+
 export type charData = {
   name: string
+  raceId: number
   weaponId: number
   armorId: number
-} & appearanceType & statsType
+} & appearanceType & statsType;
 
-export type fullCharData = charData & calculationsType & {rating: number};
+// Full char data for send to front
+export type charOutput = {
+  name: string
+  race: string
+  weapon: string
+  armor: string
+  damage: string
+} & appearanceType & statsType & calculations;
 
 export type addNewCharResult = {
-  character?: fullCharData
+  result?: {
+    character: charOutput
+    score: number
+  }
   error?: string
 }

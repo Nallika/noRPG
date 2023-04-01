@@ -1,7 +1,5 @@
 import Db from './db';
 import { addNewPlayer } from '../components/player/playerModel';
-import { addNewCharacter } from '../components/character/charModel';
-import { charData } from '../components/character/types';
 
 export const fillBaseTables = (): void  => {
   const weaponDescriptions = [
@@ -37,26 +35,24 @@ export const fillBaseTables = (): void  => {
   db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Heavy', 20, 0.3, armorDescriptions[3]);
   db.run(
     `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  , 'Human', 150, 210, 50, 200, 20, 30, 2, 1, 4, 3, raceDescription[0]
+  , 'Human', 160, 210, 50, 200, 20, 30, 2, 1, 4, 3, raceDescription[0]
   );
   db.run(
     `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  , 'Elf', 150, 250, 50, 200, 15, 25, 1, 2, 3, 4, raceDescription[1]
+  , 'Elf', 180, 250, 50, 200, 15, 25, 1, 2, 3, 4, raceDescription[1]
   );
   db.run(
     `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  , 'Orc', 150, 210, 50, 250, 20, 25, 4, 3, 1, 2, raceDescription[2]
+  , 'Orc', 140, 210, 50, 200, 20, 28, 4, 3, 1, 2, raceDescription[2]
   );
   db.run(
     `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  , 'Dwarf', 120, 175, 50, 200, 15, 40, 3, 4, 2, 1, raceDescription[3]
+  , 'Dwarf', 130, 180, 50, 180, 18, 35, 3, 4, 2, 1, raceDescription[3]
   );
 }
 
 export const fillPlayers = (): void  => {
-  addNewPlayer('joy1', 'ivan@test.com', '1111');
-  addNewPlayer('Petro', 'petro@test.com', '1111');
-  addNewPlayer('Inga', 'inga@test.com', '1111');
+  addNewPlayer('joy1', 'joy1@gmail.com', 'fuck111');
 }
 
 export const listPlayers = (): void  => {
@@ -64,59 +60,4 @@ export const listPlayers = (): void  => {
   const {result: players} = db.all('SELECT * FROM Players');
 
   console.log(players);
-}
-
-export const fillCharacters = (): void  => {
-
-  // addNewCharacter({
-  //   playerId: 1,
-  //   nickname: 'Ivan',
-  //   ...generateChar('killerJoe'),
-  // });
-  addNewCharacter(
-    generateChar('joker'),
-    {
-      id: 1,
-      nickname: 'Ivan',
-    }
-  );
-  // addNewCharacter({
-  //   playerId: 2,
-  //   nickname: 'Petro',
-  //   ...generateChar('SuperSatan'),
-  // });
-  // addNewCharacter({
-  //   playerId: 2,
-  //   nickname: 'Ivan',
-  //   ...generateChar('killa')
-  // });
-  // addNewCharacter({
-  //   playerId: 3,
-  //   nickname: 'Inga',
-  //   ...generateChar('Dolly'),
-  // });
-  // addNewCharacter({
-  //   playerId: 3,
-  //   nickname: 'Ivan',
-  //   ...generateChar('casper'),
-  // });
-}
-
-const generateChar = (name: string): charData => {
-  return {
-    name,
-    raceId: randomIntFromInterval(1, 4),
-    weaponId: randomIntFromInterval(1, 3),
-    armorId: randomIntFromInterval(1, 3),
-    height: randomIntFromInterval(150, 175),
-    weight: randomIntFromInterval(50, 200),
-    strength: randomIntFromInterval(3, 7),
-    agility: randomIntFromInterval(3, 7),
-    endurance: randomIntFromInterval(3, 7),
-    speed: randomIntFromInterval(3, 7),
-  }
-}
-
-function randomIntFromInterval(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1) + min)
 }

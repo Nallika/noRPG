@@ -2,13 +2,17 @@ import fs from 'node:fs';
 import Database from 'better-sqlite3';
 import rootPath from 'app-root-path';
 import path from 'node:path';
-import { fillBaseTables, fillCharacters, fillPlayers, listPlayers } from './utils';
+import { fillBaseTables, fillPlayers, listPlayers } from './utils';
+
 
 export const TYPES_MAP: {[key: string]: string | string[];} = {
   number: 'INTEGER',
   string: ['VARCHAR', 'TEXT']
 }
 
+/**
+ * Class for operate Database
+ */
 class Db {
   static instance: any;
   private db: any;
@@ -21,22 +25,30 @@ class Db {
     return Db.instance;
   }
 
+  /**
+   * Init db connection, optionally run init dabase and fill base tables
+   */
   public init(): void {
     this.db = new Database(path.resolve(rootPath.path, 'src/database/database.db', ), { verbose: console.log });
 
-    //  this.initTables();
-    //  fillBaseTables();
-    //  fillPlayers();
-    // fillCharacters();
+    // this.initTables();
+    // fillBaseTables();
+    // fillPlayers();
 
-     listPlayers();
+    listPlayers();
   }
 
+  /**
+   * Init database from schema
+   */
   private initTables(): void {
     const initSql = fs.readFileSync(path.resolve(rootPath.path, 'src/database/init.sql'), "utf-8");
     this.db.exec(initSql);
   }
 
+  /**
+   * Get Statement wish allows us run sql commands
+   */
   private getStatement(sqlComand: string): any {
     try {
       return this.db.prepare(sqlComand);
@@ -46,6 +58,10 @@ class Db {
     }
   }
 
+  /**
+   * Run single comand, without result, it may be insert data or update table.
+   * Returns changes count, id of changes or error
+   */
   public run(sqlComand: string, ...data: any): {changes: number, lastInsertRowid: number, error: boolean } {
     const statement = this.getStatement(sqlComand);
     const errorResult = {
@@ -69,6 +85,9 @@ class Db {
     }
   }
 
+  /**
+   * Get single recod from db.
+   */
   public get(sqlComand: string, ...data: any): {result: {[key: string]: string | number;}, error: boolean } {
     const statement = this.getStatement(sqlComand);
     const errorResult = {
@@ -91,6 +110,9 @@ class Db {
     }
   }
 
+  /**
+   * Run command that return list of records
+   */
   public all(sqlComand: string, ...data: any): {result: {[key: string]: string | number;}, error: boolean } {
     const statement = this.getStatement(sqlComand);
     const errorResult = {

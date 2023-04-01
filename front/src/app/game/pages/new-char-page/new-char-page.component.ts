@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, take } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 import { gameState } from 'src/app/types/storeTypes';
-import { getGameData } from 'src/app/store/actions/gameActions';
+import { getGameData, resetPoints } from 'src/app/store/actions/gameActions';
 import { submitChar, generateChar } from 'src/app/store/actions/gameActions';
 
 /**
@@ -17,7 +17,7 @@ import { submitChar, generateChar } from 'src/app/store/actions/gameActions';
   templateUrl: './new-char-page.component.html',
   styleUrls: ['./new-char-page.component.scss']
 })
-export class NewCharPageComponent implements OnInit {
+export class NewCharPageComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   error$: Observable<string>;
   
@@ -38,6 +38,10 @@ export class NewCharPageComponent implements OnInit {
       take(2),
       filter((val) => !val)
     ).subscribe(() => this.store.dispatch(generateChar()));
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(resetPoints());
   }
 
   /**

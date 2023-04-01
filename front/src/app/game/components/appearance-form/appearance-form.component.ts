@@ -90,7 +90,8 @@ export class AppearanceFormComponent implements OnInit {
     this.selectedWeight = values.weight;
 
     this.appearanceForm.setValue({
-      name: values.name,
+      // Name must be changed only by player input
+      name: this.name.value,
       raceId: values.raceId,
       height: values.height,
       weight: values.weight,

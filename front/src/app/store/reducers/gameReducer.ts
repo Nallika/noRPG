@@ -3,15 +3,16 @@ import { createReducer, on } from "@ngrx/store";
 import * as gameActions from '../actions/gameActions';
 import { gameState } from "../../types/storeTypes";
 import { generateRandom, generateCharacter } from "src/app/utils/idex";
-import { character, formEnum, characterCalculations, race, statsForm, gameData } from "src/app/types/gameTypes";
+import { character, formEnum, fullCharacter, race, statsForm, gameData } from "src/app/types/gameTypes";
 
 const initialState: gameState = {
   loading: false,
   error: '',
   gameData: {} as gameData,
   character: {} as character,
-  characterCalculations: {} as characterCalculations,
+  resultCharacter: {} as fullCharacter,
   freeStatPoints: 20,
+  score: 0,
 };
 
 /**
@@ -106,11 +107,16 @@ export const gameReducer = createReducer(
   }),
   on(gameActions.submitChar, (state: gameState) => ({
     ...state,
+    freeStatPoints: initialState.freeStatPoints,
+  })),
+  on(gameActions.resetPoints, (state: gameState) => ({
+    ...state,
     loading: true,
   })),
   on(gameActions.submitCharSuccess, (state: gameState, action) => ({
     ...state,
     loading: false,
-    characterCalculations: action.data
+    resultCharacter: action.data.character,
+    score: action.data.score
   })),
 )

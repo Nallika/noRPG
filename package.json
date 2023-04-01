@@ -4,6 +4,7 @@
   "description": "Casual game",
   "main": "dist/app.js",
   "scripts": {
+    "tstart": "ts-node src/app.ts",
     "start": "node dist/app.js",
     "build": "npx tsc"
   },
@@ -20,7 +21,8 @@
     "helmet": "^6.0.1",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",

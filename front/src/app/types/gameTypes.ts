@@ -23,8 +23,16 @@ export interface characterCalculations {
   hitChanse: number,
   initiative: number,
   mitigation: number
-  score: number,
 }
+
+export type fullCharacter = {
+  name: string;
+  weapon: string;
+  armor: string;
+  race: string;
+  height: number,
+  weight: number
+} & characterCalculations;
 
 export type race = {
   id: number,

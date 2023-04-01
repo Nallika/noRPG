@@ -7,7 +7,26 @@
       <p class="title">{{title}}</p>
     </header>
     <content>
-        Here Character info
+      <div class="container">
+        <div class="char-info">
+          <div class="block">
+            <div class="stats">
+              <ng-container *ngFor=" let field of fieldsList">
+                <div class="stat-wrap">
+                  <div class="stat-title">{{field}}</div>
+                  <div class="stat-value">{{characterData[field]}}</div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="block">
+            <img class="image"/>
+          </div>
+        </div>
+        <div class="score-info">
+          <span class="stat-value">Your score: </span><span class="stat-title">{{score}}</span>
+        </div>
+      </div>
     </content>
     <app-button [title]="'main page'" (click)="goTo('')" class="left-button"></app-button>
     <app-button [title]="'ladder'" (click)="goTo('ladder')" class="right-button"></app-button>

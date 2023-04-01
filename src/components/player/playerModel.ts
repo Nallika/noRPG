@@ -1,53 +1,64 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import Db from "../../database/db";
+import Db from '../../database/db';
 import { player } from './types';
 
+/**
+ * Inser player in db
+ */
 export const addNewPlayer = async (nickname: string, email: string, password: string): Promise<{ player: player | null; error: boolean; }> => {
 
   const encryptedPassword = await bcrypt.hash(password, 10);
 
   const db = Db.getInstance();
-  const { changes, lastInsertRowid, error } = db.run(
+  const { lastInsertRowid, error } = db.run(
     'INSERT INTO Players (nick, email, password) VALUES (?, ?, ?)',
     nickname,
     email.toLowerCase(),
     encryptedPassword,
   );
 
-  if (changes && lastInsertRowid) {
-    const { token } = saveToken(lastInsertRowid, nickname);
-
+  if (error) {
     return {
-      player: {
-        nickname,
-        token
-      },
-      error: false
+      player: null,
+      error
     }
   }
 
+  const { token } = saveToken(lastInsertRowid, nickname);
+
   return {
-    player: null,
-    error
+    player: {
+      nickname,
+      token
+    },
+    error: false
   }
 }
 
-export const loginPlayer = async (email: string, password: string): Promise<{ player: player; error: boolean }> => {
+/**
+ * Login player with provided credentials, return player nick and token, or error
+ */
+export const loginPlayer = async (email: string, password: string): Promise<{ player: player; error: string }> => {
 
   const db = Db.getInstance();
-
   const { result, error } = db.get('SELECT id, password, nick FROM Players WHERE email = ?', email);
 
-  const hashPassword = result?.password as string;
-
-  const isPassRight = bcrypt.compare(password, hashPassword);
-
-  if (!result || error || !isPassRight) {
+  if (!result) {
     return {
       player: {nickname: '', token: ''},
-      error: true
+      error: 'Player not found'
+    } 
+  }
+
+  const hashPassword = result?.password as string;
+  const isPassRight = bcrypt.compare(password, hashPassword);
+
+  if (error || !isPassRight) {
+    return {
+      player: {nickname: '', token: ''},
+      error: 'Email and pass didn\'t match, check data'
     } 
   }
 
@@ -56,17 +67,20 @@ export const loginPlayer = async (email: string, password: string): Promise<{ pl
 
   return {
     player: {nickname, token},
-    error: false
+    error: ''
   }
 }
 
+/**
+ * Autenticate player by provided token, return  player nick and new generated token, or error
+ */
 export const authPlayer = (token: string): { player: player; error: boolean } => {
   try {
     const { nickname, id } = jwt.verify(token, process.env.TOKEN_KEY as string) as { nickname: string, id: number};
     const { token: newToken, error } = saveToken(id, nickname);
 
     if (error) {
-      throw new Error("Save token error");
+      throw new Error('Save token error');
     }
 
     return {
@@ -83,6 +97,9 @@ export const authPlayer = (token: string): { player: player; error: boolean } =>
   }
 }
 
+/**
+ * Save token to player table
+ */
 const saveToken =  (id: number, nickname: string): {token: string, error: boolean} => {
   const token = jwt.sign({ id, nickname }, process.env.TOKEN_KEY as string);
 

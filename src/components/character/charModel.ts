@@ -1,14 +1,18 @@
 import Db from '../../database/db';
 import { addToLadder } from '../ladder/ladderModel';
-import Character from './Character';
-import { addNewCharResult, charData } from './types'
+import { addNewCharResult, charData } from './types';
+import { scoreCalculator } from '../scoreCalculator/scoreCalculator';
+import { validateCharacterData } from './characterValidator';
+import { getRaces } from '../game/racesModel';
+import { race } from '../game/types';
+import { characterInitializer } from './characterInitializer';
 
-export const addNewCharacter = (character: charData, player: {id: number, nickname: string}): addNewCharResult => {
+export const addNewCharacter = (charData: charData, player: {id: number, nickname: string}): addNewCharResult => {
 
-  const { id: playerId, nickname } = player;
-  const { name } = character;
-  const char = new Character(character);
-  const {isValid, error: validationError} = char.validate();
+  const { races } = getRaces();
+  const race = races.find(({id}) => id === charData.raceId) as race;
+
+  const { isValid, error: validationError } = validateCharacterData(charData, race);
 
   if (!isValid) {
     return {
@@ -16,7 +20,12 @@ export const addNewCharacter = (character: charData, player: {id: number, nickna
     }
   }
 
+  const { id: playerId, nickname } = player;
+
+  const char = characterInitializer(charData);
+
   const {
+    name,
     raceId,
     weaponId,
     armorId,
@@ -26,12 +35,7 @@ export const addNewCharacter = (character: charData, player: {id: number, nickna
     agility,
     endurance,
     speed,
-    health,
-    mitigation,
-    hitChanse,
-    dodgeChanse,
-    damage: {minDamage, maxDamage}
-  } = char.getCharData();
+  } = charData;
 
   let errorMessage = '';
   let charId = 0;
@@ -40,30 +44,9 @@ export const addNewCharacter = (character: charData, player: {id: number, nickna
     const db = Db.getInstance();
 
     const { changes: characterChanges, lastInsertRowid: characterId } = db.run(
-      'INSERT INTO Characters (playerId, name) VALUES (?, ?)',
-      playerId, name
-    );
-  
-    if (!characterId || !characterChanges) {
-      errorMessage = 'Char insert error';
-    }
-
-    charId = characterId;
-  
-    const { changes: statChanges, error: statError } = db.run(
-      `INSERT INTO CharacterStats (
-        characterId,
-        raceId,
-        weaponId,
-        armorId,
-        height,
-        weight,
-        strength,
-        agility,
-        endurance,
-        speed)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        characterId,
+      `INSERT INTO Characters (
+        playerId,
+        name,
         raceId,
         weaponId,
         armorId,
@@ -73,34 +56,26 @@ export const addNewCharacter = (character: charData, player: {id: number, nickna
         agility,
         endurance,
         speed
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      playerId,
+      name,
+      raceId,
+      weaponId,
+      armorId,
+      height,
+      weight,
+      strength,
+      agility,
+      endurance,
+      speed,
     );
   
-    if (!statChanges) {
-      errorMessage = `Char stat insert error ${statError}`;
+    if (!characterChanges) {
+      errorMessage = 'Char insert error';
     }
-  
-    const { changes: calcChanegs, error: calcError } = db.run(
-      `INSERT INTO CharacterCalculations 
-       (characterId,
-        health,
-        hitChanse,
-        dodgeChanse,
-        minDamage,
-        maxDamage,
-        mitigation)
-      VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        characterId,
-        health,
-        mitigation,
-        hitChanse,
-        dodgeChanse,
-        minDamage,
-        maxDamage,
-    );
 
-    if (!calcChanegs) {
-      errorMessage = `Char calcs insert error ${calcError}`;
-    }
+    charId = characterId;
+  
   } catch (error) {
       console.error(`Error when add character ${error}`);
       if (charId) {
@@ -118,18 +93,21 @@ export const addNewCharacter = (character: charData, player: {id: number, nickna
     }
   }
 
-  const rating = char.rating;
+  const score = scoreCalculator(char);
 
   addToLadder({
     nickname,
     name,
     raceId,
-    score: rating,
+    score,
     characterId: charId
   });
 
   return {
-    character: char.getCharData(),
+    result: {
+      character: char.getOutput(),
+      score
+    }
   }
 }
 
@@ -137,9 +115,8 @@ const deleteCharacter = (charId: number): void => {
   try {
     const db = Db.getInstance();
 
-    const { changes: calculationsChanges } = db.run(`DELETE FROM CharacterCalculations WHERE characterId = ${charId}`);
-    const { changes: statsChanges } = db.run(`DELETE FROM CharacterStats WHERE characterId = ${charId}`);
-    const { changes: characterChanges } = db.run(`DELETE FROM Characters WHERE id = ${charId}`);
+    db.run(`DELETE FROM CharacterStats WHERE characterId = ${charId}`);
+    db.run(`DELETE FROM Characters WHERE id = ${charId}`);
   } catch (error) {
     console.error(`Error when delete character ${error}`);
   }

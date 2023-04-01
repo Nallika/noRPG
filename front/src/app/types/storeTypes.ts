@@ -1,6 +1,6 @@
 /** Here types for NGRX store */
 
-import { character, characterCalculations } from "./gameTypes"
+import { character, fullCharacter } from "./gameTypes"
 import { gameData } from "./gameTypes"
 
 export interface gameState {
@@ -8,6 +8,7 @@ export interface gameState {
   error: string,
   gameData: gameData,
   character: character,
-  characterCalculations: characterCalculations,
+  resultCharacter: fullCharacter,
   freeStatPoints: number,
+  score: number,
 }
