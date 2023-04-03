@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Weapons (
 	description VARCHAR(40),
 	minDamage INTEGER,
 	maxDamage INTEGER,
-	hitMultiplier INTEGER
+	baseHit INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Armor (
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Armor (
 	title VARCHAR(40) UNIQUE,
 	description VARCHAR(40),
 	armorValue INTEGER,
-	dodgePenalty INTEGER
+	baseDodge INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS Characters (
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS Characters (
 	weight INTEGER,
 	height INTEGER,
 	strength INTEGER,
-	endurance INTEGER,
+	stamina INTEGER,
 	agility INTEGER,
 	speed INTEGER,
 

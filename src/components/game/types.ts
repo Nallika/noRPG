@@ -21,7 +21,7 @@ export type weapon = {
   description: string
   minDamage: number
   maxDamage: number
-  hitMultiplier: number
+  baseHit: number
 }
 
 export type weaponTitle = 'Sword' | 'Mace' | 'Unarmed' | 'Spear';
@@ -31,7 +31,7 @@ export type armor = {
   title: armorTitle
   description: string
   armorValue: number
-  dodgePenalty: number
+  baseDodge: number
 }
 
 export type armorTitle = 'No armor' | 'Light armor' | 'Medium armor' | 'Heavy armor';

@@ -20,12 +20,12 @@
         ></app-stat-controll>
       </fieldset>
       <fieldset class="item-wrap">
-        <input formControlName="endurance" type="nummber" hidden>
+        <input formControlName="stamina" type="nummber" hidden>
         <app-stat-controll
-          [value]="endurance.value"
-          [label]="'Endurance:'"
+          [value]="stamina.value"
+          [label]="'Stamina:'"
           [increasDisabled]="isIncreaseDisabled() | async"
-          (changeValueEvent)="changeHandler($event, 'endurance')"
+          (changeValueEvent)="changeHandler($event, 'stamina')"
         ></app-stat-controll>
       </fieldset>
       <fieldset class="item-wrap">

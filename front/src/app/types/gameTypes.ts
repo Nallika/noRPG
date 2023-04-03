@@ -6,7 +6,7 @@ export interface character {
   weight: number,
   strength: number,
   agility: number,
-  endurance: number,
+  stamina: number,
   speed: number,
   name: string,
   armorId: number,
@@ -92,7 +92,7 @@ export type appearanceForm = {
 export type statsForm = {
   strength: number,
   agility: number,
-  endurance: number,
+  stamina: number,
   speed: number,
 }
 

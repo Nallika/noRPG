@@ -1,10 +1,11 @@
 import { appearanceType, calculationsType, charInterace, statsType, charInput, damage, rating, charOutput, calculations } from "./types";
 import { race, armor, weapon } from "../game/types";
 
-const DAMAGE_COEFICIENT = 3;
+const MIN_DAMAGE_COEFICIENT = 2;
+const MAX_DAMAGE_COEFICIENT = 3;
 
-const HIT_COEFICIENT = 5;
-const DODGE_COEFICIENT = 5;
+const HIT_COEFICIENT = 2;
+const DODGE_COEFICIENT = 1.5;
 const MITIGATION_COEFICIENT = 2;
 const INITIATIVE_COEFICIENT = 2;
 
@@ -31,7 +32,7 @@ export default class Character implements charInterace {
       weight,
       strength,
       agility,
-      endurance,
+      stamina,
       speed,
     } = input;
 
@@ -40,7 +41,7 @@ export default class Character implements charInterace {
     this.armor = armor;
     this.weapon = weapon;
     this.appearance = {height, weight};
-    this.stats = {strength, agility, endurance, speed};
+    this.stats = {strength, agility, stamina, speed};
     this.calculations = this.calculateSecodaryStats();
     this.rating = this.calculateRating();
   }
@@ -57,7 +58,7 @@ export default class Character implements charInterace {
       weight: this.appearance.weight,
       strength: this.stats.strength,
       agility: this.stats.agility,
-      endurance: this.stats.endurance,
+      stamina: this.stats.stamina,
       speed: this.stats.speed,
       health: this.calculations.health,
       hitChanse: this.calculations.hitChanse,
@@ -101,8 +102,8 @@ export default class Character implements charInterace {
     } = this.calculations;
 
     return {
-      resilience: (health + mitigation) * dodgeChanse,
-      power: (((minDamage + maxDamage)/ 2) * hitChanse) * initiative
+      resilience: (health + mitigation) * (dodgeChanse / 100),
+      power: (((minDamage + maxDamage)/ 2) * (hitChanse / 100)) * initiative
     }
   }
   
@@ -121,35 +122,40 @@ export default class Character implements charInterace {
       health = (weight*1.5);
     }
 
-    return Number(health.toFixed(1));
+    return this.shortenValue(health);
   }
 
   private calculateInitiative = () : number => {
-    const coef = ((this.stats.endurance + this.stats.speed) / 2) * INITIATIVE_COEFICIENT;
-    const value = (coef / this.appearance.weight) * coef;
+    const value = (this.stats.stamina + this.stats.speed) / INITIATIVE_COEFICIENT;
 
-    return Number(value.toFixed(1));
+    return this.shortenValue(value);
   }
   
   private calculateHitChance = () : number => {
-    return (this.stats.agility * HIT_COEFICIENT) * this.weapon.hitMultiplier;
+    const value = this.weapon.baseHit + (this.stats.agility * HIT_COEFICIENT);
+
+    return this.shortenValue(value);
   }
   
   private calculateDamage = () : damage => {
+    const minDamage = this.weapon.minDamage + this.stats.strength * MIN_DAMAGE_COEFICIENT;
+    const maxDamage = this.weapon.minDamage + this.stats.strength * MAX_DAMAGE_COEFICIENT;
+
     return {
-      minDamage: this.weapon.minDamage + this.stats.strength / DAMAGE_COEFICIENT,
-      maxDamage: this.weapon.minDamage + this.stats.strength * DAMAGE_COEFICIENT,
+      minDamage:  this.shortenValue(minDamage),
+      maxDamage:  this.shortenValue(maxDamage),
     };
   }
   
   private calculateDodgeChance = () : number => {
-    const coef = ((this.stats.agility + this.stats.speed) / 2) * DODGE_COEFICIENT;
-    const value = ((coef / this.appearance.height) * coef) * this.armor.dodgePenalty;
+    const value = this.armor.baseDodge + (this.stats.agility + this.stats.speed) / DODGE_COEFICIENT;
 
-    return Number(value.toFixed(1));
+    return this.shortenValue(value);
   }
   
   private calculateMitigation = () : number => {
-    return this.armor.armorValue + this.stats.endurance / MITIGATION_COEFICIENT;
-  }  
+    return this.shortenValue(this.armor.armorValue + this.stats.stamina / MITIGATION_COEFICIENT);
+  }
+
+  private shortenValue = (value: number): number => Number(value.toFixed(1));
 }

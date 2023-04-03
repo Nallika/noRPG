@@ -31,8 +31,8 @@ const recalculateCharStats = (
   incomimgStatData: statsForm,
   freeStatPoints: number
   ): {newCharData: character, freeStatPoints: number } => {
-    const {strength, agility, endurance, speed} = currentCharData;
-    const currentStatSumm = Object.values({strength, agility, endurance, speed}).reduce((acc, val) => acc + val);
+    const {strength, agility, stamina, speed} = currentCharData;
+    const currentStatSumm = Object.values({strength, agility, stamina, speed}).reduce((acc, val) => acc + val);
     const incomeStatSumm = Object.values(incomimgStatData).reduce((acc, val) => acc + val);
 
     const isIncrease = incomeStatSumm > currentStatSumm;

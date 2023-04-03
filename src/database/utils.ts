@@ -24,15 +24,15 @@ export const fillBaseTables = (): void  => {
   ];
 
   const db = Db.getInstance();
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Unarmed', 1, 2, 1.5, weaponDescriptions[0]);
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Sword', 1, 5, 1.1, weaponDescriptions[1]);
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Mace', 3, 5, 0.8, weaponDescriptions[2]);
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, hitMultiplier, description) VALUES (?, ?, ?, ?, ?)', 'Spear', 2, 4, 1, weaponDescriptions[3]);
+  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, baseHit, description) VALUES (?, ?, ?, ?, ?)', 'Unarmed', 1, 2, 60, weaponDescriptions[0]);
+  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, baseHit, description) VALUES (?, ?, ?, ?, ?)', 'Sword', 1, 5, 50, weaponDescriptions[1]);
+  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, baseHit, description) VALUES (?, ?, ?, ?, ?)', 'Mace', 3, 5, 40, weaponDescriptions[2]);
+  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, baseHit, description) VALUES (?, ?, ?, ?, ?)', 'Spear', 2, 4, 45, weaponDescriptions[3]);
   
-  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'No armor', 0, 1.2, armorDescriptions[0]);
-  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Light', 5, 0.8, armorDescriptions[1]);
-  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Medium', 10, 0.6, armorDescriptions[2]);
-  db.run('INSERT INTO Armor (title, armorValue, dodgePenalty, description) VALUES (?, ?, ?, ?)', 'Heavy', 20, 0.3, armorDescriptions[3]);
+  db.run('INSERT INTO Armor (title, armorValue, baseDodge, description) VALUES (?, ?, ?, ?)', 'No armor', 0, 30, armorDescriptions[0]);
+  db.run('INSERT INTO Armor (title, armorValue, baseDodge, description) VALUES (?, ?, ?, ?)', 'Light', 5, 20, armorDescriptions[1]);
+  db.run('INSERT INTO Armor (title, armorValue, baseDodge, description) VALUES (?, ?, ?, ?)', 'Medium', 10, 10, armorDescriptions[2]);
+  db.run('INSERT INTO Armor (title, armorValue, baseDodge, description) VALUES (?, ?, ?, ?)', 'Heavy', 20, 5, armorDescriptions[3]);
   db.run(
     `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   , 'Human', 160, 210, 50, 200, 20, 30, 2, 1, 4, 3, raceDescription[0]

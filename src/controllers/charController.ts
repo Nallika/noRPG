@@ -18,7 +18,7 @@ export const addNewChar = [
   body('weight').isNumeric(),
   body('strength').isNumeric(),
   body('agility').isNumeric(),
-  body('endurance').isNumeric(),
+  body('stamina').isNumeric(),
   body('speed').isNumeric(),
 
   async (req:express.Request, res:express.Response) => {

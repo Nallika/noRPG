@@ -33,7 +33,7 @@ export const addNewCharacter = (charData: charData, player: {id: number, nicknam
     weight,
     strength,
     agility,
-    endurance,
+    stamina,
     speed,
   } = charData;
 
@@ -54,7 +54,7 @@ export const addNewCharacter = (charData: charData, player: {id: number, nicknam
         weight,
         strength,
         agility,
-        endurance,
+        stamina,
         speed
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       playerId,
@@ -66,7 +66,7 @@ export const addNewCharacter = (charData: charData, player: {id: number, nicknam
       weight,
       strength,
       agility,
-      endurance,
+      stamina,
       speed,
     );
   

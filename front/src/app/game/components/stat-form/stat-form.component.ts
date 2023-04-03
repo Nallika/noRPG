@@ -9,7 +9,7 @@ import { gameState } from 'src/app/types/storeTypes';
 
 /**
  * Character stats form component.
- * Stats form have 4 stat: strength, agility, endurance, speed.
+ * Stats form have 4 stat: strength, agility, stamina, speed.
  * Character can increase stats values with free stat poins. 20 points to use.
  */
 @Component({
@@ -28,7 +28,7 @@ export class StatFormComponent implements OnInit {
     this.statForm = fb.group({
       'strength': [''],
       'agility': [''],
-      'endurance': [''],
+      'stamina': [''],
       'speed': [''],
     });
   }
@@ -41,8 +41,8 @@ export class StatFormComponent implements OnInit {
     return this.statForm.get('agility') as FormControl;
   }
 
-  get endurance(): FormControl {
-    return this.statForm.get('endurance') as FormControl;
+  get stamina(): FormControl {
+    return this.statForm.get('stamina') as FormControl;
   }
 
   get speed(): FormControl {
@@ -72,7 +72,7 @@ export class StatFormComponent implements OnInit {
     this.statForm.setValue({
       strength: values.strength,
       agility: values.agility,
-      endurance: values.endurance,
+      stamina: values.stamina,
       speed: values.speed,
     });
   }

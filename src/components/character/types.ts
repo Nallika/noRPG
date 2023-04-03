@@ -42,7 +42,7 @@ export type appearanceType = {
 export type statsType = {
   strength: number
   agility: number
-  endurance: number
+  stamina: number
   speed: number
 }
 
