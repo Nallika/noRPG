@@ -8,6 +8,7 @@ import { ErrorTextDirective } from './directives/error-text.directive';
 import { GameTemplateComponent } from './game-template/game-template.component';
 import { IndexTemplateComponent } from './index-template/index-template.component';
 import { LoaderComponent } from './loader/loader.component';
+import { EnterTheViewportDirective } from './directives/enter-the-viewport.directive';
 
 /**
  * General use module, here store reused components
@@ -22,6 +23,7 @@ import { LoaderComponent } from './loader/loader.component';
     LoaderComponent,
     BlackenedDirective,
     ErrorTextDirective,
+    EnterTheViewportDirective,
   ],
   imports: [
     CommonModule
@@ -34,7 +36,8 @@ import { LoaderComponent } from './loader/loader.component';
     IndexTemplateComponent,
     LoaderComponent,
     BlackenedDirective,
-    ErrorTextDirective
+    ErrorTextDirective,
+    EnterTheViewportDirective,
   ]
 })
 export class SharedModule { }

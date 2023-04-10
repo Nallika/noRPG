@@ -23,9 +23,9 @@
 }
 
 .header {
-  height: styles.spacing(6);
+  height: styles.spacing(5.5);
 }
 
 .content {
-  height: 100%;
+  height: calc(100% - styles.spacing(5.5));
 }

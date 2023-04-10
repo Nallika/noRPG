@@ -11,6 +11,7 @@ const INITIATIVE_COEFICIENT = 2;
 
 const MIN_BMI_COEFICIENT = 3;
 const MAX_BMI_COEFICIENT = 2;
+export const DODGE_RESILENCE_COEFICIENT = 150;
 
 export default class Character implements charInterace {
   name: string;
@@ -102,8 +103,8 @@ export default class Character implements charInterace {
     } = this.calculations;
 
     return {
-      resilience: (health + mitigation) * (dodgeChanse / 100),
-      power: (((minDamage + maxDamage)/ 2) * (hitChanse / 100)) * initiative
+      resilience: Math.floor((health + mitigation) + (DODGE_RESILENCE_COEFICIENT * (dodgeChanse / 100))),
+      power: Math.floor((((minDamage + maxDamage) / 2) * (hitChanse / 100)) * initiative)
     }
   }
   
@@ -122,19 +123,19 @@ export default class Character implements charInterace {
       health = (weight*1.5);
     }
 
-    return this.shortenValue(health);
+    return Math.floor(health);
   }
 
   private calculateInitiative = () : number => {
     const value = (this.stats.stamina + this.stats.speed) / INITIATIVE_COEFICIENT;
 
-    return this.shortenValue(value);
+    return Math.floor(value);
   }
   
   private calculateHitChance = () : number => {
     const value = this.weapon.baseHit + (this.stats.agility * HIT_COEFICIENT);
 
-    return this.shortenValue(value);
+    return Math.floor(value);
   }
   
   private calculateDamage = () : damage => {
@@ -142,20 +143,18 @@ export default class Character implements charInterace {
     const maxDamage = this.weapon.minDamage + this.stats.strength * MAX_DAMAGE_COEFICIENT;
 
     return {
-      minDamage:  this.shortenValue(minDamage),
-      maxDamage:  this.shortenValue(maxDamage),
+      minDamage:  Math.floor(minDamage),
+      maxDamage:  Math.floor(maxDamage),
     };
   }
   
   private calculateDodgeChance = () : number => {
     const value = this.armor.baseDodge + (this.stats.agility + this.stats.speed) / DODGE_COEFICIENT;
 
-    return this.shortenValue(value);
+    return Math.floor(value);
   }
   
   private calculateMitigation = () : number => {
-    return this.shortenValue(this.armor.armorValue + this.stats.stamina / MITIGATION_COEFICIENT);
+    return Math.floor(this.armor.armorValue + this.stats.stamina / MITIGATION_COEFICIENT);
   }
-
-  private shortenValue = (value: number): number => Number(value.toFixed(1));
 }

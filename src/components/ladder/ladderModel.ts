@@ -1,13 +1,27 @@
 import Db from "../../database/db";
 import { ladderChar } from "./types";
 
-export const getLadder = (): { result: any | null; error: boolean } => {
+const LIMIT = 20;
+
+export const getLadder = (page: number): { ladder: ladderChar[], isFull: boolean, error: boolean } => {
 
   const db = Db.getInstance();
-  const { result, error } = db.all('SELECT playerNick, name, score FROM Ladder ORDER BY score DESC');
+  const ofset = (page - 1) *  LIMIT;
 
+  const { result: {count} } = db.get(`SELECT count(*) as count FROM Ladder`);
+
+  console.log('LADDER count ', count);
+
+  const isFull = ofset + LIMIT >= count;
+
+  const { result: ladder, error } = 
+    db.all(
+      `SELECT playerNick, name, raceId, score FROM Ladder ORDER BY score DESC LIMIT ${LIMIT} OFFSET ${ofset}`
+    ) as unknown as {result: ladderChar[], error: boolean};;
+    
   return {
-    result,
+    ladder,
+    isFull,
     error
   }
 }
@@ -22,6 +36,7 @@ export const addToLadder = (char: ladderChar & {characterId: number}): boolean =
   } = char;
 
   const db = Db.getInstance();
+
   const { changes } = db.run(
     'INSERT INTO Ladder (characterId, name, playerNick, raceId, score) VALUES (?, ?, ?, ?, ?)', characterId, name, nickname, raceId, score
   );

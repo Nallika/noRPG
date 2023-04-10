@@ -1,0 +1,38 @@
+<ng-container *ngIf="((loading$ | async) && !ladder.length); else elseBlock">
+  <app-loader></app-loader>
+</ng-container>
+<ng-template #elseBlock>
+  <div class="container">
+    <header>
+      <p class="title">Ladder</p>
+    </header>
+    <content>
+      <table #table>
+        <thead>
+          <tr class="table-header">
+            <th class="index">#</th>
+            <th class="char">Char name</th>
+            <th class="score">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row" *ngFor="let ladderChar of ladder; let i=index; trackBy: trackByFn;">
+            <td class="index">
+              {{i + 1}}
+            </td>
+            <td class="char">
+              <p [ngClass]="'char-name race-'+ladderChar.raceId" >{{ladderChar.name}}</p>
+              <span class="player-name">by: {{ladderChar.playerNick}}</span>
+            </td>
+            <td class="score">
+              {{ladderChar.score | number: '1.0-0'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!(isFull$ | async)" appEnterTheViewport (visibilityChange)="handleLoadMore($event)" class="loader">
+        <app-loader></app-loader>
+      </div>
+    </content>
+  </div>
+</ng-template>

@@ -46,6 +46,18 @@ export type statsType = {
   speed: number
 }
 
+export interface resilensCalculations {
+  health: number
+  dodgeChanse: number
+  mitigation: number
+}
+
+export interface powerCalculations {
+  damage: damage,
+  hitChanse: number
+  initiative: number
+}
+
 export interface calculations {
   health: number
   hitChanse: number
@@ -54,9 +66,7 @@ export interface calculations {
   initiative: number
 }
 
-export interface calculationsType extends calculations {
-  damage: damage
-}
+export type calculationsType = resilensCalculations & powerCalculations;
 
 export type damage = {
   minDamage: number

@@ -4,14 +4,13 @@ import { rating } from "../character/types";
 import { generateOponentByRating } from "./generators";
 
 const LIMIT = 20;
-const PACE = 10;
 
 export const scoreCalculator = (char: Character): number => {
   const rating = char.getRating();
 
   runEncounter(char, rating);
 
-  return rating.power + rating.resilience;
+  return Math.floor(rating.power + rating.resilience);
 }
 
 const runEncounter = (char: Character, rating: rating) => {
@@ -20,16 +19,22 @@ const runEncounter = (char: Character, rating: rating) => {
 
   const queue = generateQueue(warior.initiative, oponent.initiative);
 
+console.log('---------- !!!!!!!!!!!!!!!!!!!!!! queue', queue);
+
   // Run battle in generated queue
   for (let i = 0; i < queue.length; i++) {
     const result = swing(warior, oponent, queue[i]);
 
     // If someone is dead return result
     if (result !== null) {
+      console.log(`!!!!!!!!!!!!!!!!! ${result ? oponent.name : warior.name} DEAD, winner HP = ${!result ? oponent.hitPoints : warior.hitPoints}`);
       return result;
     }
   }
-
+  console.log('---------- BATTLE ENDED TECHNICALLY --------- ', {
+    charHp: warior.hitPoints,
+    oppHp: oponent.hitPoints
+  });
   // If noone is dead, winner determinated by remaining hit points.
   return warior.hitPoints > oponent.hitPoints;
 }
@@ -40,7 +45,6 @@ const runEncounter = (char: Character, rating: rating) => {
  * return true if oponent dead, false if char dead, null otherwise
  */
 const swing = (char: BattleCharacter, oponent: BattleCharacter, turn: boolean): boolean | null => {
-
   // Depends on turn character or oponent swing.
   if (turn) {
     oponent.hurt(char.swing());
@@ -48,12 +52,8 @@ const swing = (char: BattleCharacter, oponent: BattleCharacter, turn: boolean): 
     char.hurt(oponent.swing());
   }
 
-  if (char.isDead()) {
-    return false;
-  }
-
-  if (oponent.isDead()) {
-    return true;
+  if (char.isDead() || oponent.isDead()) {
+    return oponent.isDead();
   }
 
   return null;
@@ -63,7 +63,21 @@ const swing = (char: BattleCharacter, oponent: BattleCharacter, turn: boolean): 
  * Generate battle queue. True means it's character swing, false - oponent.
  */
 const generateQueue = (charInitiative: number, oponentInitiative: number): boolean[] => {
-  const initiativeDifference = charInitiative - oponentInitiative;
+  const isCharBigger = charInitiative >= oponentInitiative;
+  const initiativeDifference = Math.floor(Math.abs(charInitiative - oponentInitiative));
+  const sequence = [isCharBigger, !isCharBigger];
+  const additionalHitSequence = [isCharBigger, isCharBigger, !isCharBigger];
+  const queue = [];
 
-  return Array.from(Array(LIMIT)).map((_, index) => index % 2 === 0);
+  // Add additional swings
+  for (let i = 0; i < initiativeDifference; i++) {
+    queue.push(additionalHitSequence);
+  }
+
+  // Add regular swings
+  for (let i = 0; i < LIMIT / 2; i++) {
+    queue.push(sequence);
+  }
+
+  return queue.flat();
 }

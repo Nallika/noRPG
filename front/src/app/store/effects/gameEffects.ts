@@ -23,6 +23,21 @@ export class GameEffects {
   ));
 
   /**
+   * Get ladder (chars crore list)
+   */
+  getLadder$ = createEffect(() => this.actions$.pipe(
+    ofType(gameActions.getLadder),
+    withLatestFrom(this.store.select('game', 'ladderData', 'page')),
+    exhaustMap(([_, page]) => {
+      console.log('LADDER EFECT page', page);
+      return this.apiService.get(`/ladder?page=${page}`).pipe(
+        map((data) => gameActions.getLadderSuccess(data)),
+        catchError((error) => of(gameActions.gameError(error.message)))
+      )
+    })
+  ));
+
+  /**
    * Submit created character to server, receve character info and store it
    */
   submitChar$ = createEffect(() => this.actions$.pipe(

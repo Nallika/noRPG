@@ -1,0 +1,97 @@
+@use '../../styles' as styles;
+
+.title {
+  @include styles.heading;
+}
+
+.container {
+  height: calc(100% - styles.spacing(3));
+  padding: styles.spacing(1.5);
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  height: styles.spacing(5);
+}
+
+content {
+  height: auto;
+  overflow: auto;
+}
+
+.bottom {
+  height: styles.spacing(1);
+}
+
+table {
+  width: 100%;
+  @include styles.text;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: styles.$background-color;
+  z-index: 1;
+}
+
+.tbody {
+  overflow-y: scroll;
+}
+
+th {
+  @include styles.title;
+  @include styles.border-1;
+  padding: styles.spacing(0.5);
+}
+
+.row {
+  @include styles.border-1;
+  padding: styles.spacing(0.5);
+}
+
+.index {
+  @include styles.text;
+  width: styles.spacing(4);
+  text-align: center;
+}
+
+.score {
+  @include styles.text;
+  width: styles.spacing(5);
+  text-align: center;
+}
+
+.char {
+  @include styles.title;
+  width: auto;
+}
+
+.loader {
+  padding: styles.spacing(1.5);
+}
+
+.player-name {
+  @include styles.text-small;
+}
+
+.char-name {
+  @include styles.text;
+}
+
+.race-1 {
+  color: bisque;
+}
+
+.race-2 {
+  color: yellow;
+}
+
+.race-3 {
+  color: green;
+}
+
+.race-4 {
+  color: grey;
+}

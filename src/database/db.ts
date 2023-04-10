@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import Database from 'better-sqlite3';
 import rootPath from 'app-root-path';
 import path from 'node:path';
-import { fillBaseTables, fillPlayers, listPlayers } from './utils';
+import { fillBaseTables, fillPlayers, listPlayers, listLadder } from './utils';
 
 
 export const TYPES_MAP: {[key: string]: string | string[];} = {
@@ -35,7 +35,7 @@ class Db {
     // fillBaseTables();
     // fillPlayers();
 
-    listPlayers();
+    listLadder();
   }
 
   /**

@@ -27,9 +27,12 @@ export default class BattleCharacter implements battleCharacterInterace {
     if (chance) {
       const {minDamage, maxDamage} = this.damage;
       const value = randomIntFromInterval(minDamage, maxDamage);
+
+      console.log(`${this.name} swing ${value}`);
+
       return value;
     }
-
+    console.log(`${this.name} miss`);
     return 0;
   }
 
@@ -37,6 +40,7 @@ export default class BattleCharacter implements battleCharacterInterace {
     const chance = this.roll(this.dodgeChanse);
 
     if (!income || chance) {
+      console.log(`${this.name} dodge`);
       return;
     }
 
@@ -44,6 +48,9 @@ export default class BattleCharacter implements battleCharacterInterace {
 
     if (value > 0) {
       this.hitPoints = this.hitPoints - value;
+      console.log(`${this.name} hurt ${value}`);
+    } else {
+      console.log(`${this.name} block ${value}`);
     }
   }
 

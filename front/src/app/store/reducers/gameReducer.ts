@@ -11,6 +11,11 @@ const initialState: gameState = {
   gameData: {} as gameData,
   character: {} as character,
   resultCharacter: {} as fullCharacter,
+  ladderData: {
+    ladderChunk: [],
+    page: 0,
+    isFull: false
+  },
   freeStatPoints: 20,
   score: 0,
 };
@@ -70,6 +75,23 @@ export const gameReducer = createReducer(
     ...state,
     loading: false,
     gameData: action.data,
+  })),
+  on(gameActions.getLadder, (state: gameState) => ({
+    ...state,
+    loading: true,
+    ladderData: {
+      ...state.ladderData,
+      page: state.ladderData.page + 1
+    }
+  })),
+  on(gameActions.getLadderSuccess, (state: gameState, action) => ({
+    ...state,
+    loading: false,
+    ladderData: {
+      ...state.ladderData,
+      ladderChunk: action.ladder,
+      isFull: action.isFull
+    }
   })),
   on(gameActions.generateChar, (state: gameState) => {
     const randomRace = generateRandomRace(state.gameData.races);

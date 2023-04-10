@@ -61,3 +61,10 @@ export const listPlayers = (): void  => {
 
   console.log(players);
 }
+
+export const listLadder = (): void  => {
+  const db = Db.getInstance();
+  const {result: ladder} = db.all('SELECT playerNick, name, raceId, score FROM Ladder ORDER BY score DESC');
+
+  console.log(ladder);
+}
