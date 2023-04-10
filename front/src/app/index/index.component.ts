@@ -26,7 +26,6 @@ export class IndexComponent implements OnInit {
   }
 
   goTo(url: urlType) {
-    console.log('index goTo ', url);
     this.router.navigateByUrl(`/${url}`);
   }
 }

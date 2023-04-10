@@ -9,9 +9,6 @@ export const getLadder = (page: number): { ladder: ladderChar[], isFull: boolean
   const ofset = (page - 1) *  LIMIT;
 
   const { result: {count} } = db.get(`SELECT count(*) as count FROM Ladder`);
-
-  console.log('LADDER count ', count);
-
   const isFull = ofset + LIMIT >= count;
 
   const { result: ladder, error } = 

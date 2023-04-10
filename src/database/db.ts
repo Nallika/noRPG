@@ -29,13 +29,13 @@ class Db {
    * Init db connection, optionally run init dabase and fill base tables
    */
   public init(): void {
-    this.db = new Database(path.resolve(rootPath.path, 'src/database/database.db', ), { verbose: console.log });
+    this.db = new Database(path.resolve(rootPath.path, 'src/database/database.db'), { verbose: console.log });
 
     // this.initTables();
     // fillBaseTables();
     // fillPlayers();
 
-    listLadder();
+    //listLadder();
   }
 
   /**

@@ -9,6 +9,7 @@ export const getGameDataSuccess = createAction('[game] get data success', props<
 export const gameError = createAction('[game] error', props<{error: string}> ());
 
 export const getLadder = createAction('[game] get ladder');
+export const resetLadder = createAction('[game] reset ladder');
 export const getLadderSuccess = createAction('[game] get ladder success', props<{ladder: ladder, isFull: boolean}> ());
 
 export const resetPoints = createAction('[game] reset points');

@@ -5,9 +5,6 @@ import { DODGE_RESILENCE_COEFICIENT } from "../character/Character";
 
 export const generateOponentByRating = (rating: rating): BattleCharacter => {
   const values = generateValues(rating);
-
-  console.log('->>>>>>>>>>>>>>>> generateOponentByRating ', values);
-
   return new BattleCharacter({name: 'Shargath', ...values});
 }
 
@@ -16,23 +13,9 @@ const generateValues = (rating: rating): calculationsType => {
 
   const {health, mitigation, dodgeChanse} = generateResilienceDependentValues(resilience);
 
-  console.log('!!!!!!!!!!!!!!!!! generate initiative Values ', {
-    iputResilience: resilience,
-    resultResilence: Math.floor((health + mitigation) + (DODGE_RESILENCE_COEFICIENT * (dodgeChanse / 100))),
-    resilenceValues: {health, mitigation, dodgeChanse},
-  });
-
   const {hitChanse, initiative, damage: {minDamage, maxDamage}} = generatePowerDependentValues(power);
 
-  console.log('!!!!!!!!!!!!!!!!! generate POWER Values ', {
-    iputPower: power,
-    resultPower: Math.floor((((minDamage + maxDamage) / 2) * (hitChanse / 100)) * initiative),
-    powerValues: {hitChanse, initiative, minDamage, maxDamage}
-  });
-
   return {
-    // ...generateResilienceDependentValues(resilience),
-    // ...generatePowerDependentValues(power)
     ...{health, mitigation, dodgeChanse},
     ...{hitChanse, initiative, damage: {minDamage, maxDamage}}
   };

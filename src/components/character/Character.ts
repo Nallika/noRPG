@@ -1,5 +1,9 @@
-import { appearanceType, calculationsType, charInterace, statsType, charInput, damage, rating, charOutput, calculations } from "./types";
+import NodeCache from 'node-cache';
+
+import { appearanceType, calculationsType, charInterace, statsType, damage, rating, charOutput, charData } from "./types";
 import { race, armor, weapon } from "../game/types";
+import { getRaces } from '../game/racesModel';
+import { getItems } from '../game/itemsModel';
 
 const MIN_DAMAGE_COEFICIENT = 2;
 const MAX_DAMAGE_COEFICIENT = 3;
@@ -13,22 +17,29 @@ const MIN_BMI_COEFICIENT = 3;
 const MAX_BMI_COEFICIENT = 2;
 export const DODGE_RESILENCE_COEFICIENT = 150;
 
+const cache = new NodeCache();
+const CACHE_NAME = 'char_init_data';
+
 export default class Character implements charInterace {
   name: string;
-  weapon: weapon;
-  armor: armor;
-  race: race;
+  weaponId: number;
+  armorId: number;
+  raceId: number;
   appearance: appearanceType;
   stats: statsType;
-  calculations: calculationsType;
-  rating: rating;
 
-  constructor(input: charInput) {
+  private race!: race;
+  private armor!: armor;
+  private weapon!: weapon;
+  private calculations!: calculationsType;
+  private rating!: rating;
+
+  constructor(input: charData) {
     const  {
       name,
-      race,
-      weapon,
-      armor,
+      raceId,
+      weaponId,
+      armorId,
       height,
       weight,
       strength,
@@ -38,11 +49,40 @@ export default class Character implements charInterace {
     } = input;
 
     this.name = name;
-    this.race = race;
-    this.armor = armor;
-    this.weapon = weapon;
+    this.raceId = raceId;
+    this.armorId = armorId;
+    this.weaponId = weaponId;
     this.appearance = {height, weight};
     this.stats = {strength, agility, stamina, speed};
+  }
+
+  /**
+   * Load data needed for initization of secodary stats
+   */
+  async loadInitialData(): Promise<{ race: race; armor: armor; weapon: weapon }> {
+    const cachedData = cache.get(CACHE_NAME) as undefined | { race: race; armor: armor; weapon: weapon };
+
+    if (cachedData) {
+      return cachedData;
+    }
+
+    const { races } = getRaces();
+    const race = races.find(({id}) => id === this.raceId) as race;
+  
+    const { weapons, armor: armorList } = getItems();
+    const weapon = weapons.find(({id}) => id === this.weaponId) as weapon;
+    const armor = armorList.find(({id}) => id === this.armorId) as armor;
+
+    cache.set(CACHE_NAME, { race, weapon, armor });
+
+    return { race, weapon, armor };
+  }
+
+  public async init() {
+    const { race, weapon, armor } = await this.loadInitialData();
+    this.race = race;
+    this.weapon = weapon;
+    this.armor = armor;
     this.calculations = this.calculateSecodaryStats();
     this.rating = this.calculateRating();
   }

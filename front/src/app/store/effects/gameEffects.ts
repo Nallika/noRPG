@@ -29,7 +29,6 @@ export class GameEffects {
     ofType(gameActions.getLadder),
     withLatestFrom(this.store.select('game', 'ladderData', 'page')),
     exhaustMap(([_, page]) => {
-      console.log('LADDER EFECT page', page);
       return this.apiService.get(`/ladder?page=${page}`).pipe(
         map((data) => gameActions.getLadderSuccess(data)),
         catchError((error) => of(gameActions.gameError(error.message)))

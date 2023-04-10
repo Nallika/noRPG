@@ -84,6 +84,10 @@ export const gameReducer = createReducer(
       page: state.ladderData.page + 1
     }
   })),
+  on(gameActions.resetLadder, (state: gameState) => ({
+    ...state,
+    ladderData: initialState.ladderData
+  })),
   on(gameActions.getLadderSuccess, (state: gameState, action) => ({
     ...state,
     loading: false,

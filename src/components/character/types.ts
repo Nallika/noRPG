@@ -2,14 +2,12 @@ import { race, armor, weapon } from "../game/types";
 
 export interface charInterace {
   name: string
-  race: race
-  weapon: weapon
-  armor: armor
+  raceId: number
+  weaponId: number
+  armorId: number
 
   appearance: appearanceType
   stats: statsType
-  calculations: calculationsType
-  rating: rating
 
   getRating: Function
   getOutput: Function

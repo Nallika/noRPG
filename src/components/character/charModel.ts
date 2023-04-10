@@ -5,9 +5,9 @@ import { scoreCalculator } from '../scoreCalculator/scoreCalculator';
 import { validateCharacterData } from './characterValidator';
 import { getRaces } from '../game/racesModel';
 import { race } from '../game/types';
-import { characterInitializer } from './characterInitializer';
+import Character from './Character';
 
-export const addNewCharacter = (charData: charData, player: {id: number, nickname: string}): addNewCharResult => {
+export const addNewCharacter = async (charData: charData, player: {id: number, nickname: string}): Promise<addNewCharResult> => {
 
   const { races } = getRaces();
   const race = races.find(({id}) => id === charData.raceId) as race;
@@ -22,7 +22,8 @@ export const addNewCharacter = (charData: charData, player: {id: number, nicknam
 
   const { id: playerId, nickname } = player;
 
-  const char = characterInitializer(charData);
+  const char = new Character(charData);
+  await char.init();
 
   const {
     name,

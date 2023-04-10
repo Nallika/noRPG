@@ -28,7 +28,7 @@ export const addNewChar = [
       return res.status(400).json({ errors: validationErrors.array() });
     }
 
-    const { result, error } = addNewCharacter(req.body, res.locals.user);
+    const { result, error } = await addNewCharacter(req.body, res.locals.user);
 
     if (error) {
       res.status(400).json(error);

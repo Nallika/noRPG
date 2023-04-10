@@ -3,23 +3,36 @@ import Character from "../character/Character";
 import { rating } from "../character/types";
 import { generateOponentByRating } from "./generators";
 
-const LIMIT = 20;
+const LIMIT = 30;
 
 export const scoreCalculator = (char: Character): number => {
   const rating = char.getRating();
 
-  runEncounter(char, rating);
+  const firstResult = runEncounter(char, rating);
+
+  for (let index= 1; index < LIMIT; index++) {
+    const newRating = iterateRating(rating, firstResult);
+    const newResult = runEncounter(char, newRating);
+
+    if (firstResult !== newResult) {
+      return Math.floor(newRating.power + newRating.resilience);
+    }
+  }
 
   return Math.floor(rating.power + rating.resilience);
 }
 
-const runEncounter = (char: Character, rating: rating) => {
+const iterateRating = ({resilience, power}: rating, increase: boolean): rating => {
+  return increase ?
+    { resilience: resilience - 5, power: power - 5 } :
+    { resilience: resilience + 5, power: power + 5 }; 
+}
+
+const runEncounter = (char: Character, rating: rating): boolean => {
   const warior = new BattleCharacter({name: char.name, ...char.getCharCalculations()});
   const oponent = generateOponentByRating(rating);
 
   const queue = generateQueue(warior.initiative, oponent.initiative);
-
-console.log('---------- !!!!!!!!!!!!!!!!!!!!!! queue', queue);
 
   // Run battle in generated queue
   for (let i = 0; i < queue.length; i++) {
@@ -27,14 +40,10 @@ console.log('---------- !!!!!!!!!!!!!!!!!!!!!! queue', queue);
 
     // If someone is dead return result
     if (result !== null) {
-      console.log(`!!!!!!!!!!!!!!!!! ${result ? oponent.name : warior.name} DEAD, winner HP = ${!result ? oponent.hitPoints : warior.hitPoints}`);
       return result;
     }
   }
-  console.log('---------- BATTLE ENDED TECHNICALLY --------- ', {
-    charHp: warior.hitPoints,
-    oppHp: oponent.hitPoints
-  });
+
   // If noone is dead, winner determinated by remaining hit points.
   return warior.hitPoints > oponent.hitPoints;
 }

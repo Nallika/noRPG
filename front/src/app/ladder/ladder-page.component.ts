@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getLadder } from 'src/app/store/actions/gameActions';
+import { getLadder, resetLadder } from 'src/app/store/actions/gameActions';
 import { gameState } from 'src/app/types/storeTypes';
 import { ladder, ladderChar } from 'src/app/types/ladderTypes';
 import { filter, Observable, take } from 'rxjs';
@@ -30,6 +30,13 @@ export class LadderPageComponent {
     this.isFull$ = this.store.select('game', 'ladderData', 'isFull');
     this.store.select('game', 'ladderData', 'ladderChunk').subscribe(ladderChunk => this.ladder.push(...ladderChunk));
     this.store.dispatch(getLadder());
+  }
+
+  /**
+   * Clear pagination on destroy
+   */
+  ngOnDestroy(): void {
+    this.store.dispatch(resetLadder());
   }
 
   handleLoadMore($event: boolean) {
