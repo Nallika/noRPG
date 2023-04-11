@@ -183,8 +183,8 @@ export default class Character implements charInterace {
     const maxDamage = this.weapon.minDamage + this.stats.strength * MAX_DAMAGE_COEFICIENT;
 
     return {
-      minDamage:  Math.floor(minDamage),
-      maxDamage:  Math.floor(maxDamage),
+      minDamage: Math.floor(minDamage),
+      maxDamage: Math.floor(maxDamage),
     };
   }
   

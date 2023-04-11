@@ -45,6 +45,7 @@ export type race = {
 	initialEndurance: number,
 	initialAgility: number,
 	initialspeed: number,
+  description: string,
 }
 
 export enum raceEnum {

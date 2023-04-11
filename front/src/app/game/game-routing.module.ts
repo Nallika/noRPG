@@ -4,13 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/guards/auth-guard.service';
 import { NewCharPageComponent } from './pages/new-char-page/new-char-page.component';
 import { CharPreviewPageComponent } from './pages/char-preview-page/char-preview-page.component';
+import { LeaveGameGuard } from '../core/guards/leave-game-guard';
 
 
 const routes: Routes = [
   {
     path: '',
     component: NewCharPageComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    canDeactivate: [LeaveGameGuard]
   },
   {
     path: 'charPreview',

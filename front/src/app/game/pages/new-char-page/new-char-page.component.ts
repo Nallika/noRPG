@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { gameState } from 'src/app/types/storeTypes';
 import { getGameData, resetPoints } from 'src/app/store/actions/gameActions';
 import { submitChar, generateChar } from 'src/app/store/actions/gameActions';
+import { PopupService } from 'src/app/core/services/popup.service';
 
 /**
  * Char creation page.
@@ -20,11 +21,15 @@ import { submitChar, generateChar } from 'src/app/store/actions/gameActions';
 export class NewCharPageComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   error$: Observable<string>;
+  canLeave: boolean;
   
   constructor (
     private router: Router,
     private store: Store<{game: gameState}>,
-  ) {}
+    private popupService: PopupService,
+  ) {
+    this.canLeave = false;
+  }
 
   ngOnInit(): void {
     this.loading$ = this.store.select('game', 'loading');
@@ -45,9 +50,26 @@ export class NewCharPageComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Show help popup
+   */
+  showHelp(): void {
+    this.popupService.openPopup({
+      title: 'How to play',
+      content: `It's simple, create your character by filling name and distribute stat values.
+        After that game will calculate additional characteristics such as hit/dodge chanse and damage.
+        Also character rating will be calculated and you will see your result.`
+    });
+  }
+
+  canExit(): boolean {
+    return this.canLeave || confirm('Do you really want to leave ?, changes wouldn\'t saved');
+  }
+
+  /**
    * Submit char to server and go to preview page
    */
   submitHandler() {
+    this.canLeave = true;
     this.store.dispatch(submitChar());
     this.router.navigateByUrl('/game/charPreview');
   }

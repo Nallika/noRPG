@@ -14,3 +14,8 @@ export type player = {
   token: string;
   nickname: string;
 }
+
+export interface popop {
+  title: string;
+  content: string;
+}

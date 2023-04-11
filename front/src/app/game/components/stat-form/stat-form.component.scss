@@ -7,11 +7,16 @@
 
 .content {
   width: 50%;
-  padding: styles.spacing(1);
+  padding: styles.spacing(1.5);
 }
 
 .text {
   @include styles.text;
+}
+
+.info-text {
+  @include styles.text;
+  padding: styles.spacing(0, 0, 4);
 }
 
 .title {
@@ -27,6 +32,7 @@
 
 .poins {
   @include styles.border-1;
+  @include styles.text;
   text-align: center;
   width: styles.spacing(2.5);
   height: styles.spacing(2.5);

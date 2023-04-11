@@ -8,6 +8,8 @@ import { JwtService } from './services/jwt.service';
 import { AuthGuard } from './guards/auth-guard.service';
 import { NoAuthGuard } from './guards/no-auth-guard.service';
 import { PlayerService } from './services/player.service';
+import { PopupService } from './services/popup.service';
+import { LeaveGameGuard } from './guards/leave-game-guard';
 
 /**
  * Module for general use services, including interceptors and guards
@@ -23,8 +25,10 @@ import { PlayerService } from './services/player.service';
     ApiService,
     JwtService,
     PlayerService,
+    PopupService,
     AuthGuard,
-    NoAuthGuard
+    NoAuthGuard,
+    LeaveGameGuard
   ]
 })
 export class CoreModule { }

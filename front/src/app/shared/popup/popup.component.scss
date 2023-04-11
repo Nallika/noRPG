@@ -1,0 +1,51 @@
+@use '../../../styles' as styles;
+
+.overlay {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: styles.$background-color;
+  opacity: .9;
+}
+
+.overlay.open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  @include styles.border-1;
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  min-width: 50vw;
+  max-width: 85vw;
+  padding: styles.spacing(1.5);
+}
+
+.header {
+  @include styles.text;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: styles.spacing(3);
+}
+
+.close {
+  @include styles.border-1;
+  text-align: center;
+  padding: styles.spacing(0, 0.6);
+  cursor: pointer;
+}
+
+.content {
+  @include styles.text;
+  padding: styles.spacing(1.5);
+}
+

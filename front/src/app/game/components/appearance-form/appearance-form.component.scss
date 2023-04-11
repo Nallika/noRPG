@@ -7,11 +7,17 @@
 
 .content {
   width: 50%;
-  padding: styles.spacing(1);
+  padding: styles.spacing(1.5);
 }
 
-.text {
+.info-text {
   @include styles.text;
+  padding: styles.spacing(0, 0, 2);
+}
+
+.race-info {
+  @include styles.text;
+  padding: styles.spacing(0.5, 0);
 }
 
 .input-label {

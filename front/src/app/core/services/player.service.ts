@@ -20,7 +20,6 @@ export class PlayerService {
 
   constructor (
     private apiService: ApiService,
-
     private jwtService: JwtService
   ) {}
 

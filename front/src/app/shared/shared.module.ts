@@ -9,6 +9,8 @@ import { GameTemplateComponent } from './game-template/game-template.component';
 import { IndexTemplateComponent } from './index-template/index-template.component';
 import { LoaderComponent } from './loader/loader.component';
 import { EnterTheViewportDirective } from './directives/enter-the-viewport.directive';
+import { PopupComponent } from './popup/popup.component';
+// import { PopupService } from './popup/popup.service';
 
 /**
  * General use module, here store reused components
@@ -21,6 +23,7 @@ import { EnterTheViewportDirective } from './directives/enter-the-viewport.direc
     GameTemplateComponent,
     IndexTemplateComponent,
     LoaderComponent,
+    PopupComponent,
     BlackenedDirective,
     ErrorTextDirective,
     EnterTheViewportDirective,
@@ -35,9 +38,13 @@ import { EnterTheViewportDirective } from './directives/enter-the-viewport.direc
     GameTemplateComponent,
     IndexTemplateComponent,
     LoaderComponent,
+    PopupComponent,
     BlackenedDirective,
     ErrorTextDirective,
     EnterTheViewportDirective,
-  ]
+  ],
+  // providers: [
+  //   PopupService,
+  // ]
 })
 export class SharedModule { }
