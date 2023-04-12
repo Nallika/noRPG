@@ -28,7 +28,7 @@ export class PlayerService {
    */
   populate() {
     if (this.jwtService.getToken()) {
-      this.apiService.get('/player')
+      this.apiService.get<player>('/player')
       .subscribe({
         next: (data) => this.setAuth(data),
         // If token isn't valid clear it
@@ -65,10 +65,10 @@ export class PlayerService {
   attemptAuth(type: authType, authData: authData): Observable<player> {
     const route = (type === 'login') ? '/login' : '/register';
 
-    return this.apiService.post(route, authData)
+    return this.apiService.post<authData, player>(route, authData)
       .pipe(
         map(
-          data => {
+          (data: player) => {
             this.setAuth(data);
             return data;
           }

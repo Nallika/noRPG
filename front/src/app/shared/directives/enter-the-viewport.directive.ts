@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, Host, Input, OnDestroy, Output } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, Host, OnDestroy, Output } from '@angular/core';
 
 /**
  * Directive for listen when attached element appears on screen,
@@ -12,7 +12,7 @@ export class EnterTheViewportDirective implements AfterViewInit, OnDestroy {
 
   observer: IntersectionObserver;
 
-  constructor(@Host() private _elementRef: ElementRef) {}
+  constructor(@Host() private elementRef: ElementRef) {}
 
   ngAfterViewInit(): void {
     const options = {
@@ -22,16 +22,16 @@ export class EnterTheViewportDirective implements AfterViewInit, OnDestroy {
     };
 
     this.observer = new IntersectionObserver(this.callback, options);
-    this.observer.observe(this._elementRef.nativeElement);
+    this.observer.observe(this.elementRef.nativeElement);
   }
 
   ngOnDestroy() {
     this.observer.disconnect();
   }
 
-  callback = (entries: any) => {
-    entries.forEach((entry: { isIntersecting: any; }) => {
-      if (entry.isIntersecting) {
+  callback = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach(({ isIntersecting }) => {
+      if (isIntersecting) {
         this.visibilityChange.emit(true);
       }
     });

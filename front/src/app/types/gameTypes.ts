@@ -98,7 +98,7 @@ export type statsForm = {
 }
 
 export type gameData = {
-  races: race[] | any,
+  races: race[],
   weapons: weapon[],
   armor: armor[],
 }

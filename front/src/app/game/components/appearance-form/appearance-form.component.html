@@ -7,7 +7,7 @@
           formControlName="name"
           type="text"
           class="field"
-          blackened
+          appBlackened
         >
         <ng-container *ngIf="!name.valid && (name.dirty ||name.touched)">
           <div appInputError [hidden]="!name.errors?.required" >Name is required</div>
@@ -20,7 +20,7 @@
         <select 
           formControlName="raceId"
           type="number"
-          blackened
+          appBlackened
           class="field"
         >
           <option *ngFor="let race of races" value={{race.id}}>{{race.title}}</option>

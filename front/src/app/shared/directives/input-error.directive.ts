@@ -1,17 +1,19 @@
-import { Directive } from '@angular/core';
+import { Directive, HostBinding } from '@angular/core';
+import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Mark text as for error
  */
 @Directive({
-  selector: '[appInputError]',
-  host: {
-    '[style.color]': '"brown"',
-    '[style.padding]': '"2px 0"',
-    '[style.position]': '"absolute"'
-  }
+  selector: '[appInputError]'
 })
 export class ErrorTextDirective {
+  @HostBinding('style')
+  get myStyle(): SafeStyle {
+    return this.sanitizer.bypassSecurityTrustStyle(
+      'color: brown; padding: 2px 0: black; position: absolute;'
+    );
+  }
 
-  constructor() { }
+  constructor(private sanitizer:DomSanitizer) {}
 }

@@ -8,7 +8,7 @@
             <input 
               formControlName="nickname"
               type="text"
-              blackened
+              appBlackened
             >
             <ng-container *ngIf="!nickname.valid && (nickname.dirty ||nickname.touched)">
               <div appInputError [hidden]="!nickname.errors?.required" >Nickname is required</div>
@@ -21,7 +21,7 @@
             <input 
               formControlName="email"
               type="text"
-              blackened
+              appBlackened
             >
             <ng-container *ngIf="!email.valid && (email.dirty ||email.touched)">
               <div appInputError [hidden]="!email.errors?.required" >Email is required</div>
@@ -34,7 +34,7 @@
             <input 
               formControlName="password"
               type="password"
-              blackened
+              appBlackened
             >
             <ng-container *ngIf="!password.valid && (password.dirty ||password.touched)">
               <div appInputError [hidden]="!password.errors?.required" >Password is required</div>

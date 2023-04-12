@@ -110,10 +110,8 @@ export class AppearanceFormComponent implements OnInit {
    * Save form data to store every time when data changed
    */
   processForm(formData: appearanceForm) {
-    let charData = formData;
-
     const raceId = Number(this.raceId.value);
-    const isRaceChanged = charData.raceId !== raceId;
+    const isRaceChanged = formData.raceId !== raceId;
 
     // If race was changed we should reset all character stats and appearance
     if (isRaceChanged) {
@@ -127,7 +125,7 @@ export class AppearanceFormComponent implements OnInit {
     }
 
     this.store.dispatch(
-      saveChar({data: charData as character, form: formEnum.appearance})
+      saveChar({data: formData as character, form: formEnum.appearance})
     );
   }
 
@@ -135,7 +133,7 @@ export class AppearanceFormComponent implements OnInit {
    * Here we set weight or height.
    * Mirror range selector value to according form value.
    */ 
-  changeHandler($event: any, field: string) {
-    this.appearanceForm.get(field)?.setValue(Number($event.target.value));
+  changeHandler($event: Event, field: string) {
+    this.appearanceForm.get(field)?.setValue(Number(($event.target as HTMLInputElement).value));
   }
 }

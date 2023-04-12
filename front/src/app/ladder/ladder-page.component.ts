@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getLadder, resetLadder } from 'src/app/store/actions/gameActions';
 import { gameState } from 'src/app/types/storeTypes';
@@ -13,7 +13,7 @@ import { filter, Observable, take } from 'rxjs';
   templateUrl: './ladder-page.component.html',
   styleUrls: ['./ladder-page.component.scss'],
 })
-export class LadderPageComponent {
+export class LadderPageComponent implements OnInit, OnDestroy {
 
   loading$: Observable<boolean>;
   isFull$: Observable<boolean>;

@@ -1,15 +1,19 @@
-import { Directive } from '@angular/core';
+import { Directive, HostBinding } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 /**
  * Stylize input in black
  */
 @Directive({
-  selector: '[blackened]',
-  host: {
-    '[style.color]': '"white"',
-    '[style.border]': '"2px solid white"',
-    '[style.background-color]': '"black"',
-    '[style.outline]': '"none"'
-  }
+  selector: '[appBlackened]',
 })
-export class BlackenedDirective { }
+export class BlackenedDirective {
+  @HostBinding('style')
+  get myStyle(): SafeStyle {
+    return this.sanitizer.bypassSecurityTrustStyle(
+      'color: white; border: 2px solid white; background-color: black; outline: none;'
+    );
+  }
+
+  constructor(private sanitizer:DomSanitizer) {}
+}

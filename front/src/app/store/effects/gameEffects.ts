@@ -6,6 +6,8 @@ import { catchError, map, of, withLatestFrom, exhaustMap, mergeMap } from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service';
 import * as gameActions from '../actions/gameActions';
 import { gameState } from 'src/app/types/storeTypes';
+import { character, fullCharacter, gameData } from 'src/app/types/gameTypes';
+import { ladder } from 'src/app/types/ladderTypes';
 
 @Injectable()
 export class GameEffects {
@@ -15,7 +17,7 @@ export class GameEffects {
   getGameData$ = createEffect(() => this.actions$.pipe(
     ofType(gameActions.getGameData),
     mergeMap(() => {
-      return this.apiService.get('/gameData').pipe(
+      return this.apiService.get<gameData>('/gameData').pipe(
         map((data) => gameActions.getGameDataSuccess({data})),
         catchError((error) => of(gameActions.gameError(error.message)))
       )
@@ -29,7 +31,7 @@ export class GameEffects {
     ofType(gameActions.getLadder),
     withLatestFrom(this.store.select('game', 'ladderData', 'page')),
     exhaustMap(([_, page]) => {
-      return this.apiService.get(`/ladder?page=${page}`).pipe(
+      return this.apiService.get<{ladder: ladder, isFull: boolean}>(`/ladder?page=${page}`).pipe(
         map((data) => gameActions.getLadderSuccess(data)),
         catchError((error) => of(gameActions.gameError(error.message)))
       )
@@ -43,7 +45,7 @@ export class GameEffects {
     ofType(gameActions.submitChar),
     withLatestFrom(this.store.select('game', 'character')),
     exhaustMap(([_, data]) => {
-      return this.apiService.post('/newChar', data).pipe(
+      return this.apiService.post<character, {character: fullCharacter, score: number}>('/newChar', data).pipe(
         map((data) => gameActions.submitCharSuccess({data})),
         catchError((error) => of(gameActions.gameError(error.message)))
       )

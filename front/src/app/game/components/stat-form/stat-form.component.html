@@ -39,7 +39,7 @@
       </fieldset>
       <div class="free-points-wrap">
         <p class="title">Feee points:</p>
-        <p class="poins" [ngClass]="{'empty': !(freeStatPoints$ | async)}">{{freeStatPoints$ | async}}</p>
+        <p class="poins" [ngClass]="{'empty': (freeStatPoints$ | async) === 0}">{{freeStatPoints$ | async}}</p>
       </div>
     </form>
   </div>

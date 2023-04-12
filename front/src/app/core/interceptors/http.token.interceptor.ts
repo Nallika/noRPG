@@ -17,7 +17,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
   constructor(private jwtService: JwtService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept<T, R>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpEvent<R>> {
     const headersConfig: {[key: string]: string} = {
       'Content-Type': 'application/json',
       'Accept': 'application/json'

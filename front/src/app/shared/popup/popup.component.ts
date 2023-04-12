@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PopupService } from '../../core/services/popup.service';
 
 /**
@@ -20,7 +20,7 @@ import { PopupService } from '../../core/services/popup.service';
   `,
   styleUrls: ['./popup.component.scss']
 })
-export class PopupComponent {
+export class PopupComponent implements OnInit {
   isOpen: boolean;
   title: string;
   content: string;

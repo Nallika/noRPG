@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable, take, withLatestFrom } from 'rxjs';
@@ -11,7 +11,7 @@ import { gameState } from 'src/app/types/storeTypes';
   templateUrl: './char-preview-page.component.html',
   styleUrls: ['./char-preview-page.component.scss']
 })
-export class CharPreviewPageComponent {
+export class CharPreviewPageComponent implements OnInit {
   loading$: Observable<boolean>;
   error$: Observable<string>;
   title: string;
