@@ -13,7 +13,7 @@ router.post('/login', login);
 
 router.get('/player', auth);
 
-router.get('/validate', validate);
+router.post('/validate', validate);
 
 router.post('/newChar', addNewChar);
 

@@ -7,6 +7,8 @@ import { appearanceForm, character, formEnum, race } from 'src/app/types/gameTyp
 import { gameState } from 'src/app/types/storeTypes';
 import { generateCharacter } from 'src/app/utils/idex';
 import { saveChar } from 'src/app/store/actions/gameActions';
+import { uniqValidator } from 'src/app/core/validators/uniq-validator';
+import { CheckUniqValueService } from 'src/app/core/validators/check-uniq-value.service';
 
 /**
  * Character appearance form component.
@@ -32,6 +34,7 @@ export class AppearanceFormComponent implements OnInit {
 
   constructor(
     private store: Store<{game: gameState}>,
+    private checkUniqValueService: CheckUniqValueService,
     fb: FormBuilder
   ) {
  
@@ -44,6 +47,7 @@ export class AppearanceFormComponent implements OnInit {
     // We need to set name value on blur for not spam store.
     this.appearanceForm.addControl('name', new FormControl('', {
       validators: [ Validators.required, Validators.maxLength(16) ],
+      asyncValidators: [uniqValidator(this.checkUniqValueService, 'name')],
       updateOn: 'blur'
     }));
   }

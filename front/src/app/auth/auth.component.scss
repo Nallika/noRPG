@@ -22,3 +22,9 @@
 .text {
   @include styles.text;
 }
+
+.auth-error {
+  @include styles.text;
+  padding: styles.spacing(0, 0, 1.5);
+  color: styles.$selected-color;
+}

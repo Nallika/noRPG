@@ -6,9 +6,8 @@ const VALIDATION_MAP: {[key: string]: string} = {
   name: 'Characters',  
 }
 
-export const validateField = (item: {[key: string]: string}): { result: boolean; error: boolean; } => {
-  const field = Object.keys(item)[0];
-  const value = item[field];
+export const validateField = (field: string, value: string): { result: boolean; error: boolean; } => {
+  console.log('validateField ', {field, value});
   const tamleName = VALIDATION_MAP[field];
 
   if (!tamleName) {
@@ -20,7 +19,7 @@ export const validateField = (item: {[key: string]: string}): { result: boolean;
 
   const db = Db.getInstance();
   const { result, error } = db.get(`SELECT id FROM ${tamleName} WHERE ${field} = ?`, value);
-
+  console.log('validateField result', result);
   return {
     result: result === undefined,
     error

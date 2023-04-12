@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PlayerService } from '../core/services/player.service';
+import { CheckUniqValueService } from '../core/validators/check-uniq-value.service';
+import { uniqValidator } from '../core/validators/uniq-validator';
 import { authType } from '../types/generalTypes';
 
 /**
@@ -18,12 +20,11 @@ export class AuthComponent implements OnInit{
   authType: authType;
   isSubmitting: boolean;
   authForm: FormGroup;
-  submitTitle: string;
-  buttonTitle: string;
-  optionText: string;
+  error: string;
 
   constructor(
     private playerService: PlayerService,
+    private checkUniqValueService: CheckUniqValueService,
     private route: ActivatedRoute,
     private router: Router,
     fb: FormBuilder
@@ -50,12 +51,15 @@ export class AuthComponent implements OnInit{
     this.route.url.pipe().subscribe(data => {
       this.authType = data[data.length - 1].path === 'register' ? 'register' : 'login';
 
-      // add form control for nickname if this is the register page
+      // Dinamically change form for registration
       if (this.isRegister()) {
         this.authForm.addControl('nickname', new FormControl('', {
-          validators: [Validators.required, Validators.maxLength(20),],
+          validators: [Validators.required, Validators.maxLength(20)],
+          asyncValidators: [uniqValidator(this.checkUniqValueService, 'nick')],
           updateOn: 'blur'
         }));
+
+        this.email.addAsyncValidators([uniqValidator(this.checkUniqValueService, 'email')]);
       }
     });
   }
@@ -73,6 +77,7 @@ export class AuthComponent implements OnInit{
    * Process user registration or login
    */
   submitForm() {
+   this.error = '';
    this.authForm.markAllAsTouched();
 
    if (this.authForm.invalid) {
@@ -87,7 +92,7 @@ export class AuthComponent implements OnInit{
       .subscribe({
         next: () => this.router.navigateByUrl('/'),
         error: (error) => {
-          // TODO: display error
+          this.error = error.message;
           this.isSubmitting = false;
         }
       });

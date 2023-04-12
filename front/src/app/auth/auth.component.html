@@ -11,8 +11,9 @@
               blackened
             >
             <ng-container *ngIf="!nickname.valid && (nickname.dirty ||nickname.touched)">
-              <div appErrorText [hidden]="!nickname.errors?.required" >Nickname is required</div>
-              <div appErrorText [hidden]="!nickname.errors?.maxlength" >Nickname too long</div>
+              <div appInputError [hidden]="!nickname.errors?.required" >Nickname is required</div>
+              <div appInputError [hidden]="!nickname.errors?.maxlength" >Nickname too long</div>
+              <div appInputError [hidden]="!nickname.errors?.nickAlreadyExists" >This nickname is already taken</div>
             </ng-container>
           </fieldset>
           <fieldset class="input-wrap">
@@ -23,8 +24,9 @@
               blackened
             >
             <ng-container *ngIf="!email.valid && (email.dirty ||email.touched)">
-              <div appErrorText [hidden]="!email.errors?.required" >Email is required</div>
-              <div appErrorText [hidden]="!email.errors?.email" >Email is invalid</div>
+              <div appInputError [hidden]="!email.errors?.required" >Email is required</div>
+              <div appInputError [hidden]="!email.errors?.email" >Email is invalid</div>
+              <div appInputError [hidden]="!email.errors?.emailAlreadyExists" >This email is already taken</div>
             </ng-container>
           </fieldset>
           <fieldset class="input-wrap">
@@ -35,12 +37,13 @@
               blackened
             >
             <ng-container *ngIf="!password.valid && (password.dirty ||password.touched)">
-              <div appErrorText [hidden]="!password.errors?.required" >Password is required</div>
-              <div appErrorText [hidden]="!password.errors?.pattern" >Password must be 6-16 letters and digits</div>
+              <div appInputError [hidden]="!password.errors?.required" >Password is required</div>
+              <div appInputError [hidden]="!password.errors?.pattern" >Password must be 6-16 letters and digits</div>
             </ng-container>
           </fieldset>
         </fieldset>
       </form>
+      <div class="auth-error" *ngIf="error">{{error}}</div>
       <div class="item-wrap">
         <app-button [title]="authType | titlecase" (click)="submitForm()"></app-button>
       </div>

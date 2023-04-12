@@ -1,4 +1,4 @@
-import { ErrorTextDirective } from './error-text.directive';
+import { ErrorTextDirective } from './input-error.directive';
 
 describe('ErrorTextDirective', () => {
   it('should create an instance', () => {

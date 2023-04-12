@@ -4,7 +4,7 @@ import { Directive } from '@angular/core';
  * Mark text as for error
  */
 @Directive({
-  selector: '[appErrorText]',
+  selector: '[appInputError]',
   host: {
     '[style.color]': '"brown"',
     '[style.padding]': '"2px 0"',

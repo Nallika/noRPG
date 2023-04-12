@@ -10,8 +10,9 @@
           blackened
         >
         <ng-container *ngIf="!name.valid && (name.dirty ||name.touched)">
-          <div appErrorText [hidden]="!name.errors?.required" >Name is required</div>
-          <div appErrorText [hidden]="!name.errors?.maxlength" >Name too long</div>
+          <div appInputError [hidden]="!name.errors?.required" >Name is required</div>
+          <div appInputError [hidden]="!name.errors?.maxlength" >Name too long</div>
+          <div appInputError [hidden]="!name.errors?.nameAlreadyExists" >Name is already taken</div>
         </ng-container>
       </fieldset>
       <fieldset class="input-wrap">

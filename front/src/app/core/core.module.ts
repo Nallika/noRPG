@@ -10,6 +10,7 @@ import { NoAuthGuard } from './guards/no-auth-guard.service';
 import { PlayerService } from './services/player.service';
 import { PopupService } from './services/popup.service';
 import { LeaveGameGuard } from './guards/leave-game-guard';
+import { CheckUniqValueService } from './validators/check-uniq-value.service';
 
 /**
  * Module for general use services, including interceptors and guards
@@ -26,6 +27,7 @@ import { LeaveGameGuard } from './guards/leave-game-guard';
     JwtService,
     PlayerService,
     PopupService,
+    CheckUniqValueService,
     AuthGuard,
     NoAuthGuard,
     LeaveGameGuard

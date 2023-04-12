@@ -6,34 +6,20 @@ import { validateField } from '../components/common/validationModel';
  * 
  */
 export const validate = [
-  body('email').isEmail().optional(),
-  body('name').isEmail().optional(),
-  body('nick').isEmail().optional(),
+  body('field', 'wrong field').escape()
+    .exists({checkFalsy: true})
+    .matches(/^(nick|email|name)$/),
+  body('value', 'value is empty').isString().not().isEmpty().trim().escape(),
 
   async (req:express.Request, res:express.Response) => {
     const validationErrors = validationResult(req);
-
+    console.log('validate controller ', req.body);
     if (!validationErrors.isEmpty()) {
       return res.status(400).json({ errors: validationErrors.array() });
     }
 
-    const { email, name, nick } = req.body;
-    const field: {[key: string]: string} = {};
-
-    if (email){
-      field.email = email;
-    } else if (name) {
-      field.name = name;
-    } else if (nick) {
-      field.nick = nick;
-    }
-
-    if (Object.keys(field).length === 0) {
-      res.status(400).json('Empty field');
-      return;
-    }
-
-    const { result, error } = validateField(field);
+    const { field, value } = req.body;
+    const { result, error } = validateField(field, value);
 
     if (error) {
       res.status(400).json(error);
