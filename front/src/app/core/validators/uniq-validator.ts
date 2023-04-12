@@ -1,17 +1,16 @@
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CheckUniqValueService } from './check-uniq-value.service';
+import { ApiService } from '../services/api.service';
 
 /**
  * Validator for check is particular field (name, email, nickname) value already taken
  */
-export function uniqValidator (checkUniqValueService: CheckUniqValueService, field: string): AsyncValidatorFn {
+export function uniqValidator (apiService: ApiService, field: string): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     
-    return checkUniqValueService.checkIsUniq(field, control.value).pipe(
+    return apiService.post('/validate', {field, value: control.value}).pipe(
       map(result => {
-        console.log('uniqValidator responce ', result);
         if (!result) {
           return { [`${field}AlreadyExists`]: true };
         } else {

@@ -30,7 +30,7 @@
           </tr>
         </tbody>
       </table>
-      <div *ngIf="!(isFull$ | async)" appEnterTheViewport (visibilityChange)="handleLoadMore($event)" class="loader">
+      <div *ngIf="!(isFull$ | async) && ladder.length" appEnterTheViewport (visibilityChange)="handleLoadMore($event)" class="loader">
         <app-loader></app-loader>
       </div>
     </content>

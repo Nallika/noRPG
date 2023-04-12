@@ -25,7 +25,6 @@ export class LadderPageComponent {
 
   ngOnInit(): void {
     this.ladder = [];
-
     this.loading$ = this.store.select('game', 'loading');
     this.isFull$ = this.store.select('game', 'ladderData', 'isFull');
     this.store.select('game', 'ladderData', 'ladderChunk').subscribe(ladderChunk => this.ladder.push(...ladderChunk));
@@ -39,6 +38,10 @@ export class LadderPageComponent {
     this.store.dispatch(resetLadder());
   }
 
+  /**
+   * Call loadLadder when user scrolled to the end of table.
+   * For check scroll @appEnterTheViewport directive used.
+   */
   handleLoadMore($event: boolean) {
     if ($event) {
       this.loadLadder();

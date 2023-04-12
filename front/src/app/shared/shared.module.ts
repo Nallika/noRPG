@@ -10,7 +10,6 @@ import { IndexTemplateComponent } from './index-template/index-template.componen
 import { LoaderComponent } from './loader/loader.component';
 import { EnterTheViewportDirective } from './directives/enter-the-viewport.directive';
 import { PopupComponent } from './popup/popup.component';
-// import { PopupService } from './popup/popup.service';
 
 /**
  * General use module, here store reused components
@@ -43,8 +42,5 @@ import { PopupComponent } from './popup/popup.component';
     ErrorTextDirective,
     EnterTheViewportDirective,
   ],
-  // providers: [
-  //   PopupService,
-  // ]
 })
 export class SharedModule { }

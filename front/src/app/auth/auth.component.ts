@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PlayerService } from '../core/services/player.service';
-import { CheckUniqValueService } from '../core/validators/check-uniq-value.service';
+import { ApiService } from '../core/services/api.service';
 import { uniqValidator } from '../core/validators/uniq-validator';
 import { authType } from '../types/generalTypes';
 
@@ -24,7 +24,7 @@ export class AuthComponent implements OnInit{
 
   constructor(
     private playerService: PlayerService,
-    private checkUniqValueService: CheckUniqValueService,
+    private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
     fb: FormBuilder
@@ -55,11 +55,11 @@ export class AuthComponent implements OnInit{
       if (this.isRegister()) {
         this.authForm.addControl('nickname', new FormControl('', {
           validators: [Validators.required, Validators.maxLength(20)],
-          asyncValidators: [uniqValidator(this.checkUniqValueService, 'nick')],
+          asyncValidators: [uniqValidator(this.apiService, 'nick')],
           updateOn: 'blur'
         }));
 
-        this.email.addAsyncValidators([uniqValidator(this.checkUniqValueService, 'email')]);
+        this.email.addAsyncValidators([uniqValidator(this.apiService, 'email')]);
       }
     });
   }

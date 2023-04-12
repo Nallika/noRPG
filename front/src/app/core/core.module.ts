@@ -10,7 +10,7 @@ import { NoAuthGuard } from './guards/no-auth-guard.service';
 import { PlayerService } from './services/player.service';
 import { PopupService } from './services/popup.service';
 import { LeaveGameGuard } from './guards/leave-game-guard';
-import { CheckUniqValueService } from './validators/check-uniq-value.service';
+import { HttpErrorInterceptor } from './interceptors/http-error-interceptor';
 
 /**
  * Module for general use services, including interceptors and guards
@@ -23,11 +23,11 @@ import { CheckUniqValueService } from './validators/check-uniq-value.service';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     ApiService,
     JwtService,
     PlayerService,
     PopupService,
-    CheckUniqValueService,
     AuthGuard,
     NoAuthGuard,
     LeaveGameGuard
