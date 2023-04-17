@@ -6,19 +6,19 @@ import { ApiService } from '../services/api.service';
 /**
  * Validator for check is particular field (name, email, nickname) value already taken
  */
-export function uniqValidator (apiService: ApiService, field: string): AsyncValidatorFn {
-  return (control: AbstractControl): Observable<ValidationErrors | null> => {
-    
-    return apiService.post('/validate', {field, value: control.value}).pipe(
-      map(result => {
-        if (!result) {
-          return { [`${field}AlreadyExists`]: true };
-        } else {
-          return null;
-        }
-      })
-    );
-  };
+export const uniqValidator = {
+  validate: function (apiService: ApiService, field: string): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      
+      return apiService.post('/validate', {field, value: control.value}).pipe(
+        map(result => {
+          if (!result) {
+            return { [`${field}AlreadyExists`]: true };
+          } else {
+            return null;
+          }
+        })
+      );
+    };
+  }
 }
-
-

@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-
 import { JwtService } from './jwt.service';
 
-describe('JwtServiceService', () => {
+describe('JwtService', () => {
   let service: JwtService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [JwtService]
+    });
     service = TestBed.inject(JwtService);
   });
 

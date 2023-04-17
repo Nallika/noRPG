@@ -47,7 +47,7 @@ export class AppearanceFormComponent implements OnInit {
     // We need to set name value on blur for not spam store.
     this.appearanceForm.addControl('name', new FormControl('', {
       validators: [ Validators.required, Validators.maxLength(16) ],
-      asyncValidators: [uniqValidator(this.apiService, 'name')],
+      asyncValidators: [uniqValidator.validate(this.apiService, 'name')],
       updateOn: 'blur'
     }));
   }

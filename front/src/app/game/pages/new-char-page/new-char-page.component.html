@@ -9,8 +9,8 @@
     <content>
         <app-game-tabs></app-game-tabs>
     </content>
-    <app-button [title]="'help'" (click)="showHelp()" class="left-button"></app-button>
-    <app-button [title]="'finish'" (click)="submitHandler()" class="right-button"></app-button>
+    <app-button [title]="'help'" data-test="help" (click)="showHelp()" class="left-button"></app-button>
+    <app-button [title]="'finish'" data-test="finish" (click)="submitHandler()" class="right-button"></app-button>
   </app-game-template>
 </ng-template>
 

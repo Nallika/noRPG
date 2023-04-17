@@ -2,7 +2,7 @@
   <div class="wrap">
     <div class="item">
       <div *ngIf="!isIndex" class="back-wrap">
-        <button (click)="goBack()" class="button back"><</button>
+        <button (click)="goBack()" data-test="back" class="button back"><</button>
       </div>
     </div>
     <div class="item">
@@ -12,9 +12,9 @@
     </div>
     <div class="item">
       <div *ngIf="!!nickname" class="nickname-wrap dropdown">
-        <button (click)="toggleDropdown()" class="button logout">{{nickname}}</button>
+        <button (click)="toggleDropdown()" data-test="nickname" class="button logout">{{nickname}}</button>
         <div class="dropdown-content" #dropdown>
-          <button (click)="logout()" class="button logout">Logout</button>
+          <button (click)="logout()" data-test="logout" class="button logout">Logout</button>
         </div>
       </div>
     </div>

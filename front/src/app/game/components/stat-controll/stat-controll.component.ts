@@ -8,9 +8,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   template: `
     <div class="label">{{label}}</div>
     <div class="controll-wrap">
-      <button (click)="changeValue(false)" [disabled]="value === 1"><</button>
+      <button data-test="descrease" (click)="changeValue(false)" [disabled]="value === 1"><</button>
       <div class="value">{{value}}</div>
-      <button (click)="changeValue(true)" [disabled]="increasDisabled">></button>
+      <button data-test="increase" (click)="changeValue(true)" [disabled]="increaseDisabled">></button>
     </div>
   `,
   styleUrls: ['./stat-controll.component.scss']
@@ -18,7 +18,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class StatControllComponent {
   @Input() label: string;
   @Input() value: number;
-  @Input() increasDisabled: boolean | null;
+  @Input() increaseDisabled: boolean | null;
   @Output() changeValueEvent = new EventEmitter<number>();
 
   changeValue(type: boolean) {

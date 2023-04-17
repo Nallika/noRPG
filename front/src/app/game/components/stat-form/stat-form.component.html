@@ -6,7 +6,7 @@
         <app-stat-controll
           [value]="strength.value"
           [label]="'Strength:'"
-          [increasDisabled]="isIncreaseDisabled() | async"
+          [increaseDisabled]="isIncreaseDisabled() | async"
           (changeValueEvent)="changeHandler($event, 'strength')"
         ></app-stat-controll>
       </fieldset>
@@ -15,7 +15,7 @@
         <app-stat-controll
           [value]="agility.value"
           [label]="'Agility:'"
-          [increasDisabled]="isIncreaseDisabled() | async"
+          [increaseDisabled]="isIncreaseDisabled() | async"
           (changeValueEvent)="changeHandler($event, 'agility')"
         ></app-stat-controll>
       </fieldset>
@@ -24,7 +24,7 @@
         <app-stat-controll
           [value]="stamina.value"
           [label]="'Stamina:'"
-          [increasDisabled]="isIncreaseDisabled() | async"
+          [increaseDisabled]="isIncreaseDisabled() | async"
           (changeValueEvent)="changeHandler($event, 'stamina')"
         ></app-stat-controll>
       </fieldset>
@@ -33,7 +33,7 @@
         <app-stat-controll
           [value]="speed.value"
           [label]="'Speed:'"
-          [increasDisabled]="isIncreaseDisabled() | async"
+          [increaseDisabled]="isIncreaseDisabled() | async"
           (changeValueEvent)="changeHandler($event, 'speed')"
         ></app-stat-controll>
       </fieldset>

@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IndexTemplateComponent } from './index-template.component';
@@ -8,7 +9,8 @@ describe('IndexTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IndexTemplateComponent ]
+      declarations: [ IndexTemplateComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 

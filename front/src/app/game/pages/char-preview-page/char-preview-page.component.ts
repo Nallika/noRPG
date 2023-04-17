@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable, take, withLatestFrom } from 'rxjs';
-import { fullCharacter } from 'src/app/types/gameTypes';
+import { resultCharacter } from 'src/app/types/gameTypes';
 import { urlType } from 'src/app/types/generalTypes';
 import { gameState } from 'src/app/types/storeTypes';
 
@@ -13,11 +13,10 @@ import { gameState } from 'src/app/types/storeTypes';
 })
 export class CharPreviewPageComponent implements OnInit {
   loading$: Observable<boolean>;
-  error$: Observable<string>;
   title: string;
   score: number;
-  characterData: fullCharacter;
-  fieldsList: Array<keyof fullCharacter>;
+  characterData: resultCharacter;
+  fieldsList: Array<keyof resultCharacter>;
   
   constructor (
     private router: Router,
@@ -26,13 +25,12 @@ export class CharPreviewPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading$ = this.store.select('game', 'loading');
-    this.error$ = this.store.select('game', 'error');
 
     this.loading$.pipe(
       withLatestFrom(this.store.select('game', 'resultCharacter')),
       take(2),
       map(([loading, resultCharacter]) => {
-        const charStats = Object.keys(resultCharacter) as Array<keyof fullCharacter>;
+        const charStats = Object.keys(resultCharacter) as Array<keyof resultCharacter>;
 
         // If there are no char data, go to index page
         if (!loading && !charStats.length) {
@@ -50,7 +48,6 @@ export class CharPreviewPageComponent implements OnInit {
     this.store.select('game', 'score').subscribe((data) => {
       this.score = data;
     });
-
   }
 
   goTo(url: urlType) {

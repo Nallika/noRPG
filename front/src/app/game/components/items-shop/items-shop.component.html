@@ -4,6 +4,7 @@
     <div class="list-container">
       <ng-container *ngFor="let item of weapons">
         <app-item 
+          data-test="weapon-item"
           [itemData]="item"
           [type]="'weapon'"
           [selectedItemId$]="selectedWeaponSubject"
@@ -18,6 +19,7 @@
     <div class="list-container">
       <ng-container *ngFor="let item of armor">
         <app-item
+          data-test="armor-item"
           [itemData]="item"
           [type]="'armor'"
           [selectedItemId$]="selectedArmorSubject"

@@ -17,7 +17,8 @@
       </fieldset>
       <fieldset class="input-wrap">
         <p class="input-label">Race:</p>
-        <select 
+        <select
+        data-test="race-select"
           formControlName="raceId"
           type="number"
           appBlackened
@@ -39,9 +40,10 @@
       <p class="input-label">Height:</p>
       <input
         type="range"
+        class="field slider"
+        data-test="height-slider"
         [(ngModel)]="selectedHeight"
         (change)="changeHandler($event, 'height')"
-        class="field slider"
         min={{selectedRace.minHeight}}
         max={{selectedRace.maxHeight}}
       >
@@ -56,6 +58,7 @@
       <input
         type="range"
         class="field slider"
+        data-test="weight-slider"
         [(ngModel)]="selectedWeight"
         (change)="changeHandler($event, 'weight')"
         min={{selectedRace.minWeight}}

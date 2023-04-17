@@ -48,18 +48,17 @@ export class AuthComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.route.url.pipe().subscribe(data => {
+    this.route.url.subscribe(data => {
       this.authType = data[data.length - 1].path === 'register' ? 'register' : 'login';
-
       // Dinamically change form for registration
       if (this.isRegister()) {
         this.authForm.addControl('nickname', new FormControl('', {
           validators: [Validators.required, Validators.maxLength(20)],
-          asyncValidators: [uniqValidator(this.apiService, 'nick')],
+          asyncValidators: [uniqValidator.validate(this.apiService, 'nick')],
           updateOn: 'blur'
         }));
 
-        this.email.addAsyncValidators([uniqValidator(this.apiService, 'email')]);
+        this.email.addAsyncValidators([uniqValidator.validate(this.apiService, 'email')]);
       }
     });
   }

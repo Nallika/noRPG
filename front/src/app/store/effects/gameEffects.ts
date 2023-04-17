@@ -6,7 +6,7 @@ import { catchError, map, of, withLatestFrom, exhaustMap, mergeMap } from 'rxjs'
 import { ApiService } from 'src/app/core/services/api.service';
 import * as gameActions from '../actions/gameActions';
 import { gameState } from 'src/app/types/storeTypes';
-import { character, fullCharacter, gameData } from 'src/app/types/gameTypes';
+import { character, resultCharacter, gameData } from 'src/app/types/gameTypes';
 import { ladder } from 'src/app/types/ladderTypes';
 
 @Injectable()
@@ -45,7 +45,7 @@ export class GameEffects {
     ofType(gameActions.submitChar),
     withLatestFrom(this.store.select('game', 'character')),
     exhaustMap(([_, data]) => {
-      return this.apiService.post<character, {character: fullCharacter, score: number}>('/newChar', data).pipe(
+      return this.apiService.post<character, {character: resultCharacter, score: number}>('/newChar', data).pipe(
         map((data) => gameActions.submitCharSuccess({data})),
         catchError((error) => of(gameActions.gameError(error.message)))
       )

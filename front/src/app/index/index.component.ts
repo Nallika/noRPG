@@ -22,7 +22,7 @@ export class IndexComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.playerService.isAuthenticated.subscribe( value => this.isAuthenticated = value)
+    this.playerService.isAuthenticated.subscribe( value => this.isAuthenticated = value);
   }
 
   goTo(url: urlType) {

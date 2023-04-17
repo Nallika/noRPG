@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { armor, item, itemType, itemEnum, weapon } from 'src/app/types/gameTypes';
+import { armor, itemType, itemEnum, weapon } from 'src/app/types/gameTypes';
 
 @Component({
   selector: 'app-item',
@@ -11,8 +11,8 @@ import { armor, item, itemType, itemEnum, weapon } from 'src/app/types/gameTypes
 /**
  * Conponent displayed block of weapon or armor.
  */
-export class ItemComponent implements OnInit {
-  @Input() itemData: item;
+export class ItemComponent<T extends armor | weapon> implements OnInit {
+  @Input() itemData: T;
   @Input() type: itemType;
   @Input() selectedItemId$: Observable<number>;
   @Output() selectItem = new EventEmitter<{ itemId: number, type: itemType}>();

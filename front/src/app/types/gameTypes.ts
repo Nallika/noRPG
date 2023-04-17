@@ -13,7 +13,13 @@ export interface character {
   weaponId: number,
 }
 
-export interface characterCalculations {
+export type resultCharacter = {
+  name: string;
+  weapon: string;
+  armor: string;
+  race: string;
+  height: number,
+  weight: number,
   damage: {
     minDamage: number,
     maxDamage: number
@@ -23,16 +29,7 @@ export interface characterCalculations {
   hitChanse: number,
   initiative: number,
   mitigation: number
-}
-
-export type fullCharacter = {
-  name: string;
-  weapon: string;
-  armor: string;
-  race: string;
-  height: number,
-  weight: number
-} & characterCalculations;
+};
 
 export type race = {
   id: number,

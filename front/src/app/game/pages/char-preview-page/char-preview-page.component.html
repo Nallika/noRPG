@@ -4,7 +4,7 @@
 <ng-template #elseBlock>
   <app-game-template>
     <header>
-      <p class="title">{{title}}</p>
+      <p data-test="title" class="title">{{title}}</p>
     </header>
     <content>
       <div class="container">
@@ -14,7 +14,7 @@
               <ng-container *ngFor=" let field of fieldsList">
                 <div class="stat-wrap">
                   <div class="stat-title">{{field}}</div>
-                  <div class="stat-value">{{characterData[field]}}</div>
+                  <div data-test="field" class="stat-value">{{characterData[field]}}</div>
                 </div>
               </ng-container>
             </div>

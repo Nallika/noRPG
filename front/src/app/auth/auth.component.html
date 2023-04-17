@@ -7,6 +7,7 @@
             <p class="input-label text">Nickname:</p>
             <input 
               formControlName="nickname"
+              data-test="nickname"
               type="text"
               appBlackened
             >
@@ -20,6 +21,7 @@
             <p class="input-label text">Email:</p>
             <input 
               formControlName="email"
+              data-test="email"
               type="text"
               appBlackened
             >
@@ -33,6 +35,7 @@
             <p class="input-label text">Password:</p>
             <input 
               formControlName="password"
+              data-test="password"
               type="password"
               appBlackened
             >
@@ -43,9 +46,9 @@
           </fieldset>
         </fieldset>
       </form>
-      <div class="auth-error" *ngIf="error">{{error}}</div>
+      <div data-test="error" class="auth-error" *ngIf="error">{{error}}</div>
       <div class="item-wrap">
-        <app-button [title]="authType | titlecase" (click)="submitForm()"></app-button>
+        <app-button data-test="submit" [title]="authType | titlecase" (click)="submitForm()"></app-button>
       </div>
       <div class="item-wrap">
         <p class="text">{{isRegister() ? 'Already have account ?' : 'Haven\'t account yet ?'}}</p>

@@ -1,6 +1,6 @@
 /** Here types for NGRX store */
 
-import { character, fullCharacter } from "./gameTypes"
+import { character, resultCharacter } from "./gameTypes"
 import { gameData } from "./gameTypes"
 import { ladder } from "./ladderTypes"
 
@@ -14,7 +14,7 @@ export interface gameState {
     isFull: boolean
   },
   character: character,
-  resultCharacter: fullCharacter,
+  resultCharacter: resultCharacter,
   freeStatPoints: number,
   score: number,
 }

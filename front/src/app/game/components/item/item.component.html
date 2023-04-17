@@ -1,7 +1,7 @@
-<div class="container" (click)="setIsSelected()" [ngClass]="{'selected': isSelected}" >
+<div class="container" (click)="setIsSelected()" data-test="button" [ngClass]="{'selected': isSelected}" >
   <img alt="Character inventory item. Weapon or armor"/>
   <div class="info">
     <p class="title">{{itemData.title}}</p>
-    <p class="text">{{getItemInfo()}}</p>
+    <p data-test="info" class="text">{{getItemInfo()}}</p>
   </div>
 </div>

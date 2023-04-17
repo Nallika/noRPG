@@ -1,5 +1,5 @@
 <ng-container *ngIf="((loading$ | async) && !ladder.length); else elseBlock">
-  <app-loader></app-loader>
+  <app-loader data-test="loader"></app-loader>
 </ng-container>
 <ng-template #elseBlock>
   <div class="container">

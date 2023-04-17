@@ -3,20 +3,23 @@ import { createReducer, on } from "@ngrx/store";
 import * as gameActions from '../actions/gameActions';
 import { gameState } from "../../types/storeTypes";
 import { generateRandom, generateCharacter } from "src/app/utils/idex";
-import { character, formEnum, fullCharacter, race, statsForm, gameData } from "src/app/types/gameTypes";
+import { character, formEnum, resultCharacter, race, statsForm, gameData } from "src/app/types/gameTypes";
+
+export const FREE_STAT_POINTS = 20;
+export const INITIAL_STAT_POINTS = 10;
 
 const initialState: gameState = {
   loading: false,
   error: '',
   gameData: {} as gameData,
   character: {} as character,
-  resultCharacter: {} as fullCharacter,
+  resultCharacter: {} as resultCharacter,
   ladderData: {
     ladderChunk: [],
     page: 0,
     isFull: false
   },
-  freeStatPoints: 20,
+  freeStatPoints: FREE_STAT_POINTS,
   score: 0,
 };
 
@@ -34,17 +37,12 @@ const generateRandomRace = (races: race[]): race => {
 const recalculateCharStats = (
   currentCharData: character,
   incomimgStatData: statsForm,
-  freeStatPoints: number
   ): {newCharData: character, freeStatPoints: number } => {
-    const {strength, agility, stamina, speed} = currentCharData;
-    const currentStatSumm = Object.values({strength, agility, stamina, speed}).reduce((acc, val) => acc + val);
-    const incomeStatSumm = Object.values(incomimgStatData).reduce((acc, val) => acc + val);
+    const statSumm = Object.values(incomimgStatData).reduce((acc, val) => acc + val);
+    const newFreeStatPoints = FREE_STAT_POINTS + INITIAL_STAT_POINTS - statSumm;
 
-    const isIncrease = incomeStatSumm > currentStatSumm;
-    freeStatPoints = isIncrease ? freeStatPoints - 1 : freeStatPoints + 1;
-
-    // If there are no freeStatPoints we can't 
-    if (freeStatPoints < 0) {
+    // If there are no freeStatPoints we can't increase stats
+    if (newFreeStatPoints < 0) {
       return {newCharData: currentCharData, freeStatPoints: 0};
     }
 
@@ -53,7 +51,7 @@ const recalculateCharStats = (
         ...currentCharData,
         ...incomimgStatData
       },
-      freeStatPoints
+      freeStatPoints: newFreeStatPoints
     }
 }
 
@@ -106,12 +104,12 @@ export const gameReducer = createReducer(
     }
   }),
   on(gameActions.saveChar, (state: gameState, action) => {
-    const {character: currentCharData, freeStatPoints: currentFreeStatPoins} = state;
+    const {character: currentCharData } = state;
     const incomingCharData = action.data;
 
     // If stats changed we need run recalculateCharStats
     if (action.form === formEnum.stats) {
-      const { newCharData, freeStatPoints } = recalculateCharStats(currentCharData, incomingCharData, currentFreeStatPoins);
+      const { newCharData, freeStatPoints } = recalculateCharStats(currentCharData, incomingCharData);
 
       return {
         ...state,
@@ -133,11 +131,8 @@ export const gameReducer = createReducer(
   }),
   on(gameActions.submitChar, (state: gameState) => ({
     ...state,
-    freeStatPoints: initialState.freeStatPoints,
-  })),
-  on(gameActions.resetPoints, (state: gameState) => ({
-    ...state,
     loading: true,
+    freeStatPoints: initialState.freeStatPoints,
   })),
   on(gameActions.submitCharSuccess, (state: gameState, action) => ({
     ...state,

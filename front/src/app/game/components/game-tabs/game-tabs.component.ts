@@ -9,7 +9,13 @@ import { Component } from '@angular/core';
   template: `
     <div class="container">
       <div class="tab-list" role="tablist">
-          <button *ngFor="let tab of tabs" class="tab" [ngClass]="{'active': tab === activeTab}" (click)="openTab(tab)">{{tab}}</button>
+        <button 
+          *ngFor="let tab of tabs"
+          class="tab" 
+          [attr.data-test]="'tab-' + tab"
+          [ngClass]="{'active': tab === activeTab}"
+          (click)="openTab(tab)">{{tab}}
+        </button>
       </div>
       <div [ngSwitch]="activeTab">
         <div *ngSwitchCase="'Appearance'">
