@@ -4,13 +4,13 @@ import logger from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
 import bodyParser from 'body-parser';
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 import indexRouter from './routers/index';
 import apiRouter from './routers/apiRouter';
-import { fillBaseTables } from './database/utils';
 
-dotenv.config()
 const app = express();
 
 app.use(express.static('front/dist/no-rpg'));

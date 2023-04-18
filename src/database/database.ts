@@ -1,15 +1,12 @@
-import { Pool } from 'pg';
+import { Pool, PoolConfig } from 'pg';
+import { parse } from 'pg-connection-string';
 import fs from 'node:fs';
 import rootPath from 'app-root-path';
 import path from 'node:path';
 
-export const pool = new Pool({
-  user: 'psyhodeal',
-  host: 'localhost',
-  database: 'norpg',
-  password: 'fuckinJourney49',
-  port: 5432,
-});
+const config = parse(process.env.DATABASE_URL as string);
+
+export const pool = new Pool(config as PoolConfig);
 
 async function executeSqlCommands(sqlCommands: string) {
   try {
