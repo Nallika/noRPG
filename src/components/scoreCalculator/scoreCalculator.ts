@@ -3,19 +3,18 @@ import Character from "../character/Character";
 import { rating } from "../character/types";
 import { generateOponentByRating } from "./generators";
 
-const LIMIT = 30;
+const LIMIT = 50;
 
 export const scoreCalculator = (char: Character): number => {
-  const rating = char.getRating();
-
+  let rating = char.getRating();
   const firstResult = runEncounter(char, rating);
 
   for (let index= 1; index < LIMIT; index++) {
-    const newRating = iterateRating(rating, firstResult);
-    const newResult = runEncounter(char, newRating);
+    rating = iterateRating(rating, firstResult);
+    const newResult = runEncounter(char, rating);
 
     if (firstResult !== newResult) {
-      return Math.floor(newRating.power + newRating.resilience);
+      return Math.floor(rating.power + rating.resilience);
     }
   }
 
@@ -24,8 +23,8 @@ export const scoreCalculator = (char: Character): number => {
 
 const iterateRating = ({resilience, power}: rating, increase: boolean): rating => {
   return increase ?
-    { resilience: resilience - 5, power: power - 5 } :
-    { resilience: resilience + 5, power: power + 5 }; 
+    { resilience: resilience + 5, power: power + 5 } : 
+    { resilience: resilience - 5, power: power - 5 }; 
 }
 
 const runEncounter = (char: Character, rating: rating): boolean => {

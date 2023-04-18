@@ -8,7 +8,7 @@ import * as dotenv from 'dotenv'
 
 import indexRouter from './routers/index';
 import apiRouter from './routers/apiRouter';
-import Db from './database/db';
+import { fillBaseTables } from './database/utils';
 
 dotenv.config()
 const app = express();
@@ -30,8 +30,6 @@ app.use(logger('dev'));
 app.use('/api', apiRouter);
 app.use('/', indexRouter);
 
-Db.getInstance().init();
-
-const listener = app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`Running on ${process.env.PORT} ...`);
 })

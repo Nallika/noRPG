@@ -10,7 +10,7 @@ export const raceMock_1 = {
 	initialStrength: 2,
 	initialEndurance: 1,
 	initialAgility: 4,
-	initialspeed: 3,
+	initialSpeed: 3,
   description: 'Human is human',
 }
 
@@ -24,7 +24,7 @@ export const raceMock_2 = {
 	initialStrength: 1,
 	initialEndurance: 2,
 	initialAgility: 3,
-	initialspeed: 4,
+	initialSpeed: 4,
   description: 'Elf is high',
 }
 

@@ -10,7 +10,7 @@ export const ladder = [
   
   async (req:express.Request, res:express.Response) => {
     const { page } = req.query as any as {page: number};
-    const { ladder, isFull, error } = getLadder(page);
+    const { ladder, isFull, error } = await getLadder(page);
 
     if (error) {
       res.status(400).json(error);

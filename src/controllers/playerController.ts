@@ -18,7 +18,7 @@ export const register = [
     const { player, error } = await addNewPlayer(nickname, email, password);
 
     if (error) {
-      res.status(400).json('Registration failed, check data');
+      res.status(400).json(error);
       return;
     }
 
@@ -34,13 +34,9 @@ export const login = [
   body('password').isString().not().isEmpty().trim().escape(),
 
   async (req:express.Request, res:express.Response) => {
-
-    console.log('login');
-
     const validationErrors = validationResult(req);
 
     if (!validationErrors.isEmpty()) {
-      console.log('validationErrors ', validationErrors.array());
       return res.status(400).json({ errors: validationErrors.array() });
     }
 
@@ -48,7 +44,6 @@ export const login = [
     const { player, error } = await loginPlayer(email, password);
 
     if (error) {
-      console.log('ERRIR ', error);
       res.status(400).json(error);
       return;
     }
@@ -64,10 +59,10 @@ export const auth = [
   async (req:express.Request, res:express.Response) => {
     const token = req.headers["authorization"] as string;
 
-    const { player, error } = authPlayer(token);
+    const { player, error } = await authPlayer(token);
 
     if (error) {
-      res.status(300).json('Autentication error');
+      res.status(300).json(error);
       return;
     }
 

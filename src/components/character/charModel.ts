@@ -1,4 +1,4 @@
-import Db from '../../database/db';
+import { pool } from "../../database/database";
 import { addToLadder } from '../ladder/ladderModel';
 import { addNewCharResult, charData } from './types';
 import { scoreCalculator } from '../scoreCalculator/scoreCalculator';
@@ -9,7 +9,7 @@ import Character from './Character';
 
 export const addNewCharacter = async (charData: charData, player: {id: number, nickname: string}): Promise<addNewCharResult> => {
 
-  const { races } = getRaces();
+  const { races } = await getRaces();
   const race = races.find(({id}) => id === charData.raceId) as race;
 
   const { isValid, error: validationError } = validateCharacterData(charData, race);
@@ -42,43 +42,32 @@ export const addNewCharacter = async (charData: charData, player: {id: number, n
   let charId = 0;
 
   try {
-    const db = Db.getInstance();
-
-    const { changes: characterChanges, lastInsertRowid: characterId } = db.run(
+    const { rowCount, rows } = await pool.query(
       `INSERT INTO Characters (
-        playerId,
+        player_id,
         name,
-        raceId,
-        weaponId,
-        armorId,
+        race_id,
+        weapon_id,
+        armor_id,
         height,
         weight,
         strength,
         agility,
         stamina,
         speed
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      playerId,
-      name,
-      raceId,
-      weaponId,
-      armorId,
-      height,
-      weight,
-      strength,
-      agility,
-      stamina,
-      speed,
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
+      [ playerId, name, raceId, weaponId, armorId, height, weight, strength, agility, stamina, speed ]
     );
-  
-    if (!characterChanges) {
+
+    if (rowCount === 0) {
       errorMessage = 'Char insert error';
     }
 
-    charId = characterId;
+    charId = rows[0].id;
   
   } catch (error) {
       console.error(`Error when add character ${error}`);
+
       if (charId) {
         deleteCharacter(charId);
       }
@@ -96,13 +85,25 @@ export const addNewCharacter = async (charData: charData, player: {id: number, n
 
   const score = scoreCalculator(char);
 
-  addToLadder({
-    nickname,
+  const result = addToLadder({
+    playerNick: nickname,
     name,
     raceId,
     score,
     characterId: charId
   });
+
+  if (!result) {
+    errorMessage = 'Error when add character to ladder';
+
+    if (charId) {
+      deleteCharacter(charId);
+    }
+
+    return {
+      error: errorMessage
+    }
+  }
 
   return {
     result: {
@@ -112,12 +113,10 @@ export const addNewCharacter = async (charData: charData, player: {id: number, n
   }
 }
 
-const deleteCharacter = (charId: number): void => {
+const deleteCharacter = async (charId: number): Promise<void> => {
   try {
-    const db = Db.getInstance();
-
-    db.run(`DELETE FROM CharacterStats WHERE characterId = ${charId}`);
-    db.run(`DELETE FROM Characters WHERE id = ${charId}`);
+    await pool.query(`DELETE FROM CharacterStats WHERE character_id = ${charId}`);
+    await pool.query(`DELETE FROM Characters WHERE id = ${charId}`);
   } catch (error) {
     console.error(`Error when delete character ${error}`);
   }

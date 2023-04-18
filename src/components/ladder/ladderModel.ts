@@ -1,42 +1,51 @@
-import Db from "../../database/db";
+import { pool } from '../../database/database';
 import { ladderChar } from "./types";
 
 const LIMIT = 20;
 
-export const getLadder = (page: number): { ladder: ladderChar[], isFull: boolean, error: boolean } => {
+export const getLadder = async (page: number): Promise<{ ladder: ladderChar[]; isFull: boolean; error: string; }> => {
+  try {
+    const offset = (page - 1) *  LIMIT;
 
-  const db = Db.getInstance();
-  const ofset = (page - 1) *  LIMIT;
+    const { rows } = await pool.query(`SELECT count(*) as count FROM Ladder`);
 
-  const { result: {count} } = db.get(`SELECT count(*) as count FROM Ladder`);
-  const isFull = ofset + LIMIT >= count;
+    const isFull = offset + LIMIT >= Number(rows[0].count);
 
-  const { result: ladder, error } = 
-    db.all(
-      `SELECT playerNick, name, raceId, score FROM Ladder ORDER BY score DESC LIMIT ${LIMIT} OFFSET ${ofset}`
-    ) as unknown as {result: ladderChar[], error: boolean};;
-    
-  return {
-    ladder,
-    isFull,
-    error
+    const { rows: ladder } = await pool.query(
+      `SELECT player_nick as "playerNick", name, race_id as "raceId", score FROM Ladder ORDER BY score DESC LIMIT ${LIMIT} OFFSET ${offset}`
+    ) as unknown as {rows: ladderChar[]};
+
+      
+    return {
+      ladder,
+      isFull,
+      error: ''
+    }
+  } catch (error) {
+    console.error(`Error whe try to load ladder, ${error}`);
+
+    return {
+      ladder: [],
+      isFull: false,
+      error: 'Load ladder error'
+    }
   }
 }
 
-export const addToLadder = (char: ladderChar & {characterId: number}): boolean => {
+export const addToLadder = async (char: ladderChar & {characterId: number}): Promise<boolean> => {
+
   const {
     characterId,
     name,
-    nickname,
+    playerNick,
     raceId,
     score
   } = char;
 
-  const db = Db.getInstance();
-
-  const { changes } = db.run(
-    'INSERT INTO Ladder (characterId, name, playerNick, raceId, score) VALUES (?, ?, ?, ?, ?)', characterId, name, nickname, raceId, score
+  const { rowCount } = await pool.query(
+    'INSERT INTO Ladder (character_id, name, player_nick, race_id, score) VALUES ($1, $2, $3, $4, $5)',
+    [ characterId, name, playerNick, raceId, score ]
   );
 
-  return !changes;
+  return rowCount > 0;
 }

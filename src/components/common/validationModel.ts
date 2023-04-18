@@ -1,4 +1,4 @@
-import Db from "../../database/db";
+import { pool } from "../../database/database";
 
 const VALIDATION_MAP: {[key: string]: string} = {
   nick: 'Players',  
@@ -6,22 +6,26 @@ const VALIDATION_MAP: {[key: string]: string} = {
   name: 'Characters',  
 }
 
-export const validateField = (field: string, value: string): { result: boolean; error: boolean; } => {
-  console.log('validateField ', {field, value});
-  const tamleName = VALIDATION_MAP[field];
+export const validateField = async (field: string, value: string): Promise<{ result: boolean }> => {
 
-  if (!tamleName) {
-    return {
-      result: false,
-      error: true
+  try {
+    const tamleName = VALIDATION_MAP[field];
+
+    if (!tamleName) {
+      return {
+        result: false
+      }
     }
-  }
 
-  const db = Db.getInstance();
-  const { result, error } = db.get(`SELECT id FROM ${tamleName} WHERE ${field} = ?`, value);
-  console.log('validateField result', result);
-  return {
-    result: result === undefined,
-    error
+    const { rows } = await pool.query(`SELECT id FROM ${tamleName} WHERE ${field} = $1`, [value]);
+
+    return {
+      result: rows.length === 0
+    }
+  } catch (error) {
+    console.error(`Error whe try to validate field ${field}, ${error}`);
+    return {
+      result: false
+    }
   }
 }

@@ -10,7 +10,7 @@ export interface race {
 	initialStrength: number
 	initialEndurance: number
 	initialAgility: number
-	initialspeed: number
+	initialSpeed: number
 }
 
 export type raceTitle = 'Human' | 'Elf' | 'Dwarf' | 'Orc';

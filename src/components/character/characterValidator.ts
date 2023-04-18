@@ -8,7 +8,7 @@ export const validateCharacterData = (charData: charData, race: race) : {isValid
   if (!validateRace()) {
     return {
       isValid: false,
-      error: 'Invalid raceid'
+      error: 'Invalid raceId'
     }
   }
 

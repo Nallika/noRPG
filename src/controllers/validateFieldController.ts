@@ -13,18 +13,13 @@ export const validate = [
 
   async (req:express.Request, res:express.Response) => {
     const validationErrors = validationResult(req);
-    console.log('validate controller ', req.body);
+
     if (!validationErrors.isEmpty()) {
       return res.status(400).json({ errors: validationErrors.array() });
     }
 
     const { field, value } = req.body;
-    const { result, error } = validateField(field, value);
-
-    if (error) {
-      res.status(400).json(error);
-      return;
-    }
+    const { result } = await validateField(field, value);
 
     res.json(result);
   }

@@ -1,7 +1,6 @@
-import Db from './db';
-import { addNewPlayer } from '../components/player/playerModel';
+import { pool } from './database';
 
-export const fillBaseTables = (): void  => {
+export const fillBaseTables = async (): Promise<void>  => {
   const weaponDescriptions = [
     'With bare hands damage isn\'t good, but hit chance is the best',
     'Sword have better hit chanse that other weapons',
@@ -23,48 +22,42 @@ export const fillBaseTables = (): void  => {
     'Dwarf tough, but slow',
   ];
 
-  const db = Db.getInstance();
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, baseHit, description) VALUES (?, ?, ?, ?, ?)', 'Unarmed', 1, 2, 60, weaponDescriptions[0]);
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, baseHit, description) VALUES (?, ?, ?, ?, ?)', 'Sword', 1, 5, 50, weaponDescriptions[1]);
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, baseHit, description) VALUES (?, ?, ?, ?, ?)', 'Mace', 3, 5, 40, weaponDescriptions[2]);
-  db.run('INSERT INTO Weapons (title, minDamage, maxDamage, baseHit, description) VALUES (?, ?, ?, ?, ?)', 'Spear', 2, 4, 45, weaponDescriptions[3]);
-  
-  db.run('INSERT INTO Armor (title, armorValue, baseDodge, description) VALUES (?, ?, ?, ?)', 'No armor', 0, 30, armorDescriptions[0]);
-  db.run('INSERT INTO Armor (title, armorValue, baseDodge, description) VALUES (?, ?, ?, ?)', 'Light', 5, 20, armorDescriptions[1]);
-  db.run('INSERT INTO Armor (title, armorValue, baseDodge, description) VALUES (?, ?, ?, ?)', 'Medium', 10, 10, armorDescriptions[2]);
-  db.run('INSERT INTO Armor (title, armorValue, baseDodge, description) VALUES (?, ?, ?, ?)', 'Heavy', 20, 5, armorDescriptions[3]);
-  db.run(
-    `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  , 'Human', 160, 210, 50, 200, 20, 30, 2, 1, 4, 3, raceDescription[0]
-  );
-  db.run(
-    `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  , 'Elf', 180, 250, 50, 200, 15, 25, 1, 2, 3, 4, raceDescription[1]
-  );
-  db.run(
-    `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  , 'Orc', 140, 210, 50, 200, 20, 28, 4, 3, 1, 2, raceDescription[2]
-  );
-  db.run(
-    `INSERT INTO Races (title, minHeight, maxHeight, minWeight, maxWeight, minEdgeBMI, maxEdgeBMI, initialStrength, initialEndurance , initialAgility, initialspeed, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  , 'Dwarf', 130, 180, 50, 180, 18, 35, 3, 4, 2, 1, raceDescription[3]
-  );
-}
+  try {
+    await pool.query('INSERT INTO Weapons (title, min_damage, max_damage, base_hit, description) VALUES ($1, $2, $3, $4, $5)', 
+      ['Unarmed', 1, 2, 60, weaponDescriptions[0]]);
+    await pool.query('INSERT INTO Weapons (title, min_damage, max_damage, base_hit, description) VALUES ($1, $2, $3, $4, $5)',
+      ['Sword', 1, 5, 50, weaponDescriptions[1]]);
+    await pool.query('INSERT INTO Weapons (title, min_damage, max_damage, base_hit, description) VALUES ($1, $2, $3, $4, $5)',
+      ['Mace', 3, 5, 40, weaponDescriptions[2]]);
+    await pool.query('INSERT INTO Weapons (title, min_damage, max_damage, base_hit, description) VALUES ($1, $2, $3, $4, $5)',
+      ['Spear', 2, 4, 45, weaponDescriptions[3]]);
 
-export const fillPlayers = (): void  => {
-  addNewPlayer('joy1', 'joy1@gmail.com', 'fuck111');
-}
+    await pool.query('INSERT INTO Armor (title, armor_value, base_dodge, description) VALUES ($1, $2, $3, $4)',
+      ['No armor', 0, 30, armorDescriptions[0]]);
+    await pool.query('INSERT INTO Armor (title, armor_value, base_dodge, description) VALUES ($1, $2, $3, $4)',
+      ['Light', 5, 20, armorDescriptions[1]]);
+    await pool.query('INSERT INTO Armor (title, armor_value, base_dodge, description) VALUES ($1, $2, $3, $4)',
+      ['Medium', 10, 10, armorDescriptions[2]]);
+    await pool.query('INSERT INTO Armor (title, armor_value, base_dodge, description) VALUES ($1, $2, $3, $4)',
+      ['Heavy', 20, 5, armorDescriptions[3]]);
 
-export const listPlayers = (): void  => {
-  const db = Db.getInstance();
-  const {result: players} = db.all('SELECT * FROM Players');
-
-  console.log(players);
-}
-
-export const listLadder = (): void  => {
-  const db = Db.getInstance();
-  const {result: ladder} = db.all('SELECT playerNick, name, raceId, score FROM Ladder ORDER BY score DESC');
-
-  console.log(ladder);
+    await pool.query(
+      `INSERT INTO Races (title, min_height, max_height, min_weight, max_weight, min_edge_bmi, max_edge_bmi, initial_strength, initial_endurance , initial_agility, initial_speed, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`
+    , ['Human', 160, 210, 50, 200, 20, 30, 2, 1, 4, 3, raceDescription[0]]
+    );
+    await pool.query(
+      `INSERT INTO Races (title, min_height, max_height, min_weight, max_weight, min_edge_bmi, max_edge_bmi, initial_strength, initial_endurance , initial_agility, initial_speed, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`
+    , ['Elf', 180, 250, 50, 200, 15, 25, 1, 2, 3, 4, raceDescription[1]]
+    );
+    await pool.query(
+      `INSERT INTO Races (title, min_height, max_height, min_weight, max_weight, min_edge_bmi, max_edge_bmi, initial_strength, initial_endurance , initial_agility, initial_speed, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`
+    , ['Orc', 140, 210, 50, 200, 20, 28, 4, 3, 1, 2, raceDescription[2]]
+    );
+    await pool.query(
+      `INSERT INTO Races (title, min_height, max_height, min_weight, max_weight, min_edge_bmi, max_edge_bmi, initial_strength, initial_endurance , initial_agility, initial_speed, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`
+    , ['Dwarf', 130, 180, 50, 180, 18, 35, 3, 4, 2, 1, raceDescription[3]]
+    );
+  } catch (error) {
+    console.error('ERROR WHEN FILL GAME DATA ')
+  }
 }

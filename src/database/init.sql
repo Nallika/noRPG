@@ -1,55 +1,57 @@
-PRAGMA foreign_keys = ON;
-PRAGMA journal_mode = WAL;
-
-CREATE TABLE IF NOT EXISTS Players (
-	id INTEGER PRIMARY KEY ASC,
+-- Players table
+CREATE TABLE IF NOT EXISTS players (
+	id SERIAL PRIMARY KEY,
 	nick VARCHAR(40) UNIQUE,
 	email VARCHAR(40) UNIQUE,
-	token VARCHAR(40),
-	password VARCHAR(40)
+	token VARCHAR(512),
+	password VARCHAR(256)
 );
 
-CREATE TABLE IF NOT EXISTS Races (
-	id INTEGER PRIMARY KEY ASC,
+-- Races table
+CREATE TABLE IF NOT EXISTS races (
+	id SERIAL PRIMARY KEY,
 	title VARCHAR(40) UNIQUE,
-	description VARCHAR(40),
-	minWeight INTEGER,
-	maxWeight INTEGER,
-	minHeight INTEGER,
-	maxHeight INTEGER,
-	minEdgeBMI INTEGER,
-	maxEdgeBMI INTEGER,
-	initialStrength INTEGER,
-	initialEndurance INTEGER,
-	initialAgility INTEGER,
-	initialspeed INTEGER
+	description VARCHAR(256),
+	min_weight INTEGER,
+	max_weight INTEGER,
+	min_height INTEGER,
+	max_height INTEGER,
+	min_edge_bmi INTEGER,
+	max_edge_bmi INTEGER,
+	initial_strength INTEGER,
+	initial_endurance INTEGER,
+	initial_agility INTEGER,
+	initial_speed INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS Weapons (
-	id INTEGER PRIMARY KEY ASC,
+-- Weapons table
+CREATE TABLE IF NOT EXISTS weapons (
+	id SERIAL PRIMARY KEY,
 	title VARCHAR(40) UNIQUE,
-	description VARCHAR(40),
-	minDamage INTEGER,
-	maxDamage INTEGER,
-	baseHit INTEGER
+	description VARCHAR(256),
+	min_damage INTEGER,
+	max_damage INTEGER,
+	base_hit INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS Armor (
-	id INTEGER PRIMARY KEY ASC,
+-- Armor table
+CREATE TABLE IF NOT EXISTS armor (
+	id SERIAL PRIMARY KEY,
 	title VARCHAR(40) UNIQUE,
-	description VARCHAR(40),
-	armorValue INTEGER,
-	baseDodge INTEGER
+	description VARCHAR(256),
+	armor_value INTEGER,
+	base_dodge INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS Characters (
-	id INTEGER PRIMARY KEY ASC,
-	playerId INTEGER,
+-- Characters table
+CREATE TABLE IF NOT EXISTS characters (
+	id SERIAL PRIMARY KEY,
+	player_id INTEGER,
 	name VARCHAR(40) UNIQUE,
-	createDate TEXT DEFAULT (datetime('now','localtime')),
-	raceId INTEGER,
-	weaponId INTEGER,
-	armorId INTEGER,
+	create_date TIMESTAMP DEFAULT NOW(),
+	race_id INTEGER,
+	weapon_id INTEGER,
+	armor_id INTEGER,
 	weight INTEGER,
 	height INTEGER,
 	strength INTEGER,
@@ -57,20 +59,21 @@ CREATE TABLE IF NOT EXISTS Characters (
 	agility INTEGER,
 	speed INTEGER,
 
-	FOREIGN KEY (playerId) REFERENCES Players(id),
-	FOREIGN KEY (raceId) REFERENCES Races(id),
-	FOREIGN KEY (weaponId) REFERENCES Weapons(id),
-	FOREIGN KEY (armorId) REFERENCES Armor(id)
+	FOREIGN KEY (player_id) REFERENCES players(id),
+	FOREIGN KEY (race_id) REFERENCES races(id),
+	FOREIGN KEY (weapon_id) REFERENCES weapons(id),
+	FOREIGN KEY (armor_id) REFERENCES armor(id)
 );
 
-CREATE TABLE IF NOT EXISTS Ladder (
-	id INTEGER PRIMARY KEY ASC,
-	characterId INTEGER,
-	playerNick VARCHAR(40),
+-- Ladder table
+CREATE TABLE IF NOT EXISTS ladder (
+	id SERIAL PRIMARY KEY,
+	character_id INTEGER,
+	player_nick VARCHAR(40),
 	name VARCHAR(40) UNIQUE,
-	raceId INTEGER,
+	race_id INTEGER,
 	score INTEGER,
 
-  FOREIGN KEY (raceId) REFERENCES Races(id),
-	FOREIGN KEY (characterId) REFERENCES Characters(id)
+	FOREIGN KEY (race_id) REFERENCES races(id),
+	FOREIGN KEY (character_id) REFERENCES characters(id)
 );

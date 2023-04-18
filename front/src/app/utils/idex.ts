@@ -25,5 +25,5 @@ export const generateCharacter = (race: race): character  => ({
   strength: race.initialStrength,
   agility: race.initialAgility,
   stamina: race.initialEndurance,
-  speed: race.initialspeed
+  speed: race.initialSpeed
 });

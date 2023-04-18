@@ -1,15 +1,25 @@
-import Db from "../../database/db";
+import { pool } from '../../database/database';
 import { race } from "./types";
 
-export const getRaces = (): { races: race[]; error: boolean } => {
-  const db = Db.getInstance();
-  const { result: races, error } = db.all(
-    `SELECT id, title, minWeight, maxWeight, minHeight, maxHeight, minEdgeBMI, maxEdgeBMI,
-     initialStrength, initialEndurance, initialAgility, initialspeed, description FROM Races GROUP BY title`
-  ) as unknown as {result: race[], error: boolean};;
+export const getRaces = async (): Promise<{ races: race[]; error: string; }> => {
+  try {
+    const { rows: races } = await pool.query(
+      `SELECT id, title, min_weight as "minWeight", max_weight as "maxWeight", min_height as "minHeight", max_height as "maxHeight", 
+       min_edge_bmi as "minEdgeBMI", max_edge_bmi as "maxEdgeBMI", initial_strength as "initialStrength", 
+       initial_endurance as "initialEndurance", initial_agility as "initialAgility", initial_speed as "initialSpeed", description 
+       FROM Races`
+    ) as unknown as {rows: race[]};
 
-  return {
-    races,
-    error
+    return {
+      races,
+      error: ''
+    }
+  } catch (error) {
+    console.error(`Error whe try to load races, ${error}`);
+
+    return {
+      races: [],
+      error: 'Load game data error'
+    }
   }
 }

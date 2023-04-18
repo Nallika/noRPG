@@ -66,10 +66,10 @@ export default class Character implements charInterace {
       return cachedData;
     }
 
-    const { races } = getRaces();
+    const { races } = await getRaces();
     const race = races.find(({id}) => id === this.raceId) as race;
   
-    const { weapons, armor: armorList } = getItems();
+    const { weapons, armor: armorList } = await getItems();
     const weapon = weapons.find(({id}) => id === this.weaponId) as weapon;
     const armor = armorList.find(({id}) => id === this.armorId) as armor;
 
