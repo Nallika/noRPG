@@ -7,7 +7,7 @@
     "tstart": "ts-node src/app.ts",
     "start": "node dist/app.js",
     "build": "npx tsc",
-    "postinstall": "npm run build",
+    "postinstall": "npm install -g @angular/cli && npm run build",
     "heroku-postbuild": "cd front && npm install && ng build"
   },
   "dependencies": {
