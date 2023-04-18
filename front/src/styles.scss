@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "moria";
+  src: url("assets/MoriaCitadel.ttf");
+}
 
 $primary-color: white;
 $selected-color: brown;
@@ -40,8 +44,8 @@ body {
 // Page headers
 @mixin heading {
   @include text;
-  font-family: fantasy;
-  font-size: 1.8em;
+  font-family: moria;
+  font-size: 1.2em;
 }
 
 // Main border for outer blocks

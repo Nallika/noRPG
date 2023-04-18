@@ -14,6 +14,14 @@ import apiRouter from './routers/apiRouter';
 const app = express();
 
 app.use(express.static('front/dist/no-rpg'));
+
+// Serve static files from the 'src/front/assets' directory
+app.use('/assets', express.static('front/app/assets'));
+
+// Serve the Angular app from the 'front/dist/no-rpg' directory
+app.use('/', express.static('front/dist/no-rpg'));
+
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());

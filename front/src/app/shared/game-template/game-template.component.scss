@@ -16,6 +16,10 @@
   flex-direction: column;
 }
 
+.header {
+  height: styles.spacing(6);
+}
+
 .content {
   height: 100%;
 }
