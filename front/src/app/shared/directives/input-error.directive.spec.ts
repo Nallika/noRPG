@@ -1,11 +1,11 @@
-import { ErrorTextDirective } from './input-error.directive';
+import { InpuiErrorDirective } from './input-error.directive';
 import { DomSanitizer } from '@angular/platform-browser';
 
-describe('BlackenedDirective', () => {
+describe('InpuiErrorDirective', () => {
   let sanitizer: DomSanitizer;
 
   it('should create an instance', () => {
-    const directive = new ErrorTextDirective(sanitizer);
+    const directive = new InpuiErrorDirective(sanitizer);
     expect(directive).toBeTruthy();
   });
 });

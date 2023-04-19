@@ -88,3 +88,11 @@
 .mirrored-sliders {
   padding-top: styles.spacing(1);
 }
+
+.blackened {
+  @include styles.border-1;
+  color: styles.$primary-color;
+  background-color: styles.$background-color;
+  outline: none;
+  width: 100%;
+}

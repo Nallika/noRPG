@@ -9,6 +9,7 @@ import { AuthComponent } from './auth.component';
 import { PlayerService } from '../core/services/player.service';
 import { ApiService } from '../core/services/api.service';
 import { uniqValidator } from '../core/validators/uniq-validator';
+import { BlackInputComponent } from '../shared/black-input/black-input.component';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
@@ -31,8 +32,8 @@ describe('AuthComponent', () => {
     spyOn(uniqValidator, 'validate').and.returnValue(() => of(null));
 
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [AuthComponent],
+      imports: [ ReactiveFormsModule ],
+      declarations: [ AuthComponent, BlackInputComponent ],
       providers: [
         FormBuilder,
         {

@@ -1,6 +1,6 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
-import { validateField } from '../components/common/validationModel';
+import { validateUniqField } from '../components/common/validationModel';
 
 /**
  * 
@@ -19,7 +19,7 @@ export const validate = [
     }
 
     const { field, value } = req.body;
-    const { result } = await validateField(field, value);
+    const { result } = await validateUniqField(field, value);
 
     res.json(result);
   }

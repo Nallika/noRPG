@@ -32,7 +32,7 @@ export class AuthComponent implements OnInit{
     this.authForm = fb.group({
       'email': ['', [ Validators.required, Validators.email ]],
       'password': ['', [ Validators.required, Validators.pattern(/^(?=.*\d).{6,16}$/) ]]
-    }, {updateOn: 'blur'});
+    }, { updateOn: 'blur' });
   }
 
   get nickname(): FormControl {
@@ -53,7 +53,7 @@ export class AuthComponent implements OnInit{
       // Dinamically change form for registration
       if (this.isRegister()) {
         this.authForm.addControl('nickname', new FormControl('', {
-          validators: [Validators.required, Validators.maxLength(20)],
+          validators: [Validators.required, Validators.minLength(2), Validators.maxLength(20)],
           asyncValidators: [uniqValidator.validate(this.apiService, 'nick')],
           updateOn: 'blur'
         }));

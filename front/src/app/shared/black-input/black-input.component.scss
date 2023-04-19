@@ -1,0 +1,9 @@
+@use '../../../styles' as styles;
+
+input {
+  @include styles.border-1;
+  color: styles.$primary-color;
+  background-color: styles.$background-color;
+  outline: none;
+  width: 100%;
+}

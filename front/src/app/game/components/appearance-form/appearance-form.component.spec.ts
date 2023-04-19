@@ -11,6 +11,7 @@ import { By } from '@angular/platform-browser';
 import { generateCharacter } from 'src/app/utils/idex';
 import { saveChar } from 'src/app/store/actions/gameActions';
 import { character, formEnum } from 'src/app/types/gameTypes';
+import { BlackInputComponent } from 'src/app/shared/black-input/black-input.component';
 
 describe('AppearanceFormComponent', () => {
   let component: AppearanceFormComponent;
@@ -28,8 +29,8 @@ describe('AppearanceFormComponent', () => {
     spyOn(uniqValidator, 'validate').and.returnValue(() => of(null));
 
     await TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule],
-      declarations: [ AppearanceFormComponent ],
+      imports: [ FormsModule, ReactiveFormsModule ],
+      declarations: [ AppearanceFormComponent, BlackInputComponent ],
       providers: [
         FormBuilder,
         provideMockStore({ initialState }),

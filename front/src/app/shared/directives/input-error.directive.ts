@@ -7,7 +7,7 @@ import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 @Directive({
   selector: '[appInputError]'
 })
-export class ErrorTextDirective {
+export class InpuiErrorDirective {
   @HostBinding('style')
   get myStyle(): SafeStyle {
     return this.sanitizer.bypassSecurityTrustStyle(

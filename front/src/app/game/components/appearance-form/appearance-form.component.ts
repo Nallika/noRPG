@@ -43,11 +43,11 @@ export class AppearanceFormComponent implements OnInit, OnDestroy {
       'raceId': [''],
       'height': [''],
       'weight': [''],
-    }, {updateOn: 'change'});
+    }, { updateOn: 'change' });
 
     // We need to set name value on blur for not spam store.
     this.appearanceForm.addControl('name', new FormControl('', {
-      validators: [ Validators.required, Validators.maxLength(16) ],
+      validators: [ Validators.required, Validators.minLength(2), Validators.maxLength(16) ],
       asyncValidators: [uniqValidator.validate(this.apiService, 'name')],
       updateOn: 'blur'
     }));

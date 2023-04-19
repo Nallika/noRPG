@@ -6,7 +6,11 @@ const VALIDATION_MAP: {[key: string]: string} = {
   name: 'Characters',  
 }
 
-export const validateField = async (field: string, value: string): Promise<{ result: boolean }> => {
+/**
+ * Validate is field exist in databse,
+ * If return true then field isn't exist and validation success, false otherwise
+ */
+export const validateUniqField = async (field: string, value: string): Promise<{ result: boolean }> => {
 
   try {
     const tamleName = VALIDATION_MAP[field];
@@ -17,13 +21,12 @@ export const validateField = async (field: string, value: string): Promise<{ res
       }
     }
 
-    const { rows } = await pool.query(`SELECT id FROM ${tamleName} WHERE ${field} = $1`, [value]);
+    const { rowCount } = await pool.query(`SELECT id FROM ${tamleName} WHERE ${field} = $1`, [value]);
 
     return {
-      result: rows.length === 0
+      result: rowCount === 0
     }
   } catch (error) {
-    console.error(`Error whe try to validate field ${field}, ${error}`);
     return {
       result: false
     }

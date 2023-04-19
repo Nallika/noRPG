@@ -39,14 +39,12 @@ export class ItemsShopComponent implements OnInit {
 
     // Set selected armor to store, and show selected armor description
     this.selectedArmorSubject.subscribe(armorId => {
-      console.log('selectedArmorSubject ', armorId);
       this.armorDescription = this.armor.find((armor) => armorId === armor.id)?.description;
       this.store.dispatch(saveChar({data: {armorId} as character, form: formEnum.items}));
     });
 
     // Set selected weapon to store, and show selected weapon description
     this.selectedWeaponSubject.subscribe(weaponId => {
-      console.log('selectedWeaponSubject ', weaponId);
       this.weaponDescription = this.weapons.find((weapon) => weaponId === weapon.id)?.description;
       this.store.dispatch(saveChar({data: {weaponId} as character, form: formEnum.items}));
     });

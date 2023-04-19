@@ -3,26 +3,24 @@
     <form [formGroup]="appearanceForm" class="item-wrap form">
       <fieldset class="input-wrap">
         <p class="input-label">Char name:</p>
-        <input 
+        <app-black-input 
           formControlName="name"
-          type="text"
-          class="field"
-          appBlackened
-        >
-        <ng-container *ngIf="!name.valid && (name.dirty ||name.touched)">
+          [type]="'text'"
+        />
+        <ng-container *ngIf="!name.valid && (name.dirty || name.touched)">
           <div appInputError [hidden]="!name.errors?.required" >Name is required</div>
           <div appInputError [hidden]="!name.errors?.maxlength" >Name too long</div>
+          <div appInputError [hidden]="!name.errors?.minlength" >Name too short</div>
           <div appInputError [hidden]="!name.errors?.nameAlreadyExists" >Name is already taken</div>
         </ng-container>
       </fieldset>
       <fieldset class="input-wrap">
         <p class="input-label">Race:</p>
         <select
-        data-test="race-select"
+          data-test="race-select"
           formControlName="raceId"
           type="number"
-          appBlackened
-          class="field"
+          class="blackened field"
         >
           <option *ngFor="let race of races" value={{race.id}}>{{race.title}}</option>
         </select>
