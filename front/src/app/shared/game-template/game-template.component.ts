@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /**
  * Template for game pages
@@ -29,7 +29,8 @@ import { Component } from '@angular/core';
       </div>
   </div>
   `,
-  styleUrls: ['./game-template.component.scss']
+  styleUrls: ['./game-template.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameTemplateComponent {
   

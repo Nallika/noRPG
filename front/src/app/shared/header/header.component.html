@@ -11,8 +11,8 @@
       </div>
     </div>
     <div class="item">
-      <div *ngIf="!!nickname" class="nickname-wrap dropdown">
-        <button (click)="toggleDropdown()" data-test="nickname" class="button logout">{{nickname}}</button>
+      <div *ngIf="(nickname$ | async) as value;" class="nickname-wrap dropdown">
+        <button (click)="toggleDropdown()" data-test="nickname" class="button logout">{{ value }}</button>
         <div class="dropdown-content" #dropdown>
           <button (click)="logout()" data-test="logout" class="button logout">Logout</button>
         </div>

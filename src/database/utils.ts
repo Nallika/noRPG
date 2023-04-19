@@ -61,3 +61,27 @@ export const fillBaseTables = async (): Promise<void>  => {
     console.error('ERROR WHEN FILL GAME DATA ')
   }
 }
+
+export const listRaces = async () => {
+  const { rows } = await pool.query('SELECT * FROM Races');
+
+  console.log('-------------------- RACES ----------------------');
+  console.log(rows);
+  console.log('-------------------- RACES ----------------------');
+}
+
+export const listWeapons = async () => {
+  const { rows } = await pool.query('SELECT * FROM Weapons');
+
+  console.log('-------------------- Weapons ----------------------');
+  console.log(rows);
+  console.log('-------------------- Weapons ----------------------');
+}
+
+export const listArmor = async () => {
+  const { rows } = await pool.query('SELECT * FROM Armor');
+
+  console.log('-------------------- Armor ----------------------');
+  console.log(rows);
+  console.log('-------------------- Armor ----------------------');
+}

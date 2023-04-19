@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { map, Observable, take } from 'rxjs';
+import { map, Observable, Subscription, take } from 'rxjs';
 
 import { saveChar } from 'src/app/store/actions/gameActions';
 import { formEnum, statsForm } from 'src/app/types/gameTypes';
@@ -17,9 +17,10 @@ import { gameState } from 'src/app/types/storeTypes';
   templateUrl: './stat-form.component.html',
   styleUrls: ['./stat-form.component.scss']
 })
-export class StatFormComponent implements OnInit {
+export class StatFormComponent implements OnInit, OnDestroy {
   statForm: FormGroup;
   freeStatPoints$: Observable<number>;
+  subscription: Subscription;
 
   constructor(
     private store: Store<{game: gameState}>,
@@ -60,9 +61,16 @@ export class StatFormComponent implements OnInit {
     });
 
     // Save form on change stat values
-    this.statForm.valueChanges.subscribe((data) => this.store.dispatch(
+    this.subscription = this.statForm.valueChanges.subscribe((data) => this.store.dispatch(
       saveChar({data, form: formEnum.stats})
     ));
+  }
+
+  /**
+   * Clear subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   /**

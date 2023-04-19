@@ -1,40 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PopupService } from '../../core/services/popup.service';
+import { Observable } from 'rxjs';
+import { popop } from 'src/app/types/generalTypes';
 
-/**
- * Component to show popup above content.
- */
 @Component({
   selector: 'app-popup',
   template: `
-    <div class="overlay" [ngClass]="{'open': isOpen}">
+    <div class="overlay" [ngClass]="{'open': (popup$ | async)?.content}">
       <div class="container">
         <div class="header">
           <div></div>
-          <div class="title">{{title}}</div>
+          <div class="title">{{ (popup$ | async)?.title }}</div>
           <div class="close" (click)="onClose()">x</div>
         </div>
-        <div class="content">{{content}}</div>
+        <div class="content">{{ (popup$ | async)?.content }}</div>
       </div>
     </div>
   `,
-  styleUrls: ['./popup.component.scss']
+  styleUrls: ['./popup.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopupComponent implements OnInit {
-  isOpen: boolean;
-  title: string;
-  content: string;
+  popup$: Observable<popop>;
 
-  constructor(private popupService: PopupService) {
-    this.isOpen = false;
-  }
+  constructor(private popupService: PopupService) {}
 
   ngOnInit() {
-    this.popupService.popup$.subscribe(popup => {
-      this.isOpen = !!Object.keys(popup).length;
-      this.title = popup.title;
-      this.content = popup.content;
-    });
+    this.popup$ = this.popupService.popup$;
   }
 
   onClose() {

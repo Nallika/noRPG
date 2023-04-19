@@ -12,6 +12,8 @@ import { StatFormComponent } from './components/stat-form/stat-form.component';
 import { ItemsShopComponent } from './components/items-shop/items-shop.component';
 import { StatControllComponent } from './components/stat-controll/stat-controll.component';
 import { ItemComponent } from './components/item/item.component';
+import { ResultStatComponent } from './components/result-stat/result-stat.component';
+import { AddPercentsPipe } from './pipes/add-percents.pipe';
 
 /**
  * Gmae module. Here game components pages and forms
@@ -26,6 +28,8 @@ import { ItemComponent } from './components/item/item.component';
         ItemsShopComponent,
         StatControllComponent,
         ItemComponent,
+        ResultStatComponent,
+        AddPercentsPipe
     ],
     imports: [
         CommonModule,

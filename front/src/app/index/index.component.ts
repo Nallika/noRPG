@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, shareReplay } from 'rxjs';
 
 import { PlayerService } from '../core/services/player.service';
 import { urlType } from '../types/generalTypes';
@@ -10,11 +11,11 @@ import { urlType } from '../types/generalTypes';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  styleUrls: ['./index.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IndexComponent implements OnInit {
-
-  isAuthenticated: boolean;
+  isAuthenticated$: Observable<boolean>;
 
   constructor (
     private router: Router,
@@ -22,7 +23,7 @@ export class IndexComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.playerService.isAuthenticated.subscribe( value => this.isAuthenticated = value);
+    this.isAuthenticated$ = this.playerService.isAuthenticated.pipe(shareReplay(1));
   }
 
   goTo(url: urlType) {

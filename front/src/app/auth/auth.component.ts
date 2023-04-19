@@ -86,6 +86,7 @@ export class AuthComponent implements OnInit{
     this.isSubmitting = true;
     const authData = this.authForm.value;
 
+    // attemptAuth runs http.pos under the hood
     this.playerService
       .attemptAuth(this.authType, authData)
       .subscribe({

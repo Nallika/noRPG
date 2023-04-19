@@ -52,6 +52,6 @@ describe('StatControllComponent', () => {
     button.click();
 
     expect(component.value).toBe(value);
-    expect(changeValueEventSpy).not.toHaveBeenCalledWith(value);
+    expect(changeValueEventSpy).not.toHaveBeenCalled();
   });
 });

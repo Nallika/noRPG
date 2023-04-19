@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Display logo in 2 variants
@@ -8,7 +8,8 @@ import { Component, Input } from '@angular/core';
   template: `
     <div class="logo" [ngClass]="{'large': large}">NO RPG</div>
   `,
-  styleUrls: ['./logo.component.scss']
+  styleUrls: ['./logo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogoComponent {
   @Input() large: boolean

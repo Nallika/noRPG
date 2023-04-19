@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 /**
  * Display provided stat value and 2 buttons for increase or disrease stat.
@@ -13,7 +13,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       <button data-test="increase" (click)="changeValue(true)" [disabled]="increaseDisabled">></button>
     </div>
   `,
-  styleUrls: ['./stat-controll.component.scss']
+  styleUrls: ['./stat-controll.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatControllComponent {
   @Input() label: string;
@@ -21,8 +22,12 @@ export class StatControllComponent {
   @Input() increaseDisabled: boolean | null;
   @Output() changeValueEvent = new EventEmitter<number>();
 
-  changeValue(type: boolean) {
-    this.changeValueEvent.emit(type ? ++this.value : --this.value);
+  changeValue(increase: boolean) {
+    if (this.increaseDisabled && increase) {
+      return;
+    }
+
+    this.changeValueEvent.emit(increase ? ++this.value : --this.value);
   }
 
 }

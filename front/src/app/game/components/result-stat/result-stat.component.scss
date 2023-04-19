@@ -1,0 +1,15 @@
+@use '../../../../styles' as styles;
+
+.title {
+  @include styles.title;
+}
+
+.value {
+  @include styles.text;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

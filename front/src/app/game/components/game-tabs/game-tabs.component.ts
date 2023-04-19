@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /**
  * Component for display and switch character create tabs.
@@ -30,7 +30,8 @@ import { Component } from '@angular/core';
       </div>
     </div>
   `,
-  styleUrls: ['./game-tabs.component.scss']
+  styleUrls: ['./game-tabs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameTabsComponent {
 

@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
-import { player } from 'src/app/types/generalTypes';
 import { PlayerService } from '../../core/services/player.service';
+import { Observable } from 'rxjs';
 
 /**
  * App header with back and logut buttons
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   activatedRoute: ActivatedRoute;
   isIndex: boolean;
   showLogo: boolean;
-  nickname: string;
+  nickname$: Observable<string>;
 
   @ViewChild('dropdown') dropdown: ElementRef; 
 
@@ -32,14 +32,15 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
-    )
-     .subscribe((data: any) => {
+    ).subscribe((data: any) => {
       const path = data.url;
       this.isIndex = path === '/';
       this.showLogo = !['/', '/login', '/register'].includes(path);
-     });
+    });
 
-     this.playerService.currentPlayer.subscribe(({ nickname }: player) => this.nickname = nickname);
+    this.nickname$ = this.playerService.currentPlayer.pipe(
+      map(currentPlayer => currentPlayer.nickname)
+    );
   }
 
   goBack() {
@@ -55,5 +56,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.playerService.logout();
+    this.router.navigateByUrl('/');
   }
 }

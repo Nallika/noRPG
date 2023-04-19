@@ -62,15 +62,13 @@ export const resultCharacterMock = {
   race: 'Human',
   height: 190,
   weight: 100,
-  damage: {
-    minDamage: 25,
-    maxDamage: 32
-  },
+  damage: '25-32',
   dodgeChanse: 25,
   health: 150,
   hitChanse: 68,
   initiative: 6,
-  mitigation: 15
+  mitigation: 15,
+  ...characterStatMock,
 };
 
 export const armorMock = {

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { getLadder, resetLadder } from 'src/app/store/actions/gameActions';
 import { gameState } from 'src/app/types/storeTypes';
 import { ladder, ladderChar } from 'src/app/types/ladderTypes';
-import { filter, Observable, take } from 'rxjs';
+import { filter, Observable, Subject, take, takeUntil } from 'rxjs';
 
 /**
  * Display ladder table, load more rows on scroll
@@ -15,6 +15,7 @@ import { filter, Observable, take } from 'rxjs';
 })
 export class LadderPageComponent implements OnInit, OnDestroy {
 
+  private destroyed$ = new Subject<void>();
   loading$: Observable<boolean>;
   isFull$: Observable<boolean>;
   ladder: ladder;
@@ -27,7 +28,10 @@ export class LadderPageComponent implements OnInit, OnDestroy {
     this.ladder = [];
     this.loading$ = this.store.select('game', 'loading');
     this.isFull$ = this.store.select('game', 'ladderData', 'isFull');
-    this.store.select('game', 'ladderData', 'ladderChunk').subscribe(ladderChunk => this.ladder.push(...ladderChunk));
+    this.store.select('game', 'ladderData', 'ladderChunk')
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(ladderChunk => this.ladder.push(...ladderChunk));
+
     this.store.dispatch(getLadder());
   }
 
@@ -36,6 +40,9 @@ export class LadderPageComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.store.dispatch(resetLadder());
+
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   /**

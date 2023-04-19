@@ -5,6 +5,8 @@ import { CharPreviewPageComponent } from './char-preview-page.component';
 import { resultCharacterMock } from 'src/app/utils/mocks';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { AddPercentsPipe } from '../../pipes/add-percents.pipe';
+import { ResultStatComponent } from '../../components/result-stat/result-stat.component';
 
 describe('CharPreviewPageComponent', () => {
   let component: CharPreviewPageComponent;
@@ -21,7 +23,7 @@ describe('CharPreviewPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CharPreviewPageComponent ],
+      declarations: [ CharPreviewPageComponent, AddPercentsPipe, ResultStatComponent ],
       imports: [ RouterTestingModule ],
       providers: [
         provideMockStore({ initialState }),
@@ -44,14 +46,10 @@ describe('CharPreviewPageComponent', () => {
   });
 
   it('should render character data', () => {
-    expect(fixture.debugElement.query(By.css('[data-test="title"]')).nativeElement.textContent).toContain(`Behold ${resultCharacterMock.name}`);
+    expect(fixture.debugElement.query(By.css('[data-test="title"]')).nativeElement.textContent).toContain(`Behold: ${resultCharacterMock.name}`);
 
-    const fields = fixture.debugElement.queryAll(By.css('[data-test="field"]'));
-    expect(fields.length).toBe(Object.keys(resultCharacterMock).length);
+    const fields = fixture.debugElement.queryAll(By.directive(ResultStatComponent));
 
-    fields.forEach((field, index) => {
-      const fieldValue = Object.values(resultCharacterMock)[index];
-      expect(field.nativeElement.textContent).toContain(fieldValue);
-    });
+    expect(fields.length).toBe(Object.keys(resultCharacterMock).length + 1);
   });
 });

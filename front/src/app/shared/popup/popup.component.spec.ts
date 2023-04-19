@@ -13,15 +13,14 @@ describe('PopupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PopupComponent ],
+      declarations: [PopupComponent],
       providers: [
         {
           provide: PopupService,
-          useValue: popupServiceMock
-        }
-      ]
-    })
-    .compileComponents();
+          useValue: popupServiceMock,
+        },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -37,12 +36,14 @@ describe('PopupComponent', () => {
   it('should subscribe to popup$ and set title and content', () => {
     const title = 'Test title';
     const content = 'Test content';
-    popup.next({title, content})
+    popup.next({ isOpen: true, title, content });
 
     fixture.detectChanges();
-    expect(component.isOpen).toBeTrue();
-    expect(component.title).toBe(title);
-    expect(component.content).toBe(content);
+
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.overlay').classList.contains('open')).toBeTrue();
+    expect(compiled.querySelector('.title').textContent).toBe(title);
+    expect(compiled.querySelector('.content').textContent).toBe(content);
   });
 
   it('should call popupService.closePopup() when onClose() is called', () => {

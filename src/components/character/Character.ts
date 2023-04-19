@@ -59,30 +59,28 @@ export default class Character implements charInterace {
   /**
    * Load data needed for initization of secodary stats
    */
-  async loadInitialData(): Promise<{ race: race; armor: armor; weapon: weapon }> {
-    const cachedData = cache.get(CACHE_NAME) as undefined | { race: race; armor: armor; weapon: weapon };
+  async loadInitialData(): Promise<{ races: race[]; armor: armor[]; weapons: weapon[] }> {
+    const cachedData = cache.get(CACHE_NAME) as undefined | { races: race[]; armor: armor[]; weapons: weapon[] };
 
     if (cachedData) {
       return cachedData;
     }
 
     const { races } = await getRaces();
-    const race = races.find(({id}) => id === this.raceId) as race;
-  
-    const { weapons, armor: armorList } = await getItems();
-    const weapon = weapons.find(({id}) => id === this.weaponId) as weapon;
-    const armor = armorList.find(({id}) => id === this.armorId) as armor;
+    const { weapons, armor } = await getItems();
 
-    cache.set(CACHE_NAME, { race, weapon, armor });
+    cache.set(CACHE_NAME, { races, weapons, armor });
 
-    return { race, weapon, armor };
+    return { races, weapons, armor };
   }
 
   public async init() {
-    const { race, weapon, armor } = await this.loadInitialData();
-    this.race = race;
-    this.weapon = weapon;
-    this.armor = armor;
+    const { races, weapons, armor } = await this.loadInitialData();
+
+    this.race = races.find(({id}) => id === this.raceId) as race;
+    this.weapon = weapons.find(({id}) => id === this.weaponId) as weapon;
+    this.armor = armor.find(({id}) => id === this.armorId) as armor;
+
     this.calculations = this.calculateSecodaryStats();
     this.rating = this.calculateRating();
   }

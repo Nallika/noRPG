@@ -2,13 +2,13 @@
   <content>
     <div class="container">
       <div class="wrap">
-        <div *ngIf="isAuthenticated" class="button-wrap">
+        <div *ngIf="(isAuthenticated$ | async)" class="button-wrap">
           <app-button data-test="new-game" [title]="'NEW GAME'" (click)="goTo('game')"></app-button>
         </div>
-        <div *ngIf="!isAuthenticated" class="button-wrap">
+        <div *ngIf="!(isAuthenticated$ | async)" class="button-wrap">
           <app-button data-test="register" [title]="'REGISTER'" (click)="goTo('register')"></app-button>
         </div>
-        <div *ngIf="!isAuthenticated" class="button-wrap">
+        <div *ngIf="!(isAuthenticated$ | async)" class="button-wrap">
           <app-button data-test="login" [title]="'LOGIN'" (click)="goTo('login')"></app-button>
         </div>
         <div class="button-wrap">

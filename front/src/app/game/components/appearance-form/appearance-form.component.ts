@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 import { appearanceForm, character, formEnum, race } from 'src/app/types/gameTypes';
 import { gameState } from 'src/app/types/storeTypes';
@@ -19,7 +19,7 @@ import { ApiService } from 'src/app/core/services/api.service';
   templateUrl: './appearance-form.component.html',
   styleUrls: ['./appearance-form.component.scss']
 })
-export class AppearanceFormComponent implements OnInit {
+export class AppearanceFormComponent implements OnInit, OnDestroy {
   appearanceForm: FormGroup;
   races: race[];
   // We use selected race to set range selectors(height/weight) min/max values
@@ -31,6 +31,7 @@ export class AppearanceFormComponent implements OnInit {
    */
   selectedHeight: number;
   selectedWeight: number;
+  subscription: Subscription;
 
   constructor(
     private store: Store<{game: gameState}>,
@@ -82,7 +83,14 @@ export class AppearanceFormComponent implements OnInit {
       this.setValues(characterData);
     });
 
-    this.appearanceForm.valueChanges.subscribe((data) => this.processForm(data));
+    this.subscription = this.appearanceForm.valueChanges.subscribe((data) => this.processForm(data));
+  }
+
+  /**
+   * Clear subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   /**

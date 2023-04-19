@@ -1,9 +1,10 @@
-import { gameReducer } from './gameReducer';
-import * as gameActions from '../actions/gameActions';
-import { gameState } from "../../types/storeTypes";
 import { generateCharacter } from "src/app/utils/idex";
 import { character, formEnum, resultCharacter, gameData } from "src/app/types/gameTypes";
 import { changedCharacterStatMock, characterStatMock, getLadderMock, raceMock_1, resultCharacterMock } from 'src/app/utils/mocks';
+
+import { gameReducer } from './gameReducer';
+import * as gameActions from '../actions/gameActions';
+import { gameState } from "../../types/storeTypes";
 
 describe('Game Reducer', () => {
   const initialState: gameState = {

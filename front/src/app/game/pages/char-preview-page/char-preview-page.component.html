@@ -10,21 +10,41 @@
       <div class="container">
         <div class="char-info">
           <div class="block">
-            <div class="stats">
-              <ng-container *ngFor=" let field of fieldsList">
-                <div class="stat-wrap">
-                  <div class="stat-title">{{field}}</div>
-                  <div data-test="field" class="stat-value">{{characterData[field]}}</div>
-                </div>
-              </ng-container>
+            <div class="stat-block">
+              <div class="stat-group">
+                <app-result-stat [title]="'Name'" [value]="characterData.name"></app-result-stat>
+                <app-result-stat [title]="'Race'" [value]="characterData.race"></app-result-stat>
+              </div>
+              <div class="stat-group">
+                <app-result-stat [title]="'Height'" [value]="characterData.height"></app-result-stat>
+                <app-result-stat [title]="'Weight'" [value]="characterData.weight"></app-result-stat>
+                <app-result-stat [title]="'Health'" [value]="characterData.health"></app-result-stat>
+              </div>
+              <div class="stat-group">
+                <app-result-stat [title]="'Strength'" [value]="characterData.strength"></app-result-stat>
+                <app-result-stat [title]="'Agility'" [value]="characterData.agility"></app-result-stat>
+                <app-result-stat [title]="'Stamina'" [value]="characterData.stamina"></app-result-stat>
+                <app-result-stat [title]="'Speed'" [value]="characterData.speed"></app-result-stat>
+              </div>
+              <div class="stat-group">
+                <app-result-stat [title]="'Weapon'" [value]="characterData.weapon"></app-result-stat>
+                <app-result-stat [title]="'Hit chanse'" [value]="characterData.hitChanse | addPercents"></app-result-stat>
+                <app-result-stat [title]="'Damage'" [value]="characterData.damage"></app-result-stat>
+                <app-result-stat [title]="'Initiative'" [value]="characterData.initiative"></app-result-stat>
+              </div>
+              <div class="stat-group">
+                <app-result-stat [title]="'Armor'" [value]="characterData.armor"></app-result-stat>
+                <app-result-stat [title]="'Mitigation'" [value]="characterData.mitigation"></app-result-stat>
+                <app-result-stat [title]="'Dodge chanse'" [value]="characterData.dodgeChanse | addPercents"></app-result-stat>
+              </div>
+            </div>
+            <div class="score-info">
+              <app-result-stat [title]="'Your score:'" [value]="score$ | async"></app-result-stat>
             </div>
           </div>
           <div class="block">
             <img class="image"/>
           </div>
-        </div>
-        <div class="score-info">
-          <span class="stat-value">Your score: </span><span class="stat-title">{{score}}</span>
         </div>
       </div>
     </content>

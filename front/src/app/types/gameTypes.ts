@@ -20,10 +20,11 @@ export type resultCharacter = {
   race: string;
   height: number,
   weight: number,
-  damage: {
-    minDamage: number,
-    maxDamage: number
-  }
+  strength: number,
+  agility: number,
+  stamina: number,
+  speed: number,
+  damage: string,
   dodgeChanse: number,
   health: number,
   hitChanse: number,
@@ -58,10 +59,12 @@ export interface item {
   description: string,
 }
 
-export interface weapon extends item {
+export interface damage {
 	minDamage: number,
 	maxDamage: number,
 }
+
+export interface weapon extends item, damage {}
 
 export interface armor extends item {
   armorValue: number,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /**
  * Reused template for index/login/register pages
@@ -15,7 +15,8 @@ import { Component } from '@angular/core';
       </div>
     </div>
   `,
-  styleUrls: ['./index-template.component.scss']
+  styleUrls: ['./index-template.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IndexTemplateComponent {
 

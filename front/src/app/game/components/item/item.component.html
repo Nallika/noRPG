@@ -1,4 +1,8 @@
-<div class="container" (click)="setIsSelected()" data-test="button" [ngClass]="{'selected': isSelected}" >
+<div class="container"
+  (click)="setIsSelected()"
+  data-test="button"
+  [ngClass]="{'selected': (selectedItemId$ | async) === itemData.id}"
+>
   <img alt="Character inventory item. Weapon or armor"/>
   <div class="info">
     <p class="title">{{itemData.title}}</p>

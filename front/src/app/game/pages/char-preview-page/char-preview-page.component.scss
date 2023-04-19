@@ -4,14 +4,6 @@
   @include styles.heading;
 }
 
-.stat-title {
-  @include styles.title;
-}
-
-.stat-value {
-  @include styles.text;
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -24,7 +16,7 @@
 }
 
 .score-info {
-  height: 30%;
+  padding: styles.spacing(1, 0, 0);
 }
 
 .block {
@@ -32,10 +24,8 @@
   padding: styles.spacing(1);
 }
 
-.stat-wrap {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.stat-group {
+  padding: styles.spacing(0, 0, 1);
 }
 
 .image {
