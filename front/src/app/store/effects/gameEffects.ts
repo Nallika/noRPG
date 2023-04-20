@@ -16,7 +16,13 @@ export class GameEffects {
    */
   getGameData$ = createEffect(() => this.actions$.pipe(
     ofType(gameActions.getGameData),
-    mergeMap(() => {
+    withLatestFrom(this.store.select('game', 'gameData')),
+    exhaustMap(([_, gameData]) => {
+      // If we already have loaded gameData use it
+      if (gameData.armor && gameData.races && gameData.weapons) {
+        return of(gameActions.getGameDataSuccess({data: gameData}));
+      }
+
       return this.apiService.get<gameData>('/gameData').pipe(
         map((data) => gameActions.getGameDataSuccess({data})),
         catchError((error) => of(gameActions.gameError(error.message)))

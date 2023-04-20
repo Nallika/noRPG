@@ -9,7 +9,7 @@ import { ApiService } from '../services/api.service';
 export const uniqValidator = {
   validate: function (apiService: ApiService, field: string): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      
+
       return apiService.post('/validate', {field, value: control.value}).pipe(
         map(result => {
           if (!result) {
