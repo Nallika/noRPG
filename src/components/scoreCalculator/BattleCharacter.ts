@@ -1,5 +1,5 @@
-import { randomIntFromInterval } from "../common/utils";
-import { battleCharacterInterace, battleCharInput, calculationsType, damage } from "../character/types";
+import { randomIntFromInterval } from '../common/utils';
+import { battleCharacterInterace, battleCharInput, calculationsType, damage } from '../character/types';
 
 export default class BattleCharacter implements battleCharacterInterace {
 

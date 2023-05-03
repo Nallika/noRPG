@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LadderPageComponent } from './ladder-page.component';
+import { LadderPageComponent } from './components/ladder-page.component';
 
 const routes: Routes = [
   {

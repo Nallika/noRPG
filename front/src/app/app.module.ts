@@ -10,8 +10,6 @@ import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { gameReducer } from './store/reducers/gameReducer';
-import { GameEffects } from './store/effects/gameEffects';
 
 /**
  * Main app module
@@ -27,8 +25,8 @@ import { GameEffects } from './store/effects/gameEffects';
     CoreModule,
     AuthModule,
     SharedModule,
-    StoreModule.forRoot({game: gameReducer}),
-    EffectsModule.forRoot([GameEffects]),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot({}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [],

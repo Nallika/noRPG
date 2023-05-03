@@ -1,4 +1,4 @@
-import { character, race } from "../types/gameTypes";
+import { character, race } from '../types/gameTypes';
 
 /** Here pure functions for general use */
 

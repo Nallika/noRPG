@@ -2,22 +2,17 @@ import { generateCharacter } from "src/app/utils/idex";
 import { character, formEnum, resultCharacter, gameData } from "src/app/types/gameTypes";
 import { changedCharacterStatMock, characterStatMock, getLadderMock, raceMock_1, resultCharacterMock } from 'src/app/utils/mocks';
 
-import { gameReducer } from './gameReducer';
-import * as gameActions from '../actions/gameActions';
-import { gameState } from "../../types/storeTypes";
+import { gameReducer } from './reducer';
+import * as gameActions from './actions';
+import { GameState } from "../../types/storeTypes";
 
 describe('Game Reducer', () => {
-  const initialState: gameState = {
+  const initialState: GameState = {
     loading: false,
     error: '',
     gameData: {} as gameData,
     character: {} as character,
     resultCharacter: {} as resultCharacter,
-    ladderData: {
-      ladderChunk: [],
-      page: 0,
-      isFull: false
-    },
     freeStatPoints: 20,
     score: 0,
   };
@@ -88,7 +83,7 @@ describe('Game Reducer', () => {
   });
 
   it('should handle saveChar action', () => {
-    const state: gameState = {
+    const state: GameState = {
       ...initialState,
       character: characterStatMock as character,
       freeStatPoints: 6,
@@ -104,14 +99,14 @@ describe('Game Reducer', () => {
   });
   
   it('should handle submitChar action', () => {
-    const state: gameState = {
+    const state: GameState = {
       ...initialState,
       freeStatPoints: 10,
     };
   
     const action = gameActions.submitChar();
   
-    const expectedState: gameState = {
+    const expectedState: GameState = {
       ...state,
       loading: true,
       freeStatPoints: initialState.freeStatPoints,
@@ -122,14 +117,14 @@ describe('Game Reducer', () => {
   
   it('should handle submitCharSuccess action', () => {
     const score = 100;
-    const state: gameState = {
+    const state: GameState = {
       ...initialState,
       loading: true,
     };
   
     const action = gameActions.submitCharSuccess({data: {character: resultCharacterMock, score}});
   
-    const expectedState: gameState = {
+    const expectedState: GameState = {
       ...state,
       loading: false,
       resultCharacter: resultCharacterMock,

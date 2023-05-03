@@ -57,7 +57,7 @@ export const login = [
 */
 export const auth = [
   async (req:express.Request, res:express.Response) => {
-    const token = req.headers["authorization"] as string;
+    const token = req.headers['authorization'] as string;
 
     const { player, error } = await authPlayer(token);
 

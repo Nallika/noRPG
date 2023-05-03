@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
-import { PlayerService } from '../services/player.service';
-import { take, map } from 'rxjs/operators';
+import { JwtService } from '../services/jwt.service';
 
 /**
  * Guard for pages thar required autenticated user
@@ -12,12 +11,12 @@ import { take, map } from 'rxjs/operators';
 export class AuthGuard  {
   constructor(
     private router: Router,
-    private playerService: PlayerService
+    private jwtService: JwtService
   ) {}
-
+  
   canActivate(): Observable<boolean> {
-    return this.playerService.isAuthenticated.pipe(take(1), map((isAuthenticated) => {
-      if (!isAuthenticated) {
+    return this.jwtService.isTokenExits$.pipe(map((isTokenExits) => {
+      if (!isTokenExits) {
         this.router.navigateByUrl('/');
         return false;
       }

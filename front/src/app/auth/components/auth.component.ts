@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { PlayerService } from '../core/services/player.service';
-import { ApiService } from '../core/services/api.service';
-import { uniqValidator } from '../core/validators/uniq-validator';
-import { authType } from '../types/generalTypes';
+import { ApiService } from '../../core/services/api.service';
+import { uniqValidator } from '../../core/validators/uniq-validator';
+import { authType } from '../../types/generalTypes';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/types/storeTypes';
+import { login, register } from '../store/actions';
+import { Observable } from 'rxjs';
 
 /**
  * Component that displayed register or login form.
@@ -22,8 +25,10 @@ export class AuthComponent implements OnInit{
   authForm: FormGroup;
   error: string;
 
+  loading$: Observable<boolean> = this.store.select('auth', 'loading');
+
   constructor(
-    private playerService: PlayerService,
+    private store: Store<AppState>,
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
@@ -76,25 +81,21 @@ export class AuthComponent implements OnInit{
    * Process user registration or login
    */
   submitForm() {
-   this.error = '';
-   this.authForm.markAllAsTouched();
+    this.error = '';
+    this.authForm.markAllAsTouched();
 
-   if (this.authForm.invalid) {
-    return;
-   }
+    if (this.authForm.invalid) {
+      return;
+    }
 
     this.isSubmitting = true;
     const authData = this.authForm.value;
 
-    // attemptAuth runs http.pos under the hood
-    this.playerService
-      .attemptAuth(this.authType, authData)
-      .subscribe({
-        next: () => this.router.navigateByUrl('/'),
-        error: (error) => {
-          this.error = error.message;
-          this.isSubmitting = false;
-        }
-      });
+    if (this.isRegister()) {
+      this.store.dispatch(register({authData}));
+      return;
+    }
+
+    this.store.dispatch(login({authData}));
   }
 }

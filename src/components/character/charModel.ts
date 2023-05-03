@@ -1,4 +1,4 @@
-import { pool } from "../../database/database";
+import { pool } from '../../database/database';
 import { addToLadder } from '../ladder/ladderModel';
 import { addNewCharResult, charData } from './types';
 import { scoreCalculator } from '../scoreCalculator/scoreCalculator';

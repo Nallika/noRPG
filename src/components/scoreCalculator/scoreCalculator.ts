@@ -1,7 +1,7 @@
-import BattleCharacter from "./BattleCharacter";
-import Character from "../character/Character";
-import { rating } from "../character/types";
-import { generateOponentByRating } from "./generators";
+import BattleCharacter from './BattleCharacter';
+import Character from '../character/Character';
+import { rating } from '../character/types';
+import { generateOponentByRating } from './generators';
 
 const LIMIT = 50;
 

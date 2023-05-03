@@ -1,5 +1,5 @@
-import { race } from "../game/types";
-import { charData } from "./types"
+import { race } from '../game/types';
+import { charData } from './types'
 
 
 export const validateCharacterData = (charData: charData, race: race) : {isValid: boolean, error: string} => {

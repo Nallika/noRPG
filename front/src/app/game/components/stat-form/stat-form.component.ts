@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription, take } from 'rxjs';
 
-import { saveChar } from 'src/app/store/actions/gameActions';
 import { formEnum, statsForm } from 'src/app/types/gameTypes';
-import { gameState } from 'src/app/types/storeTypes';
+import { GameState } from 'src/app/types/storeTypes';
+import { saveChar } from '../../store/actions';
 
 /**
  * Character stats form component.
@@ -23,7 +23,7 @@ export class StatFormComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    private store: Store<{game: gameState}>,
+    private store: Store<{game: GameState}>,
     fb: FormBuilder
   ) {
     this.statForm = fb.group({

@@ -28,8 +28,8 @@ app.use(cors());
 app.use(helmet.contentSecurityPolicy({
   useDefaults: true,
   directives: {
-    "img-src": ["https: data:"],
-    "script-src": ["'self'", "'unsafe-inline'",]
+    'img-src': ['https: data:'],
+    'script-src': [''self'', ''unsafe-inline'',]
   }
 }));
 app.use(compression());

@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
-import { PlayerService } from '../../core/services/player.service';
-import { Observable } from 'rxjs';
+import { AppState } from 'src/app/types/storeTypes';
+import { logout } from 'src/app/auth/store/actions';
 
 /**
  * App header with back and logut buttons
@@ -14,17 +16,18 @@ import { Observable } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   
+  private destroyed$ = new Subject<void>();
   activatedRoute: ActivatedRoute;
   isIndex: boolean;
   showLogo: boolean;
-  nickname$: Observable<string>;
+  nickname$: Observable<string> = this.store.select('auth', 'player', 'nickname');
 
   @ViewChild('dropdown') dropdown: ElementRef; 
 
   constructor (
-    private playerService: PlayerService,
+    private store: Store<AppState>,
     private router: Router,
     private location: Location
   ) { }
@@ -32,15 +35,20 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
+      takeUntil(this.destroyed$)
     ).subscribe((data: any) => {
       const path = data.url;
       this.isIndex = path === '/';
       this.showLogo = !['/', '/login', '/register'].includes(path);
     });
+  }
 
-    this.nickname$ = this.playerService.currentPlayer.pipe(
-      map(currentPlayer => currentPlayer.nickname)
-    );
+  /**
+   * Clear subscription on destroy
+   */
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   goBack() {
@@ -55,7 +63,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.playerService.logout();
+    this.store.dispatch(logout());
     this.router.navigateByUrl('/');
   }
 }

@@ -1,5 +1,5 @@
 import { pool } from '../../database/database';
-import { ladderChar } from "./types";
+import { ladderChar } from './types';
 
 const LIMIT = 20;
 
@@ -12,7 +12,7 @@ export const getLadder = async (page: number): Promise<{ ladder: ladderChar[]; i
     const isFull = offset + LIMIT >= Number(rows[0].count);
 
     const { rows: ladder } = await pool.query(
-      `SELECT player_nick as "playerNick", name, race_id as "raceId", score FROM Ladder ORDER BY score DESC LIMIT ${LIMIT} OFFSET ${offset}`
+      `SELECT player_nick as 'playerNick', name, race_id as 'raceId', score FROM Ladder ORDER BY score DESC LIMIT ${LIMIT} OFFSET ${offset}`
     ) as unknown as {rows: ladderChar[]};
 
       

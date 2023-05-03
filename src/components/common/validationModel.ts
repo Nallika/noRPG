@@ -1,4 +1,4 @@
-import { pool } from "../../database/database";
+import { pool } from '../../database/database';
 
 const VALIDATION_MAP: {[key: string]: string} = {
   nick: 'Players',  

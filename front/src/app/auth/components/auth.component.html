@@ -1,0 +1,65 @@
+<ng-container *ngIf="loading$ | async; else elseBlock">
+  <app-loader data-test="loader"></app-loader>
+</ng-container>
+<ng-template #elseBlock>
+  <app-index-template>
+    <content>
+      <div class="container">
+        <form [formGroup]="authForm" class="item-wrap form">
+          <fieldset [disabled]="isSubmitting" class="input-wrap">
+            <fieldset *ngIf="isRegister()" class="input-wrap">
+              <p class="input-label text">Nickname:</p>
+              <app-black-input 
+                formControlName="nickname"
+                data-test="nickname"
+                [type]="'text'"
+              />
+              <ng-container *ngIf="!nickname.valid && (nickname.dirty || nickname.touched)">
+                <div appInputError [hidden]="!nickname.errors?.required" >Nickname is required</div>
+                <div appInputError [hidden]="!nickname.errors?.minLength" >Nickname too short</div>
+                <div appInputError [hidden]="!nickname.errors?.maxlength" >Nickname too long</div>
+                <div appInputError [hidden]="!nickname.errors?.nickAlreadyExists" >This nickname is already taken</div>
+              </ng-container>
+            </fieldset>
+            <fieldset class="input-wrap">
+              <p class="input-label text">Email:</p>
+              <app-black-input
+                formControlName="email"
+                data-test="email"
+                [type]="'text'"
+              />
+              <ng-container *ngIf="!email.valid && (email.dirty ||email.touched)">
+                <div appInputError [hidden]="!email.errors?.required" >Email is required</div>
+                <div appInputError [hidden]="!email.errors?.email" >Email is invalid</div>
+                <div appInputError [hidden]="!email.errors?.emailAlreadyExists" >This email is already taken</div>
+              </ng-container>
+            </fieldset>
+            <fieldset class="input-wrap">
+              <p class="input-label text">Password:</p>
+              <app-black-input
+                formControlName="password"
+                data-test="password"
+                type="password"
+                [type]="'password'"
+              />
+              <ng-container *ngIf="!password.valid && (password.dirty ||password.touched)">
+                <div appInputError [hidden]="!password.errors?.required" >Password is required</div>
+                <div appInputError [hidden]="!password.errors?.pattern" >Password must be 6-16 letters and digits</div>
+              </ng-container>
+            </fieldset>
+          </fieldset>
+        </form>
+        <div data-test="error" class="auth-error" *ngIf="error">{{error}}</div>
+        <div class="item-wrap">
+          <app-button data-test="submit" [title]="authType | titlecase" (click)="submitForm()"></app-button>
+        </div>
+        <div class="item-wrap">
+          <p class="text">{{isRegister() ? 'Already have account ?' : 'Haven\'t account yet ?'}}</p>
+        </div>
+        <div class="item-wrap">
+          <app-button [title]="isRegister() ? 'Login' : 'Register'" (click)="navigateTo()"></app-button>
+        </div>
+      </div>
+    </content>
+  </app-index-template>  
+</ng-template>

@@ -1,4 +1,4 @@
-import { race, armor, weapon } from "../game/types";
+import { race, armor, weapon } from '../game/types';
 
 export interface charInterace {
   name: string

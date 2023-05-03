@@ -4,10 +4,9 @@ import { Store } from '@ngrx/store';
 import { filter, take } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
-import { gameState } from 'src/app/types/storeTypes';
-import { getGameData } from 'src/app/store/actions/gameActions';
-import { submitChar, generateChar } from 'src/app/store/actions/gameActions';
+import { GameState } from 'src/app/types/storeTypes';
 import { PopupService } from 'src/app/core/services/popup.service';
+import { getGameData, generateChar, submitChar } from '../../store/actions';
 
 /**
  * Char creation page.
@@ -25,7 +24,7 @@ export class NewCharPageComponent implements OnInit {
   
   constructor (
     private router: Router,
-    private store: Store<{game: gameState}>,
+    private store: Store<{game: GameState}>,
     private popupService: PopupService,
   ) {
     this.canLeave = false;

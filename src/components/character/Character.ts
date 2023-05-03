@@ -1,7 +1,7 @@
 import NodeCache from 'node-cache';
 
-import { appearanceType, calculationsType, charInterace, statsType, damage, rating, charOutput, charData } from "./types";
-import { race, armor, weapon } from "../game/types";
+import { appearanceType, calculationsType, charInterace, statsType, damage, rating, charOutput, charData } from './types';
+import { race, armor, weapon } from '../game/types';
 import { getRaces } from '../game/racesModel';
 import { getItems } from '../game/itemsModel';
 

@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { catchError, map, of, withLatestFrom, exhaustMap, mergeMap } from 'rxjs';
+import { catchError, map, of, withLatestFrom, exhaustMap } from 'rxjs';
 
 import { ApiService } from 'src/app/core/services/api.service';
-import * as gameActions from '../actions/gameActions';
-import { gameState } from 'src/app/types/storeTypes';
+import * as actions from './actions';
+import { AppState } from 'src/app/types/storeTypes';
 import { character, resultCharacter, gameData } from 'src/app/types/gameTypes';
-import { ladder } from 'src/app/types/ladderTypes';
 
 @Injectable()
 export class GameEffects {
@@ -15,31 +14,17 @@ export class GameEffects {
    * Get base game data and store it in state
    */
   getGameData$ = createEffect(() => this.actions$.pipe(
-    ofType(gameActions.getGameData),
+    ofType(actions.getGameData),
     withLatestFrom(this.store.select('game', 'gameData')),
     exhaustMap(([_, gameData]) => {
       // If we already have loaded gameData use it
       if (gameData.armor && gameData.races && gameData.weapons) {
-        return of(gameActions.getGameDataSuccess({data: gameData}));
+        return of(actions.getGameDataSuccess({data: gameData}));
       }
 
       return this.apiService.get<gameData>('/gameData').pipe(
-        map((data) => gameActions.getGameDataSuccess({data})),
-        catchError((error) => of(gameActions.gameError(error.message)))
-      )
-    })
-  ));
-
-  /**
-   * Get ladder (chars crore list)
-   */
-  getLadder$ = createEffect(() => this.actions$.pipe(
-    ofType(gameActions.getLadder),
-    withLatestFrom(this.store.select('game', 'ladderData', 'page')),
-    exhaustMap(([_, page]) => {
-      return this.apiService.get<{ladder: ladder, isFull: boolean}>(`/ladder?page=${page}`).pipe(
-        map((data) => gameActions.getLadderSuccess(data)),
-        catchError((error) => of(gameActions.gameError(error.message)))
+        map((data) => actions.getGameDataSuccess({data})),
+        catchError((error) => of(actions.gameError(error.message)))
       )
     })
   ));
@@ -48,12 +33,12 @@ export class GameEffects {
    * Submit created character to server, receve character info and store it
    */
   submitChar$ = createEffect(() => this.actions$.pipe(
-    ofType(gameActions.submitChar),
+    ofType(actions.submitChar),
     withLatestFrom(this.store.select('game', 'character')),
     exhaustMap(([_, data]) => {
       return this.apiService.post<character, {character: resultCharacter, score: number}>('/newChar', data).pipe(
-        map((data) => gameActions.submitCharSuccess({data})),
-        catchError((error) => of(gameActions.gameError(error.message)))
+        map((data) => actions.submitCharSuccess({data})),
+        catchError((error) => of(actions.gameError(error.message)))
       )
     })
   ));
@@ -61,6 +46,6 @@ export class GameEffects {
   constructor(
     private actions$: Actions,
     private apiService: ApiService,
-    private store: Store<{game: gameState}>,
+    private store: Store<AppState>,
   ) {}
 }

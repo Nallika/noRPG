@@ -7,7 +7,6 @@ import { ApiService } from './services/api.service';
 import { JwtService } from './services/jwt.service';
 import { AuthGuard } from './guards/auth-guard';
 import { NoAuthGuard } from './guards/no-auth-guard';
-import { PlayerService } from './services/player.service';
 import { PopupService } from './services/popup.service';
 import { LeaveGameGuard } from './guards/leave-game-guard';
 import { HttpErrorInterceptor } from './interceptors/http-error-interceptor';
@@ -26,7 +25,6 @@ import { HttpErrorInterceptor } from './interceptors/http-error-interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     ApiService,
     JwtService,
-    PlayerService,
     PopupService,
     AuthGuard,
     NoAuthGuard,

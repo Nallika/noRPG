@@ -24,6 +24,6 @@ async function executeSqlCommands(sqlCommands: string) {
 }
 
 export async function initDatabase() {
-  const sqlCommands = fs.readFileSync(path.resolve(rootPath.path, 'src/database/init.sql'), "utf-8");
+  const sqlCommands = fs.readFileSync(path.resolve(rootPath.path, 'src/database/init.sql'), 'utf-8');
   await executeSqlCommands(sqlCommands);
 }

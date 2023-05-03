@@ -4,11 +4,11 @@ import { Store } from '@ngrx/store';
 import { Subscription, take } from 'rxjs';
 
 import { appearanceForm, character, formEnum, race } from 'src/app/types/gameTypes';
-import { gameState } from 'src/app/types/storeTypes';
+import { GameState } from 'src/app/types/storeTypes';
 import { generateCharacter } from 'src/app/utils/idex';
-import { saveChar } from 'src/app/store/actions/gameActions';
 import { uniqValidator } from 'src/app/core/validators/uniq-validator';
 import { ApiService } from 'src/app/core/services/api.service';
+import { saveChar } from '../../store/actions';
 
 /**
  * Character appearance form component.
@@ -34,7 +34,7 @@ export class AppearanceFormComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    private store: Store<{game: gameState}>,
+    private store: Store<{game: GameState}>,
     private apiService: ApiService,
     fb: FormBuilder
   ) {

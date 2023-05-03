@@ -6,11 +6,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 @Component({
   selector: 'app-stat-controll',
   template: `
-    <div class="label">{{label}}</div>
-    <div class="controll-wrap">
-      <button data-test="descrease" (click)="changeValue(false)" [disabled]="value === 1"><</button>
-      <div class="value">{{value}}</div>
-      <button data-test="increase" (click)="changeValue(true)" [disabled]="increaseDisabled">></button>
+    <div class='label'>{{label}}</div>
+    <div class='controll-wrap'>
+      <button data-test='descrease' (click)='changeValue(false)' [disabled]='value === 1'><</button>
+      <div class='value'>{{value}}</div>
+      <button data-test='increase' (click)='changeValue(true)' [disabled]='increaseDisabled'>></button>
     </div>
   `,
   styleUrls: ['./stat-controll.component.scss'],

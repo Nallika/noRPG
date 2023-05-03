@@ -4,11 +4,16 @@ export type authType = 'register' | 'login';
 
 export type urlType = '' | 'game' | 'login' | 'register' | 'ladder' | 'game/charPreview';
 
-export type authData = {
+export interface loginData {
   email: string;
   password: string;
-  nickname?: string;
 }
+
+export interface registerData extends loginData {
+  nickname: string;
+}
+
+export type authData = loginData | registerData;
 
 export type player = {
   token: string;

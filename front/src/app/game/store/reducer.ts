@@ -1,24 +1,19 @@
-import { createReducer, on } from "@ngrx/store";
+import { createReducer, on } from '@ngrx/store';
 
-import * as gameActions from '../actions/gameActions';
-import { gameState } from "../../types/storeTypes";
-import { generateRandom, generateCharacter } from "src/app/utils/idex";
-import { character, formEnum, resultCharacter, race, statsForm, gameData } from "src/app/types/gameTypes";
+import * as gameActions from './actions';
+import { GameState } from '../../types/storeTypes';
+import { generateRandom, generateCharacter } from 'src/app/utils/idex';
+import { character, formEnum, resultCharacter, race, statsForm, gameData } from 'src/app/types/gameTypes';
 
 export const FREE_STAT_POINTS = 20;
 export const INITIAL_STAT_POINTS = 10;
 
-const initialState: gameState = {
+const initialState: GameState = {
   loading: false,
   error: '',
   gameData: {} as gameData,
   character: {} as character,
   resultCharacter: {} as resultCharacter,
-  ladderData: {
-    ladderChunk: [],
-    page: 0,
-    isFull: false
-  },
   freeStatPoints: FREE_STAT_POINTS,
   score: 0,
 };
@@ -60,42 +55,21 @@ const recalculateCharStats = (
  */
 export const gameReducer = createReducer(
   initialState,
-  on(gameActions.getGameData, (state: gameState) => ({
+  on(gameActions.getGameData, (state: GameState) => ({
     ...state,
     loading: true,
   })),
-  on(gameActions.gameError, (state: gameState, action) => ({
+  on(gameActions.gameError, (state: GameState, action) => ({
     ...state,
     loading: false,
     error: action.error
   })),
-  on(gameActions.getGameDataSuccess, (state: gameState, action) => ({
+  on(gameActions.getGameDataSuccess, (state: GameState, action) => ({
     ...state,
     loading: false,
     gameData: action.data,
   })),
-  on(gameActions.getLadder, (state: gameState) => ({
-    ...state,
-    loading: true,
-    ladderData: {
-      ...state.ladderData,
-      page: state.ladderData.page + 1
-    }
-  })),
-  on(gameActions.resetLadder, (state: gameState) => ({
-    ...state,
-    ladderData: initialState.ladderData
-  })),
-  on(gameActions.getLadderSuccess, (state: gameState, action) => ({
-    ...state,
-    loading: false,
-    ladderData: {
-      ...state.ladderData,
-      ladderChunk: action.ladder,
-      isFull: action.isFull
-    }
-  })),
-  on(gameActions.generateChar, (state: gameState) => {
+  on(gameActions.generateChar, (state: GameState) => {
     const randomRace = generateRandomRace(state.gameData.races);
 
     return {
@@ -103,7 +77,7 @@ export const gameReducer = createReducer(
       character: generateCharacter(randomRace)
     }
   }),
-  on(gameActions.saveChar, (state: gameState, action) => {
+  on(gameActions.saveChar, (state: GameState, action) => {
     const {character: currentCharData } = state;
     const incomingCharData = action.data;
 
@@ -129,12 +103,12 @@ export const gameReducer = createReducer(
       }
     }
   }),
-  on(gameActions.submitChar, (state: gameState) => ({
+  on(gameActions.submitChar, (state: GameState) => ({
     ...state,
     loading: true,
     freeStatPoints: initialState.freeStatPoints,
   })),
-  on(gameActions.submitCharSuccess, (state: gameState, action) => ({
+  on(gameActions.submitCharSuccess, (state: GameState, action) => ({
     ...state,
     loading: false,
     resultCharacter: action.data.character,

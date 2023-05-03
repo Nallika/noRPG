@@ -1,7 +1,7 @@
-import BattleCharacter from "./BattleCharacter";
-import { calculationsType, powerCalculations, rating, resilensCalculations } from "../character/types";
-import { randomIntFromInterval } from "../common/utils";
-import { DODGE_RESILENCE_COEFICIENT } from "../character/Character";
+import BattleCharacter from './BattleCharacter';
+import { calculationsType, powerCalculations, rating, resilensCalculations } from '../character/types';
+import { randomIntFromInterval } from '../common/utils';
+import { DODGE_RESILENCE_COEFICIENT } from '../character/Character';
 
 export const generateOponentByRating = (rating: rating): BattleCharacter => {
   const values = generateValues(rating);

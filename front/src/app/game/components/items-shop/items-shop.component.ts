@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import { BehaviorSubject, take } from 'rxjs';
 
 import { armor, character, formEnum, itemEnum, itemType, weapon } from 'src/app/types/gameTypes';
-import { gameState } from 'src/app/types/storeTypes';
-import { saveChar } from 'src/app/store/actions/gameActions';
+import { GameState } from 'src/app/types/storeTypes';
+
+import { saveChar } from '../../store/actions';
 
 /**
  * Conponent displayed list of itemes (armor and weapons).
@@ -26,7 +27,7 @@ export class ItemsShopComponent implements OnInit {
   public selectedWeaponSubject = new BehaviorSubject<number>(1);
 
   constructor(
-    private store: Store<{game: gameState}>,
+    private store: Store<{game: GameState}>,
   ) {}
 
   ngOnInit(): void {

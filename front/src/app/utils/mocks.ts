@@ -1,4 +1,4 @@
-import { raceEnum } from "../types/gameTypes";
+import { raceEnum } from '../types/gameTypes';
 
 export const raceMock_1 = {
   id: 1,

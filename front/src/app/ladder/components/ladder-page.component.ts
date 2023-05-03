@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getLadder, resetLadder } from 'src/app/store/actions/gameActions';
-import { gameState } from 'src/app/types/storeTypes';
+import { AppState } from 'src/app/types/storeTypes';
 import { ladder, ladderChar } from 'src/app/types/ladderTypes';
 import { filter, Observable, Subject, take, takeUntil } from 'rxjs';
+import { getLadder, resetLadder } from '../store/actions';
 
 /**
  * Display ladder table, load more rows on scroll
@@ -21,14 +21,14 @@ export class LadderPageComponent implements OnInit, OnDestroy {
   ladder: ladder;
 
   constructor (
-    private store: Store<{game: gameState}>,
+    private store: Store<AppState>,
   ) {}
 
   ngOnInit(): void {
     this.ladder = [];
-    this.loading$ = this.store.select('game', 'loading');
-    this.isFull$ = this.store.select('game', 'ladderData', 'isFull');
-    this.store.select('game', 'ladderData', 'ladderChunk')
+    this.loading$ = this.store.select('ladder', 'loading');
+    this.isFull$ = this.store.select('ladder', 'isFull');
+    this.store.select('ladder', 'ladderChunk')
       .pipe(takeUntil(this.destroyed$))
       .subscribe(ladderChunk => this.ladder.push(...ladderChunk));
 

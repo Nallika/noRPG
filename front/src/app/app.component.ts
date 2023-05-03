@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-import { PlayerService } from './core/services/player.service';
+import { AppState } from './types/storeTypes';
+import { Store } from '@ngrx/store';
+import { populate } from './auth/store/actions';
 
 /**
  * Main component, render layout and router-outlet
@@ -12,12 +13,12 @@ import { PlayerService } from './core/services/player.service';
 })
 export class AppComponent implements OnInit{ 
 
-  constructor(private playerService: PlayerService) {}
+  constructor(private store: Store<AppState>) {}
 
   /**
    * Auth player
    */
   ngOnInit() {
-    this.playerService.populate();
+    this.store.dispatch(populate());
   }
 }
